@@ -2,6 +2,7 @@ var FillDocument = (function () {
 
 	var $tooltipDiv;
 	var $stepsDiv;
+	var $signatureDiv;
 	
 	// Array of steps to complete
 	var steps = [];
@@ -9,35 +10,29 @@ var FillDocument = (function () {
 	// Track relation between fields and steps
 	var fieldSteps = {};
 
+	// Track relation between signature fields and signature divs
+	var fieldSign = {};
+	
 	// Informative message to display at the footer of the page
-	var bottomMessage = "You need to fill in ? more field before you can <span class='validateButton passButton'>Finish and send</span>";
+	var bottomMessage = "You need to fill in ? more field before you can <span class='validateButton sendSignButton'>Finish and send</span>";
 
 	// Creates drawer for the sign
-	var createDrawer = function ($takeSignatureDiv, $fakeValidationField) {
+	var createDrawer = function ($signatureDiv, $fakeValidationField) {
+		
+		$('<canvas class="signatureCanvas"></canvas>').appendTo($signatureDiv.find('.signatureCanvasDiv'));
+
+		var $canvas = $signatureDiv.find('.signatureCanvas');
+		var canvas = $canvas[0];
+		
+		canvas.width = $signatureDiv.find('.signatureInput').get(0).offsetWidth;
+		canvas.height = 150;
 				
-	    var canvas = $takeSignatureDiv.find(".takeSignatureCanvas")[0];
 		if (!canvas.getContext) {
 			G_vmlCanvasManager.initElement( canvas );
 		}		
 		var context = canvas.getContext("2d");
-	    context.strokeStyle = 'Black';
-	    context.font = "normal 30px danielregular";
-	    context.textAlign = "center";
 
-	    $takeSignatureDiv.find(".takeSignatureInput").keyup(function () {
-			var $this = $(this);
-			context.clearRect(0, 0, canvas.width, canvas.height);
-			context.fillText($this.val(),canvas.width/2,canvas.height/2);
-			if (typeof $fakeValidationField !== "undefined") {
-				if ( $(this).val() == "") {
-					$fakeValidationField.val("").trigger("keyup");
-				} else {
-					$fakeValidationField.val("X").trigger("keyup");				
-				}
-			}
-		});
-		
-	   if (canvas.addEventListener) {
+		if (canvas.addEventListener) {
 			    
 		   // create a drawer which tracks touch movements
 		   var drawTouch = {
@@ -127,7 +122,7 @@ var FillDocument = (function () {
 	   	   
 	   // start drawing when the mousedown event fires, and attach handlers to
 	   // draw a line to wherever the mouse moves to
-	   $takeSignatureDiv.find(".takeSignatureCanvas")
+	   $signatureDiv.find(".signatureCanvas")
 	           			.mousedown(drawMouse.handler)
 	           			.mousemove(drawMouse.handler)
 	           			.mouseup(drawMouse.handler)
@@ -147,6 +142,7 @@ var FillDocument = (function () {
 		$("#document .inputPDFField").each(function (i) {
 			
 			var $pdfField  = $(this);
+			var pdfField = $pdfField[0];
 			var index = i + 1;
 			$("#stepFinish").before($("#stepXX").clone().attr("id","step"+index));
 			$("#step"+index).html($("#stepXX").html().replaceAll("XX",index));
@@ -155,7 +151,7 @@ var FillDocument = (function () {
 			
 			steps.push( {completed: false, $stepField: $stepField } );
 			
-			fieldSteps[$pdfField[0].getAttribute("id")] = $stepField;
+			fieldSteps[pdfField.id] = $stepField;
 
 			var $tooltipDiv1;
 			$tooltipDiv1 = $tooltipDiv.clone().html($tooltipDiv.html().replaceAll("?",index));
@@ -168,7 +164,11 @@ var FillDocument = (function () {
 	    		},
 	    		hide: "unfocus",
 	    		style: {
-	    	        classes: 'qtip-sendsign qtip-shadow qtip-rounded'
+	    	        classes: 'qtip-sendsign qtip-shadow qtip-rounded',
+					tip: {
+						width: 20,
+						height: 20
+					}
 	    	    },
 	    	    position: {
 	    	    	my: "bottom left",
@@ -177,16 +177,97 @@ var FillDocument = (function () {
 	    	    	within: "#innerDocument"
 	    	    }
 	    	});
-			
+					
 			if ($pdfField.hasClass("signPDFField")) {
-				
+			
 				$tooltipDiv1.find(".commentTooltip,.emailTooltip").remove();
+				
+				var $signatureDiv1 = $signatureDiv.clone().appendTo( 'body' );
+				
+				fieldSign[pdfField.id] = {
+					$signatureDiv : $signatureDiv1,
+					signed: false,
+					draw: false
+				};
+				
+				if (index == 1) {
+					$signatureDiv1.find(".signatureGoBack").remove();
+				} else if (index == numberOfTooltips) {
+					$signatureDiv1.find(".signatureNext").remove();
+				}
+
 				$pdfField.click(function () {
-					$('.signatureDiv').modal({
-						zIndex: 17000
+					$signatureDiv1.show();
+					$signatureDiv1.find(".signatureCanvasDiv").css({
+						width: $signatureDiv1.find('.signatureInput').get(0).offsetWidth
 					});
-					createDrawer( $('.signatureDiv'), $pdfField.parent().find(".fakeValidation") );
-				});				
+				});
+				
+				var $fakeValidationField = $pdfField.parent().find(".fakeValidation");
+				var $signatureSpan = $signatureDiv1.find(".signatureSpan");
+				
+				$signatureDiv1.find(".signatureInput").keyup(function () {
+					var $this = $(this);
+					if ( !$signatureSpan.hasClass("signatureSpanHandWriting") ) {
+						$signatureSpan.addClass("signatureSpanHandWriting");
+					}
+					$signatureSpan.html( $this.val() );
+					if (typeof $fakeValidationField !== "undefined") {
+						if ( $(this).val() == "") {
+							$fakeValidationField.val("").trigger("keyup");
+						} else {
+							$fakeValidationField.val("X").trigger("keyup");				
+						}
+					}
+				});
+				
+				$signatureSpan.click( function () {
+					
+					fieldSign[pdfField.id].draw = true;
+					
+					$signatureDiv1.find('.signatureInput').attr("disabled", true);
+
+					createDrawer( $signatureDiv1, $fakeValidationField );
+										
+					$signatureSpan.parent().hide();
+					
+				});
+			
+				$signatureDiv1.find(".signatureGoBack").click( function () {
+					$signatureDiv1.hide();
+					steps[i-1].$stepField.click();
+				});
+				
+				$signatureDiv1.find(".signatureNext").click( function () {
+					$signatureDiv1.hide();
+					steps[i+1].$stepField.click();
+				});
+
+				$signatureDiv1.find(".signatureClose").click( function () {
+					$signatureDiv1.hide();
+				});
+
+				$signatureDiv1.find(".signatureApply").click( function () {
+					fieldSign[pdfField.id].signed = true;
+					$signatureDiv1.hide();
+				});
+				
+				$signatureDiv1.find(".signatureReset").click( function () {
+				
+					$signatureDiv1.find('.signatureInput').val("").removeAttr("disabled");
+					
+					if ( fieldSign[pdfField.id].draw ) {
+						$signatureDiv1.find('.signatureCanvas').remove();										
+					}
+					
+					$signatureSpan.parent().removeClass("signatureSpanHandWriting").show();
+					$signatureSpan.html( $signatureDiv.find(".signatureSpan") );
+					
+				});
+				
+				$signatureDiv1.focus( function (event) {
+					event.stopImmediatePropagation();
+				});
 				
 			} else if ($pdfField.hasClass("commentPDFField")) {
 				
@@ -292,6 +373,7 @@ var FillDocument = (function () {
 		init : function (htmlContent) {
 			$stepsDiv = $("#topStepsDiv");
 			$tooltipDiv = $(".tooltipDiv");
+			$signatureDiv = $(".signatureDiv");
 			fillDocument( htmlContent );			
 		}		
 	};		

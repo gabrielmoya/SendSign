@@ -13,16 +13,19 @@
 /* SECTION: Bottom bar*/
 #bottomDiv {
 	background: transparent;
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#60000000,endColorstr=#60000000);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BB000000,endColorstr=#BB000000);
 }
 
 /*! Send sign tooltip style */
 .qtip-sendsign {
 	background: transparent;
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#60000000,endColorstr=#60000000);
-	border-color: rgb(0, 0, 0);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000);
 }
 
 /* WELCOME Page */
 
 /* SECTION: Sign document */
+.signatureDiv {
+	background: transparent;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BB000000,endColorstr=#BB000000);
+}

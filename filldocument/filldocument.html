@@ -51,15 +51,30 @@
     		</div>
     	</form>
 		<div class="signatureDiv" style="display:none">
-			Input your name or if you prefer, draw your signature...
-			<div class="takeSignatureInnerDiv">
-				<div>
-					<label labelfor="takeSignatureInput" class="takeSignatureLabel">Name:</label>
-					<input class="takeSignatureInput" type="text"/>
+			<div class="signatureTitle">
+				YOUR DIGITAL SIGNATURE
+				<div class="signatureNav">
+					<span class="signatureGoBack">Go Back</span>
+					<span class="signatureNext">Next</span>
+					<span class="signatureClose">Hide this</span>
+				</div>			
+			</div>	
+			<div class="signatureContent">
+				<span>Enter your name to create your digital signature</span>
+				<div class="signatureInputDiv">
+					<input class="signatureInput" type="text"/>
 				</div>
-				<div>
-					<canvas width=300 height=150 class="takeSignatureCanvas"></canvas>
+				<span>Or draw your own signature below</span>
+				<div class="signatureCanvasDiv">
+					<div class="signatureSpanDiv">
+						<span class="signatureSpan">Tap here to draw your signature</span>
+					</div>
 				</div>
+				<div class="signatureButtonsDiv">
+					<span class="signatureApply sendSignButton">Apply</span>
+					<span class="signatureReset sendSignButton2">Reset</span>
+					<a class="signatureNotSigning" href="">Click here if you do not want to sign</a>
+				</div>				
 			</div>
 		</div>
 		<div class="tooltipDiv" style="display:none">
