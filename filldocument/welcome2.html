@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Sign document - Welcome 2</title>
+		<script src="//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js"></script>
+		<script>
+		  WebFont.load({
+		    google: {
+		      families: ['Rock Salt']
+		    }
+		  });
+		</script>
+        <link rel="stylesheet" type="text/css" href="css/jquery.qtip.css">
+        <link rel="stylesheet" type="text/css" href="css/filldocument.css">
+        <script src="js/libs/jquery-1.9.1.js"></script>
+        <script src="js/libs/jquery.qtip.js"></script>
+		<script src="js/index.js"></script>
+		<script src="js/welcome2.js"></script>
+    </head>
+    <body>
+		<div id="topDiv">
+			<div id="topMainDiv">
+				<div id="photoContainer">
+					<img id="sampleTitle" src="images/sampleTitle.png"/>
+				</div>
+			</div>
+			<div id="topStepsDiv" class="stepsContainer">
+				<div id="stepStart" class="stepField stepFieldDisabled">
+					WELCOME		
+				</div>
+				<div id="stepXX" class="stepField stepFieldDisabled">
+					Step XX
+				</div>
+				<div id="stepFinish" class="stepField stepFieldDisabled">
+					FINISH
+				</div>
+			</div>
+		</div>
+		<div class="welcomeContent">
+			<form id="content" method="get" action="filldocument.html">
+				<div class="welcomeDiv">
+					<div class="welcomeInputDiv">
+						<input class="passInput" type="text" placeholder="Enter passcode"/>
+						<span class="passButton">Enter</span>
+					</div>
+					<div id="welcomeMessage1" class="welcomeMessage">
+					</div>
+					<div id="welcomeMessage2" class="welcomeMessage">
+					</div>
+				</div>
+			</form>
+		</div>
+		<div id="htmlContent" style="display:none">
+			<div id="innerDocument" class="ui-droppable">
+				<img id="documentIMG" src="images/sampleDoc.png">
+				<div class="signField clonedDiv PDFField" id="signDiv1" style="position: absolute; left: 101.5px; top: 641px; width: 501px; height: 27px;">
+					<label id="lblsignField0" for="signField0" class="labelField">Sign:</label>
+					<input type="image" id="signField0" src="images/signIcon.png" class="innerPDFField signPDFField inputPDFField" onclick="return false;">
+					<input type="text" id="fakeValidationSign0" name="fakeValidationSign0" class="fakeValidation hiding required">
+				</div>
+				<div class="dateField clonedDiv PDFField" id="dateDiv1" style="position: absolute; left: 101.5px; top: 670px; width: 501px; height: 23px;">
+					<span id="dateField0" class="innerPDFField datePDFField">Date: </span>
+				</div>
+				<div class="inputFormField commentField clonedDiv PDFField" id="commentDiv1" style="position: absolute; left: 84.5px; top: 695px; width: 527px; height: 140px;">
+					<label id="lblcommentField0" for="commentField0" class="labelField">Comment:</label>
+					<textarea id="commentField0" name="commentField0" class="innerPDFField commentPDFField inputPDFField required" style="height: 134px; width: 459px;"></textarea>
+				</div>
+			</div>
+		</div>
+    </body>
+</html>

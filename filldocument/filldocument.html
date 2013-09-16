@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Sign document - Submit sign</title>
+        <link rel="stylesheet" type="text/css" href="css/jquery.qtip.css">
+        <link rel="stylesheet" type="text/css" href="css/filldocument.css">
+		<!--[if lt IE 9]>
+			<link rel="stylesheet" type="text/css" href="css/ie-fixes.css">
+			<script src="js/libs/excanvas.js"></script>
+		<![endif]-->		
+        <script src="js/libs/jquery-1.9.1.js"></script>
+        <script src="js/libs/jquery.simplemodal-1.4.4.js"></script>		
+        <script src="js/libs/jquery.qtip.js"></script>
+        <script src="js/libs/jquery.validate.js"></script>
+        <script src="js/libs/additional-methods.js"></script>
+        <script src="js/libs/date.js"></script>
+		<script src="js/index.js"></script>
+		<script src="js/filldocument.js"></script>
+    </head>
+    <body>
+    	<form id="content" method="get" action="http://www.google.com">
+    		<div id="topDiv">
+    			<div id="topMainDiv">
+	    			<div id="photoContainer">
+	    				<img id="sampleTitle" src="images/sampleTitle.png"/>
+	    			</div>
+    			</div>
+				<div id="topStepsDiv" class="stepsContainer">
+					<div id="stepStart" class="stepField stepFieldDisabled">
+						WELCOME		
+					</div>
+					<div id="stepXX" class="stepField stepFieldDisabled">
+						Step XX
+					</div>
+					<div id="stepFinish" class="stepField stepFieldDisabled">
+						FINISH
+					</div>
+				</div>
+    		</div>
+    		<div id="document">
+    			<div id="innerDocument">
+			    	<img id="documentIMG" src="images/sampleDoc.png"/>
+    			</div>
+    		</div>
+    		<div id="bottomDiv">
+    			<div id="bottomDivMessage">
+    				<span id="bottomMessage">
+    				</span>
+    			</div>
+    		</div>
+    	</form>
+		<div class="signatureDiv" style="display:none">
+			Input your name or if you prefer, draw your signature...
+			<div class="takeSignatureInnerDiv">
+				<div>
+					<label labelfor="takeSignatureInput" class="takeSignatureLabel">Name:</label>
+					<input class="takeSignatureInput" type="text"/>
+				</div>
+				<div>
+					<canvas width=300 height=150 class="takeSignatureCanvas"></canvas>
+				</div>
+			</div>
+		</div>
+		<div class="tooltipDiv" style="display:none">
+			<div class="tooltipTitle">
+				STEP ?
+				<div class="tooltipNav">
+					<span class="tooltipGoBack">Go Back</span>
+					<span class="tooltipNext">Next</span>
+					<span class="tooltipClose">Hide this</span>
+				</div>
+			</div>	
+			<div class="tooltipContent">
+				<div class="signTooltip">
+					We need your signature here. Click to sign.
+				</div>
+				<div class="commentTooltip">
+					Insert comments
+				</div>
+				<div class="emailTooltip">
+					Enter valid email address
+				</div>
+			</div>		
+		</div>
+		<div id="htmlContent" style="display:none">
+			<div class="ui-droppable" id="innerDocument">
+				<img id="documentIMG" src="images/sampleDoc.png">
+				<div id="signDiv1" style="position: absolute; left: 102.5px; top: 641px; width: 500px; height: 25px;" class="signField clonedDiv PDFField">
+					<label id="lblsignField0" for="signField0" class="labelField">Sign:</label>
+					<input id="signField0" src="images/signIcon.png" class="innerPDFField signPDFField inputPDFField" onclick="return false;" type="image">
+					<input id="fakeValidationSign0" name="fakeValidationSign0" class="fakeValidation required" style="display:none" type="text">
+				</div>
+				<div id="emailDiv1" style="position: absolute; left: 102.5px; top: 668.45px; width: 500px; height: 20px;" class="inputFormField emailField clonedDiv PDFField">
+					<label id="lblemailField0" for="emailField0" class="labelField">Email:</label>
+					<textarea style="height: 10px; width: 455px;" id="emailField0" name="emailField0" class="innerPDFField emailPDFField inputPDFField required email"></textarea>
+				</div>
+				<div id="commentDiv1" style="position: absolute; left: 90.5px; top: 713px; width: 519px; height: 120px;" class="inputFormField commentField clonedDiv PDFField">
+					<label id="lblcommentField0" for="commentField0" class="labelField">Comment:</label>
+					<textarea style="height: 110px; width: 451px;" id="commentField0" name="commentField0" class="innerPDFField commentPDFField inputPDFField required"></textarea>
+				</div>
+			</div>
+		</div>
+    </body>
+</html>

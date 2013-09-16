@@ -1,0 +1,320 @@
+/* 
+    Document   : index
+    Created on : 27-feb-2013, 10:03:46
+    Author     : Gabriel
+    Description:
+        CSS for Fill documents section.
+*/
+
+/*article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{
+	display: block;
+}*/
+
+@font-face {
+    font-family: 'danielregular';
+    src: url('daniel-webfont.eot');
+    src: url('daniel-webfont.eot?#iefix') format('embedded-opentype'),
+         url('daniel-webfont.woff') format('woff'),
+         url('daniel-webfont.ttf') format('truetype'),
+         url('daniel-webfont.svg#danielregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+root { 
+    display: block;
+}
+
+body {
+    font-family:arial,Verdana,helvetica,sans-serif,danielregular;
+    font-size:12px;
+	background: #C8C8C8;
+	margin: 0px 0px 0px 0px;
+	padding: 0px 0px 0px 0px;
+	text-align: center;
+	vertical-align: top;
+}
+
+textarea {
+	resize: none;
+}
+
+/* SECTION: Top bar */
+#topDiv {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 160px;
+	background: #FFFFFF;	
+	box-shadow: 5px 5px 5px #888888;
+	z-index: 16000;
+}
+
+#photoContainer {
+	margin-bottom: 10px;
+}
+
+#sampleTitle {
+	height: 90px;
+}
+
+.stepField {
+	position: relative;
+	display: inline-block;
+	font: bold 15px Verdana;
+	padding: 10px;
+	padding-left: 20px;
+	margin: -1px;
+	/*-webkit-border-radius: 5px;*/
+}
+.stepFieldDisabled {
+	color: #CCCCCC;
+	background: #FFFFFF;
+	border: 1px solid #CCCCCC;
+	cursor: text;
+	z-index: 16001;
+}
+.stepFieldSelected {
+	color: #F8F8F8;
+	background: #67aee6;
+	border: 1px solid #67aee6;
+	cursor: text;
+	-moz-box-shadow: 5px 5px 8px #888;
+	-webkit-box-shadow: 5px 5px 8px #888;
+	box-shadow: 5px 5px 8px #888;
+	z-index: 16002;
+}
+
+/* Arrow for selected field */
+.stepFieldSelected:after, .stepFieldSelected:before, .stepFieldDisabled:after, .stepFieldDisabled:before {
+	left: 100%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	z-index: 16003;
+}
+.stepFieldSelected:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-left-color: #67aee6;
+	border-width: 19px;
+	top: 50%;
+	margin-top: -19px;
+}
+.stepFieldSelected:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-left-color: #67aee6;
+	border-width: 20px;
+	top: 50%;
+	margin-top: -20px;
+}
+.stepFieldDisabled:after {
+	border-color: rgba(255, 255, 255, 0);
+	border-left-color: #FFFFFF;
+	border-width: 19px;
+	top: 50%;
+	margin-top: -19px;
+}
+.stepFieldDisabled:before {
+	border-color: rgba(204, 204, 204, 0);
+	border-left-color: #CCCCCC;
+	border-width: 20px;
+	top: 50%;
+	margin-top: -20px;
+}
+/* SECTION: Viewer */
+#content {
+	float: none;
+    width: 100%;
+}
+
+#document {
+	position: relative;
+	margin-left: auto;
+	margin-right: auto;
+	width: 700px;
+}
+
+#innerDocument {
+	margin-top: 160px;
+	margin-bottom: 80px;
+}
+
+#documentIMG {
+	width: 700px;
+}
+
+.PDFField {
+	vertical-align: top;
+	border: thin solid black;
+	background: #F8F8F8;
+	text-align: left;
+}
+.inputPDFField {
+	vertical-align: top;
+}
+
+.signPDFField {
+	vertical-align: top;
+	width: 16px;
+	height: 16px;
+}
+
+.inputPDFFieldError {
+	border: 1px solid red;
+}
+
+/* SECTION: Bottom bar*/
+#bottomDiv {
+	display: table;
+	position: fixed;
+    text-align: center;
+    bottom: 0;
+	width: 100%;
+    height: 80px;
+	background: rgba(0, 0, 0, 0.6);
+	z-index: 16000;
+}
+#bottomDivMessage {
+	display: table-cell;
+    vertical-align: middle;
+	top: 50%;
+}
+#bottomMessage {
+	display: block;
+	font: bold 20px Verdana;
+	color: white;
+}
+
+.qtip {
+	max-width: 400px !important;
+	min-width: 250px !important;
+}
+
+/*! Send sign tooltip style */
+.qtip-sendsign {
+	background-color: rgba(0, 0, 0, 0.6);
+	border-color: rgba(0, 0, 0, 0.6);
+	color: #FFFFFF;
+	padding: 2px 2px 2px 2px;
+}
+
+	.qtip-sendsign .tooltipTitle {
+		background-color: #67aee6;
+		font: bold 12px Verdana;
+		padding: 10px;
+		-moz-border-radius: 4px 4px 4px 4px;
+		-webkit-border-radius: 4px 4px 4px 4px;
+		border-radius: 4px 4px 4px 4px;
+	}
+
+	.qtip-sendsign .tooltipNav {
+		float: right;
+		font: normal 9.5px Verdana !important;		
+	}
+
+		.qtip-sendsign .tooltipNav span {
+			margin-left: 3px;
+		}
+
+		.qtip-sendsign span:hover {
+			font: bold 9.5px Verdana !important;
+			cursor: pointer;
+		}
+
+	.qtip-sendsign .tooltipContent {
+		font: bold 10.5px Verdana;
+		margin-top: 5px;
+	}
+
+/* WELCOME Page */
+.welcomeBody {
+	background: #000000;
+	text-align: center;
+	vertical-align: top;
+	color: #FFFFFF;
+}
+.welcomeContent {
+	margin-right: auto;
+	margin-left: auto;
+	width: 700px;
+}
+.welcomeDiv {
+	height: 100%;
+	width: 100%;
+	margin-top: 160px;
+	margin-bottom: 80px;
+	text-align: left;
+}
+
+.welcomeInputDiv{
+	margin-top:400px;
+	margin-bottom: 10px;
+}
+
+.passInput {
+	font: bold 30px arial;
+	width: 500px;
+	margin-left: 10px;
+}
+.passButton {
+	font: normal 20px arial;
+	background: green;
+	color: white;
+	padding: 15px 50px;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
+}
+.passButton:hover {
+	font: bold 20px arial;
+	cursor: pointer;
+}
+.welcomeMessage {
+	margin-left: 30px;
+	margin-top: 10px;
+	font: normal 15px arial;
+}
+.qtip-welcome {
+	background-color: #67aee6;
+	border-color: #FFFFFF;
+	color: #FFFFFF;
+	padding: 10px 10px 10px 10px;
+	text-align: left;
+}
+
+	.qtip-welcome .qtip-titlebar {
+		background-color: #67aee6;
+		font: bold 20px Verdana;
+		padding: 5px;
+	}
+
+	.qtip-welcome .qtip-content {
+		font: normal 15px Verdana;
+		margin-top: 5px;
+	}
+
+/* SECTION: Sign document */
+.signatureDiv {
+	text-align: left;
+}
+.takeSignatureCanvas {
+	border: 1px solid #000000;
+	background-color: #FFFFFF;
+	font: normal 30px danielregular;
+}
+
+#basic-modal-content {display:none;}
+
+/* Overlay */
+#simplemodal-overlay {background-color:#000;}
+
+/* Container */
+#simplemodal-container {height:360px; width:600px; color:#bbb; background-color:#333; border:4px solid #444; padding:12px;}
+#simplemodal-container .simplemodal-data {padding:8px;}
+#simplemodal-container code {background:#141414; border-left:3px solid #65B43D; color:#bbb; display:block; font-size:12px; margin-bottom:12px; padding:4px 6px 6px;}
+#simplemodal-container a {color:#ddd;}
+#simplemodal-container a.modalCloseImg {background:url(images/basic/x.png) no-repeat; width:25px; height:29px; display:inline; z-index:3200; position:absolute; top:-15px; right:-16px; cursor:pointer;}
+#simplemodal-container h3 {color:#84b8d9;}

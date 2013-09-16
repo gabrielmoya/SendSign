@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>Composition</title>
+        <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.10.3.custom.css">
+        <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
+        <link rel="stylesheet" type="text/css" href="css/composition.css">
+        <script src="js/libs/jquery-1.9.1.js"></script>
+        <script src="js/libs/jquery-ui-1.10.3.custom.js"></script>
+        <script src="js/libs/jquery.ui.touch-punch.js"></script>
+        <script src="js/libs/jquery.contextMenu.js"></script>
+		<script src="js/index.js"></script>
+		<script src="js/composition.js"></script>
+    </head>
+    <body>
+		<div id="compositionBody">
+			<div id="topFieldsDiv" class="fieldsContainer">
+				<div id="signDiv" class="formField resizableField signField">
+					<div id="signLabel" class="formInnerDiv">Sign</div>
+				</div>
+				<div id="commentDiv" class="formField resizableField inputFormField commentField">
+					<div id="commentlabel" class="formInnerDiv">Comments</div>
+				</div>
+				<div id="dateDiv" class="formField resizableField dateField">
+					<div id="dateLabel" class="formInnerDiv">Date</div>
+				</div>
+				<div id="emailDiv" class="formField resizableField inputFormField emailField">
+					<div id="emailLabel" class="formInnerDiv">Email</div>
+				</div>
+				<span id="sendButton">Check</span>
+			</div>
+			<div id="content">
+				<div id="document">
+					<div id="innerDocument">
+						<img id="documentIMG" src="images/sampleDoc.png"/>
+					</div>
+				</div>
+			</div>
+			<div id="PDFFields" style="display:none">
+				<div id="signField">
+					<label id="lblsignField?" for="signField?" class="labelField">Sign:</label>
+					<input type="image" id="signField?" src="images/signIcon.png" class="innerPDFField signPDFField inputPDFField" onclick="return false;"></input>
+					<input type="text" id="fakeValidationSign?" name="fakeValidationSign?" class="fakeValidation required" style="display:none"></input>
+				</div>
+				<div id="commentField">
+					<label id="lblcommentField?" for="commentField?" class="labelField">Comment:</label>
+					<textarea id="commentField?" name="commentField?" class="innerPDFField commentPDFField inputPDFField required"></textarea>
+				</div>
+				<div id="dateField">
+					<span id="dateField?" class="innerPDFField datePDFField">Date: </span>
+				</div>
+				<div id="emailField">
+					<label id="lblemailField?" for="emailField?" class="labelField">Email:</label>
+					<textarea id="emailField?" name="emailField?" class="innerPDFField emailPDFField inputPDFField required email"></textarea>
+				</div>
+			</div>
+		</div>
+    </body>
+</html>
