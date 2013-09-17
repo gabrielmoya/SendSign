@@ -1936,10 +1936,8 @@ COLOR = 'color',
 BG_COLOR = 'background-color',
 TRANSPARENT = 'transparent',
 IMPORTANT = ' !important',
-
 // Check if the browser supports <canvas/> elements
 HASCANVAS = !!document.createElement('canvas').getContext,
-
 // Invalid colour values used in parseColours()
 INVALID = /rgba?\(0, 0, 0(, 0)?\)|transparent|#123456/i;
 
@@ -2003,7 +2001,11 @@ $.extend(Tip.prototype, {
 		// Create tip drawing element(s)
 		if(HASCANVAS) {
 			// save() as soon as we create the canvas element so FF2 doesn't bork on our first restore()!
-			context = $('<canvas />').appendTo(this.element)[0].getContext('2d');
+			var canvas = $('<canvas />').appendTo(this.element)[0];
+			if ( !canvas.getContext ) {
+				G_vmlCanvasManager.initElement( canvas );
+			}
+			context = canvas.getContext('2d');
 
 			// Setup constant parameters
 			context.lineJoin = 'miter';
@@ -2011,6 +2013,7 @@ $.extend(Tip.prototype, {
 			context.save();
 		}
 		else {
+		
 			context = createVML('shape', 'coordorigin="0,0"', 'position:absolute;');
 			this.element.html(context + context);
 

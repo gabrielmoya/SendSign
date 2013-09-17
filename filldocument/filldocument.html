@@ -14,7 +14,7 @@
         <script src="js/libs/jquery.qtip.js"></script>
         <script src="js/libs/jquery.validate.js"></script>
         <script src="js/libs/additional-methods.js"></script>
-        <script src="js/libs/date.js"></script>
+        <script src="js/libs/jquery.dates.js"></script>
 		<script src="js/index.js"></script>
 		<script src="js/filldocument.js"></script>
     </head>
@@ -114,7 +114,12 @@
 					<label id="lblcommentField0" for="commentField0" class="labelField">Comment:</label>
 					<textarea style="height: 110px; width: 451px;" id="commentField0" name="commentField0" class="innerPDFField commentPDFField inputPDFField required"></textarea>
 				</div>
+				<div id="dateDiv1" style="position: absolute; left: 90.5px; top: 836px; width: 517px; height: 20px;" class="dateField clonedDiv PDFField">
+					<span id="dateField0" class="innerPDFField datePDFField">Date: </span>
+				</div>
 			</div>
+		</div>
+		<div id="PDFFields" style="display:none">
 		</div>
     </body>
 </html>

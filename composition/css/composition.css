@@ -20,7 +20,21 @@
 	#compositionBody #topFieldsDiv {
 		vertical-align: middle;
 		margin-bottom: 10px;
+		margin-left: auto;
+		margin-right: auto;
+		width: 750px;
 	}
+	
+		#compositionBody #topFieldsDiv  .formField {
+			float: left;
+			margin-left: 20px;
+			border: thin solid black;
+			background: #99FFFF;
+			font-size: 10px;
+			width: 120px;
+			height: 20px;
+			text-align: left;
+		}
 
 	#compositionBody #content {
 		float: none;
@@ -43,6 +57,16 @@
 
 				#compositionBody #content #document #innerDocument #documentIMG {
 					width: 700px;
+				}
+				
+				#compositionBody #content #document #innerDocument .formField {
+					vertical-align: top;
+					border: thin solid black;
+					background: #99FFFF;
+					font-size: 10px;
+					width: 120px;
+					height: 20px;
+					text-align: left;
 				}
 				
 				#compositionBody #content #document #innerDocument .PDFField {
@@ -72,14 +96,4 @@
 
 	#compositionBody .ui-draggable:hover {
 		cursor: move;
-	}
-
-	#compositionBody .formField {
-		display: inline-block;
-		border: thin solid black;
-		background: #99FFFF;
-		font-size: 10px;
-		width: 120px;
-		height: 20px;
-		text-align: left;
 	}

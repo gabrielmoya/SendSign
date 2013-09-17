@@ -173,7 +173,12 @@ var Composition = (function () {
 						var $field = $(this);
 						
 						$field.removeClass("formField").addClass("PDFField").html(fieldContent.replaceAll('?', index));
-						offsets[ $field.attr("id") ] = $field.offset();
+						offsets[ $field.attr("id") ] = {
+							top: $field.css("top").split("px")[0],
+							left: $field.css("left").split("px")[0],
+							width: $field.css("width").split("px")[0],
+							height: $field.css("height").split("px")[0]
+						};
 
 						var $innerField = $field.find(".innerPDFField");
 						
@@ -198,7 +203,10 @@ var Composition = (function () {
 				});
 				
 				console.log( $("#document").html() );
-				console.log( JSON.stringify(offsets) );
+				console.log( JSON.stringify( offsets ) );
+				
+				$("#htmlContent").html( $("#document").html() );
+				$("#fieldsCoords").html( JSON.stringify( offsets ) );
 				
 			});
 		}

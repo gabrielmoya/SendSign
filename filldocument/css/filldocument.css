@@ -35,6 +35,11 @@ body {
 	vertical-align: top;
 }
 
+#content {
+	float: none;
+    width: 100%;
+}
+
 textarea {
 	resize: none;
 }
@@ -62,25 +67,22 @@ textarea {
 	cursor: pointer;
 }
 
-
 /* SECTION: Top bar */
 #topDiv {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    height: 160px;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 160px;
 	background: #FFFFFF;	
 	box-shadow: 5px 5px 5px #888888;
 	z-index: 16000;
 }
-
-#photoContainer {
-	margin-bottom: 10px;
-}
-
-#sampleTitle {
-	height: 90px;
-}
+	#topDiv #topMainDiv #photoContainer {
+		margin-bottom: 10px;
+	}
+		#topDiv #topMainDiv  #photoContainer #sampleTitle {
+			height: 90px;
+		}
 
 .stepField {
 	position: relative;
@@ -89,7 +91,9 @@ textarea {
 	padding: 10px;
 	padding-left: 20px;
 	margin: -1px;
-	/*-webkit-border-radius: 5px;*/
+}
+.stepField:hover {
+	cursor: pointer;
 }
 .stepFieldDisabled {
 	color: #CCCCCC;
@@ -108,109 +112,109 @@ textarea {
 	box-shadow: 5px 5px 8px #888;
 	z-index: 16002;
 }
-
-/* Arrow for selected field */
-.stepFieldSelected:after, .stepFieldSelected:before, .stepFieldDisabled:after, .stepFieldDisabled:before {
-	left: 100%;
-	border: solid transparent;
-	content: " ";
-	height: 0;
-	width: 0;
-	position: absolute;
-	pointer-events: none;
-	z-index: 16003;
-}
-.stepFieldSelected:after {
-	border-color: rgba(136, 183, 213, 0);
-	border-left-color: #67aee6;
-	border-width: 19px;
-	top: 50%;
-	margin-top: -19px;
-}
-.stepFieldSelected:before {
-	border-color: rgba(194, 225, 245, 0);
-	border-left-color: #67aee6;
-	border-width: 20px;
-	top: 50%;
-	margin-top: -20px;
-}
-.stepFieldDisabled:after {
-	border-color: rgba(255, 255, 255, 0);
-	border-left-color: #FFFFFF;
-	border-width: 19px;
-	top: 50%;
-	margin-top: -19px;
-}
-.stepFieldDisabled:before {
-	border-color: rgba(204, 204, 204, 0);
-	border-left-color: #CCCCCC;
-	border-width: 20px;
-	top: 50%;
-	margin-top: -20px;
-}
+	/* Arrow for selected field */
+	.stepFieldSelected:after, .stepFieldSelected:before, .stepFieldDisabled:after, .stepFieldDisabled:before {
+		left: 100%;
+		border: solid transparent;
+		content: " ";
+		height: 0;
+		width: 0;
+		position: absolute;
+		pointer-events: none;
+		z-index: 16003;
+	}
+	.stepFieldSelected:after {
+		border-color: rgba(136, 183, 213, 0);
+		border-left-color: #67aee6;
+		border-width: 19px;
+		top: 50%;
+		margin-top: -19px;
+	}
+	.stepFieldSelected:before {
+		border-color: rgba(194, 225, 245, 0);
+		border-left-color: #67aee6;
+		border-width: 20px;
+		top: 50%;
+		margin-top: -20px;
+	}
+	.stepFieldDisabled:after {
+		border-color: rgba(255, 255, 255, 0);
+		border-left-color: #FFFFFF;
+		border-width: 19px;
+		top: 50%;
+		margin-top: -19px;
+	}
+	.stepFieldDisabled:before {
+		border-color: rgba(204, 204, 204, 0);
+		border-left-color: #CCCCCC;
+		border-width: 20px;
+		top: 50%;
+		margin-top: -20px;
+	}
+	
 /* SECTION: Viewer */
-#content {
-	float: none;
-    width: 100%;
-}
+	#content #document {
+		position: relative;
+		margin-left: auto;
+		margin-right: auto;
+		width: 700px;
+	}
 
-#document {
-	position: relative;
-	margin-left: auto;
-	margin-right: auto;
-	width: 700px;
-}
+		#content #document #innerDocument {
+			margin-top: 160px;
+			margin-bottom: 80px;
+		}
 
-#innerDocument {
-	margin-top: 160px;
-	margin-bottom: 80px;
-}
+		#content #document #innerDocument #documentIMG {
+			width: 700px;
+		}
 
-#documentIMG {
-	width: 700px;
-}
+		#content #document #innerDocument .PDFField {
+			vertical-align: top;
+			border: thin solid black;
+			background: #F8F8F8;
+			text-align: left;
+		}
+		
+			#content #document #innerDocument .PDFField .inputPDFField {
+				vertical-align: top;
+			}
 
-.PDFField {
-	vertical-align: top;
-	border: thin solid black;
-	background: #F8F8F8;
-	text-align: left;
-}
-.inputPDFField {
-	vertical-align: top;
-}
+			#content #document #innerDocument .PDFField .signPDFField {
+				width: 16px;
+				height: 16px;
+			}
 
-.signPDFField {
-	vertical-align: top;
-	width: 16px;
-	height: 16px;
-}
+			#content #document #innerDocument .PDFField .signatureImg {
+				width: 100%;
+				height: 100%;
+			}
 
 .inputPDFFieldError {
 	border: 1px solid red;
 }
 
 /* SECTION: Bottom bar*/
-#bottomDiv {
-	display: table;
-	position: fixed;
-    text-align: center;
-    bottom: 0;
-	width: 100%;
-    height: 80px;
-	background: rgba(0, 0, 0, 0.8);
-	z-index: 16000;
-}
-#bottomDivMessage {
-	display: table-cell;
-    vertical-align: middle;
-	top: 50%;
-}
-#bottomMessage {
-	display: block;
-	font: bold 20px Verdana;
-	color: white;
-}
+	#content #bottomDiv {
+		display: table;
+		position: fixed;
+		text-align: center;
+		bottom: 0;
+		width: 100%;
+		height: 80px;
+		background: rgba(0, 0, 0, 0.8);
+		z-index: 16000;
+	}
+	#content #bottomDiv #bottomDivMessage {
+		display: table-cell;
+		vertical-align: middle;
+		top: 50%;
+	}
+		#content #bottomDiv #bottomDivMessage #bottomMessage {
+			display: block;
+			font: bold 20px Verdana;
+			color: white;
+		}
 
 .qtip {
 	max-width: 400px !important;
@@ -290,56 +294,30 @@ textarea {
 	margin-left: 10px;
 }
 
-.sendSignButton {
-	font: normal 20px arial;
-	background: green;
-	color: white;
-	padding: 15px 50px;
-	-moz-border-radius: 4px 4px 4px 4px;
-	-webkit-border-radius: 4px 4px 4px 4px;
-	border-radius: 4px 4px 4px 4px;
-}
-.sendSignButton:hover {
-	font: bold 20px arial;
-	cursor: pointer;
-}
-
-.passButton {
-	font: normal 20px arial;
-	background: green;
-	color: white;
-	padding: 15px 50px;
-	-moz-border-radius: 4px 4px 4px 4px;
-	-webkit-border-radius: 4px 4px 4px 4px;
-	border-radius: 4px 4px 4px 4px;
-}
-.passButton:hover {
-	font: bold 20px arial;
-	cursor: pointer;
-}
 .welcomeMessage {
 	margin-left: 30px;
 	margin-top: 10px;
 	font: normal 15px arial;
 }
-.qtip-welcome {
-	background-color: #67aee6;
-	border-color: #FFFFFF;
-	color: #FFFFFF;
-	padding: 10px 10px 10px 10px;
-	text-align: left;
-}
 
-	.qtip-welcome .qtip-titlebar {
+	.qtip-welcome {
 		background-color: #67aee6;
-		font: bold 20px Verdana;
-		padding: 5px;
+		border-color: #FFFFFF;
+		color: #FFFFFF;
+		padding: 10px 10px 10px 10px;
+		text-align: left;
 	}
 
-	.qtip-welcome .qtip-content {
-		font: normal 15px Verdana;
-		margin-top: 5px;
-	}
+		.qtip-welcome .qtip-titlebar {
+			background-color: #67aee6;
+			font: bold 20px Verdana;
+			padding: 5px;
+		}
+
+		.qtip-welcome .qtip-content {
+			font: normal 15px Verdana;
+			margin-top: 5px;
+		}
 
 /* SECTION: Sign document */
 .signatureDiv {
@@ -421,4 +399,7 @@ textarea {
 			
 .signatureSpanHandWriting {
 	font: normal 30px danielregular;
+}
+.spanClickable:hover {
+	cursor: pointer;
 }

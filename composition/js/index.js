@@ -1,3 +1,16 @@
+Date.prototype.getOrdinal = function() {
+	switch( this.getDate() ) {
+		case 1:case 21:case 31:
+			return"st";
+		case 2:case 22:
+			return"nd";
+		case 3:case 23:
+			return"rd";
+		default:
+			return"th";
+	}
+};
+
 Number.prototype.padLeft = function(n,str) {
     return Array(n - String(this).length + 1).join(str||'0') + this;
 };
