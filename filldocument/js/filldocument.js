@@ -3,6 +3,8 @@ var FillDocument = (function () {
 	var $tooltipDiv;
 	var $stepsDiv;
 	var $signatureDiv;
+	var pagesJSON;
+	var canvasIE8 = true;
 	
 	// Control variable to check when modal window is visible
 	var signModal = false;
@@ -30,7 +32,8 @@ var FillDocument = (function () {
 		canvas.width = $signatureDiv.find('.signatureInput').get(0).offsetWidth;
 		canvas.height = 150;
 				
-		if (!canvas.getContext) {
+		if ( !canvas.getContext ) {
+			canvasIE8 = false;
 			G_vmlCanvasManager.initElement( canvas );
 		}		
 		var context = canvas.getContext("2d");
@@ -57,7 +60,7 @@ var FillDocument = (function () {
 			  touchend: function (position) {
 				 if (this.isDrawing) {
 					this.touchmove(position);
-					context.closePath();
+					//context.closePath();
 					this.isDrawing = false;
 				 }
 			  },
@@ -103,14 +106,14 @@ var FillDocument = (function () {
 			   mouseup: function (position) {
 				   if (this.isDrawing) {
 					   this.mousemove(position);
-					   context.closePath();
+					   //context.closePath();
 					   this.isDrawing = false;
 				   }
 			   },
 			   mouseleave: function (position) {
 				   if (this.isDrawing) {
 					   this.mousemove(position);
-					   context.closePath();
+					   //context.closePath();
 					   this.isDrawing = false;
 				   }
 			   },
@@ -119,7 +122,7 @@ var FillDocument = (function () {
 				   var position = {
 						   x: event.clientX - offset.x,
 						   y: event.clientY - offset.y
-				   };				   
+				   };
 				   drawMouse[event.type](position);
 			   }
 	   };
@@ -139,11 +142,51 @@ var FillDocument = (function () {
 		$signatureSpan.parent().hide();
 	};
 	
-	var fillDocument = function (htmlContent) {
+	var setStepCompleted = function ( $validationField, $stepField ) {
 	
-		// Set document to htmlContent from server
-		$("#document").empty().html( htmlContent );
-						
+		//console.log( $validationField.valid() );
+		//$stepField.addClass( "stepFieldCompleted" );
+		
+	};
+	
+	var fieldsHtml = {
+		page	:	'<div class="PDFPage" pagenr="?"></div>',
+		img		:	'<img class="documentIMG" src="?"/>',
+		sign	:	'<div id="?" class="PDFField" typeOfField="sign">'+
+						'<input type="image" id="?Field" src="images/signIcon.png" class="innerPDFField signPDFField inputPDFField" onclick="return false;"></input>'+
+						'<input type="text" id="?FakeValidation" name="?FakeValidation" class="fakeValidation required" style="display:none"></input>'+
+					'</div>',
+		comment	:	'<div id="?" class="PDFField" typeOfField="comment">'+
+						'<textarea id="?Field" name="?Field" class="innerPDFField commentPDFField inputPDFField required"></textarea>'+
+					'</div>',
+		email	: 	'<div id="?" class="PDFField" typeOfField="email">'+
+						'<textarea id="?Field" name="?Field" class="innerPDFField emailPDFField inputPDFField required email"></textarea>'+
+					'</div>',
+		date	: 	'<div id="?" class="PDFField" typeOfField="date">'+
+						'<span id="?Field" class="innerPDFField datePDFField">Date: </span>'+
+					'</div>'
+	};
+	
+	var fillDocument = function (){
+	
+		// Set document to JSON content from server
+		$.each(pagesJSON, function (){
+			var currentPage = this;
+			var $page = $( fieldsHtml.page.replaceAll( "?", currentPage.nr ) );
+			$page.appendTo( "#innerDocument" ).append( $(fieldsHtml.img.replaceAll("?", currentPage.url) ) );
+			$.each(currentPage.pdfFields, function (){
+				var field = this;
+				var $field = $( fieldsHtml[field.typeOfField].replaceAll("?", field.id) );
+				$field.appendTo( $page ).css({
+					position: "absolute",
+					top     : field.top + "px",
+					left    : field.left + "px",
+					width   : field.width + "px",
+					height  : field.height  + "px"
+				});
+			});
+		});
+		
 		// Select initial field
 		CommonFunctions.selectStepField( $("#stepStart") );
 					
@@ -200,13 +243,13 @@ var FillDocument = (function () {
 	    	});
 					
 			// For sign field remove comment and email tooltip content and create modal div
-			if ($inputPdfField.hasClass("signPDFField")) {
+			if ( $inputPdfField.hasClass( "signPDFField" ) ) {
 			
 				// Remove comment and email tooltip content
-				$tooltipDiv1.find(".commentTooltip,.emailTooltip").remove();
+				$tooltipDiv1.find( ".commentTooltip,.emailTooltip" ).remove();
 				
 				// Clone original signature div content
-				var $signatureDiv1 = $signatureDiv.clone().appendTo( 'body' );
+				var $signatureDiv1 = $signatureDiv.clone().appendTo( "body" );
 				
 				// Add signature div to control variable for signature fields
 				fieldSign[pdfField.id] = {
@@ -216,9 +259,9 @@ var FillDocument = (function () {
 				};
 				
 				// Signature navigation controls: Remove back or next spans if it's the first or last step
-				if (index == 1) {
+				if ( index == 1 ) {
 					$signatureDiv1.find(".signatureGoBack").remove();
-				} else if (index == numberOfTooltips) {
+				} else if ( index == numberOfTooltips ) {
 					$signatureDiv1.find(".signatureNext").remove();
 				}
 
@@ -244,7 +287,7 @@ var FillDocument = (function () {
 				var $signatureSpan = $signatureDiv1.find(".signatureSpan");
 				
 				// Bind keyup on input field if the user decides to input his name
-				$signatureDiv1.find(".signatureInput").keyup(function () {
+				$signatureDiv1.find(".signatureInput").keyup(function () {			
 					var $this = $(this);
 					
 					// Add class for handwriting font and set control variable to signed
@@ -302,21 +345,36 @@ var FillDocument = (function () {
 					var $parent = $inputPdfField.parent();
 					
 					if ( fieldSign[pdfField.id].draw ) {
-						//fieldSign[pdfField.id].value = $signatureDiv1.find('.signatureCanvas')[0].toDataURL();
-						//var $signatureImg = $("<img class='signatureImg' src='"+fieldSign[pdfField.id].value+"'/>");
+						var canvas = $signatureDiv1.find('.signatureCanvas')[0];
+						if ( !canvas.toDataURL ) {
+							fieldSign[pdfField.id].vml = true;
+							fieldSign[pdfField.id].value = canvas.innerHTML;
+						} else {
+							fieldSign[pdfField.id].value = canvas.toDataURL();
+						}
 						var $signatureCanvas = $signatureDiv1.find('.signatureCanvas');
-						$signatureCanvas.appendTo( $parent ).css({
-							height: $parent.innerHeight() - 10,
-							width: ($parent.innerWidth() - $parent.find(".labelField").width() - 10)
-						});
+						$signatureCanvas.appendTo( $parent );
+						
+						if ( canvasIE8 ) {
+							/*$signatureCanvas.css({
+								// Fix for IE8 set width and height css attributes
+								width: $parent.css( "width" ),
+								height: $parent.css( "height" ) 
+							}).attr({
+								// Fix for IE8 set width and height element attributes
+								width: $parent.css( "width" ),
+								height: $parent.css( "height" ) 
+							});*/
+						}
+						
 					} else {
-						//fieldSign[pdfField.id].value = $signatureDiv1.find('.signatureInput').val();
-						$signatureSpan.appendTo( $parent ).css({
-							height: $parent.innerHeight() - 10,
-							width: ($parent.innerWidth() - $parent.find(".labelField").width() - 10)
-						});
+						fieldSign[pdfField.id].value = $signatureDiv1.find('.signatureInput').val();
+						$signatureSpan.appendTo( $parent );
 					}
+					
 					$inputPdfField.hide();
+					
+					setStepCompleted( $fakeValidationField, $stepField );
 					
 				});
 				
@@ -352,11 +410,17 @@ var FillDocument = (function () {
 			} else if ($inputPdfField.hasClass("commentPDFField")) {
 				
 				$tooltipDiv1.find(".signTooltip,.emailTooltip").remove();
+				$inputPdfField.keyup( function () {
+					setStepCompleted( $inputPdfField, $stepField );
+				});
 				
 			// For email field remove sign and comment tooltip content
 			} else if ($inputPdfField.hasClass("emailPDFField")) {
 				
 				$tooltipDiv1.find(".signTooltip,.commentTooltip").remove();
+				$inputPdfField.keyup( function () {
+					setStepCompleted( $inputPdfField, $stepField );
+				});
 				
 			}
 			
@@ -403,7 +467,7 @@ var FillDocument = (function () {
 					$('html, body').animate({
 						scrollTop: ($inputPdfField.offset().top - $("#topDiv").height() - 300)
 					}, 1000);					
-					$inputPdfField.focus();					
+					$inputPdfField.focus();
 				}
 							    
 			});
@@ -418,8 +482,7 @@ var FillDocument = (function () {
 			
 			var $field = $(this);
 			var today = new Date();
-			var date = today.asString( "ddXXXX mmmm yyyy" );
-			$field.html( $field.html() + today.getDayName() + ", " + date.replace("XXXX", today.getOrdinal()) );
+			$field.html( today.asString( "dd/mm/yyyy" ) );
 			
 	    });
 	        
@@ -461,57 +524,45 @@ var FillDocument = (function () {
 		// Bind submit button to validate form
 	    $(".validateButton").click(function () {
 			
+			// Validate form
 			$("#content").valid();
 			
-			var values = {};
-			
-			$.each(CommonVars.typeOfFields, function () {
-			
-				var typeOfField = this;
-			
-				$( "#document #innerDocument ." + typeOfField + "Field" ).each( function(index) {
-					
-					var $pdfField = $(this);
-					var pdfField = $pdfField[0];
-
-					values[ pdfField.id ] = {
-						typeOfField: typeOfField,
-						top: $pdfField.css("top").split("px")[0],
-						left: $pdfField.css("left").split("px")[0],
-						width: $pdfField.css("width").split("px")[0],
-						height: $pdfField.css("height").split("px")[0],
-					};
-				
-					if ( typeOfField == "sign" ) {
-						values[ pdfField.id ].draw = fieldSign[ pdfField.id ].draw;
-						values[ pdfField.id ].value = fieldSign[ pdfField.id ].value;
-					} else if ( typeOfField == "date" ) {
-						values[ pdfField.id ].value = $pdfField.find( ".datePDFField" ).html();
+			// Update JSON with values
+			$.each(pagesJSON, function () {
+				var page = this;
+				$.each(page.pdfFields, function (){
+					var field = this;
+					var $pdfField = $( "#"+field.id );
+					if ( field.typeOfField == "sign" ) {
+						field.draw  = fieldSign[ field.id ].draw;
+						field.vml   = fieldSign[ field.id ].vml;
+						field.value = fieldSign[ field.id ].value;
+					} else if ( field.typeOfField == "date" ) {
+						field.value = $pdfField.find( ".datePDFField" ).html();
 					} else {
-						values[ pdfField.id ].value = $pdfField.find( ".inputPDFField" ).val();
+						field.value = $pdfField.find( ".inputPDFField" ).val();
 					}
-					
 				});
-				
 			});
-					
-			$("#PDFFields").html( JSON.stringify( values ) );
+			$( "#pagesJSON" ).html( JSON.stringify( pagesJSON ) );						
 			
-	    });
-		
+	    });	
 	};
 	
 	return {
-		init : function (htmlContent) {
+		init : function () {
+		
 			$stepsDiv = $("#topStepsDiv");
 			$tooltipDiv = $(".tooltipDiv");
 			$signatureDiv = $(".signatureDiv");
-			fillDocument( htmlContent );			
+			pagesJSON = JSON.parse( $( "#pagesJSON" ).html() );
+			
+			fillDocument();
+			
 		}		
 	};		
 })();
 
 $(document).ready(function() {
-    var htmlContent = CommonVars.htmlContent();
-	FillDocument.init( htmlContent );
+	FillDocument.init();
 });

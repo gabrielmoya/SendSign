@@ -26,6 +26,9 @@ String.prototype.replaceAll = function(str1, str2, ignore) {
 var CommonVars = (function () {
 	return {
 		MAX_DRAGS : 5,
+		stepsNr : 	function () {
+			return Number($("#stepsNr").html());
+		},
 		htmlContent : 	function () {
 			return $("#htmlContent").html();
 		},

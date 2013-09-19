@@ -16,49 +16,36 @@
     <body>
 		<div id="compositionBody">
 			<div id="topFieldsDiv" class="fieldsContainer">
-				<div id="signDiv" class="formField resizableField signField">
+				<div id="signDiv" class="formField resizableField signField" typeOfField="sign">
 					<div id="signLabel" class="formInnerDiv">Sign</div>
 				</div>
-				<div id="commentDiv" class="formField resizableField inputFormField commentField">
+				<div id="commentDiv" class="formField resizableField inputFormField commentField" typeOfField="comment">
 					<div id="commentlabel" class="formInnerDiv">Comments</div>
 				</div>
-				<div id="dateDiv" class="formField resizableField dateField">
+				<div id="dateDiv" class="formField resizableField dateField" typeOfField="date">
 					<div id="dateLabel" class="formInnerDiv">Date</div>
 				</div>
-				<div id="emailDiv" class="formField resizableField inputFormField emailField">
+				<div id="emailDiv" class="formField resizableField inputFormField emailField" typeOfField="email">
 					<div id="emailLabel" class="formInnerDiv">Email</div>
 				</div>
 				<span id="sendButton">Check</span>
 			</div>
 			<div id="content">
 				<div id="document">
-					<div id="innerDocument">
-						<img id="documentIMG" src="images/sampleDoc.png"/>
+					<div class="innerDocument">
+						<div id="page1" pagenr="1" class="PDFPage">
+							<img id="documentIMG" src="images/sampleDoc.png"/>
+						</div>
+						<div id="page2" pagenr="2" class="PDFPage">
+							<img id="documentIMG" src="images/sampleDoc.png"/>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div id="PDFFields" style="display:none">
-				<div id="signField">
-					<label id="lblsignField?" for="signField?" class="labelField">Sign:</label>
-					<input type="image" id="signField?" src="images/signIcon.png" class="innerPDFField signPDFField inputPDFField" onclick="return false;"></input>
-					<input type="text" id="fakeValidationSign?" name="fakeValidationSign?" class="fakeValidation required" style="display:none"></input>
-				</div>
-				<div id="commentField">
-					<label id="lblcommentField?" for="commentField?" class="labelField">Comment:</label>
-					<textarea id="commentField?" name="commentField?" class="innerPDFField commentPDFField inputPDFField required"></textarea>
-				</div>
-				<div id="dateField">
-					<span id="dateField?" class="innerPDFField datePDFField">Date: </span>
-				</div>
-				<div id="emailField">
-					<label id="lblemailField?" for="emailField?" class="labelField">Email:</label>
-					<textarea id="emailField?" name="emailField?" class="innerPDFField emailPDFField inputPDFField required email"></textarea>
-				</div>
-			</div>
 		</div>
-		<div id="htmlContent" style="display:none">
+		<div id="stepsNr" style="display:none">
 		</div>
-		<div id="fieldsCoords" style="display:none">
+		<div id="pagesJSON" style="display:none">
 		</div>
     </body>
 </html>

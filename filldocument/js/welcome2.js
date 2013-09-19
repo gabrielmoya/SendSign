@@ -3,13 +3,11 @@ $(document).ready(function() {
 	$("body").addClass("welcomeBody");
 	CommonFunctions.selectStepField( $("#stepStart") );
 	
-	$( CommonVars.htmlContent ).find(".inputPDFField").each(function (i) {
-		
-		var index = i + 1;
+	var stepsNr = CommonVars.stepsNr();	
+	for (var index = 1; index <= stepsNr ;index++) {
 		$("#stepFinish").before($("#stepXX").clone().attr("id","step"+index));
-		$("#step"+index).html($("#stepXX").html().replaceAll("XX",index));
-		
-	});
+		$("#step"+index).html($("#stepXX").html().replaceAll("XX",index));		
+	};
 	
 	$("#stepXX").remove();
 

@@ -1,0 +1,11 @@
+
+-- Numero de pasos que faltan con validacion -- Here
+-- Escala del canvas en IE8
+-- Scroll automatico con el draggable
+-- En el date el cursor de drag solo se activa sobre el texto
+-- Cuando los pasos son muchos poner puntos suspensivos
+
+		
+			var date = today.asString( "ddXXXX mmmm yyyy" );
+			$field.html( $field.html() + today.getDayName() + ", " + date.replace("XXXX", today.getOrdinal()) );
+		

@@ -6,6 +6,7 @@
         CSS for Composition elements.
 */
 
+
 #compositionBody {
     font-family:arial,Verdana,helvetica,sans-serif;
     font-size:12px;
@@ -17,6 +18,18 @@
 	vertical-align: top;
 }
 
+#compositionBody .formField {
+	position: relative;
+	vertical-align: top;
+	border: thin solid black;
+	background-color: #57A2DD;
+	color: #FFFFFF;
+	font: bold 10px Verdana;
+	width: 120px;
+	height: 20px;
+	text-align: left;
+	z-index: 1;
+}
 	#compositionBody #topFieldsDiv {
 		vertical-align: middle;
 		margin-bottom: 10px;
@@ -28,15 +41,10 @@
 		#compositionBody #topFieldsDiv  .formField {
 			float: left;
 			margin-left: 20px;
-			border: thin solid black;
-			background: #99FFFF;
-			font-size: 10px;
-			width: 120px;
-			height: 20px;
-			text-align: left;
 		}
 
 	#compositionBody #content {
+		clear: both;
 		float: none;
 		width: 100%;
 	}
@@ -47,44 +55,36 @@
 			margin-right: auto;
 			width: 750px;
 			height: 700px;
-			overflow-y: scroll;
+			overflow-y: auto;
 		}
 		
-			#compositionBody #content #document #innerDocument {
-				/*margin-top: 10px;*/
+			#compositionBody #content #document .innerDocument {
 				width: 700px;
 			}
+				#compositionBody #content #document .innerDocument .PDFPage {
+					position: relative;
+					clear: both;
+					margin-top: 30px;
+				}
+					#compositionBody #content #document .innerDocument .PDFPage img {
+						width: 700px;
+					}				
+					#compositionBody #content #document .innerDocument .PDFPage .PDFField {
+						vertical-align: top;
+						border: thin solid black;
+						background: #F8F8F8;
+						text-align: left;
+					}
 
-				#compositionBody #content #document #innerDocument #documentIMG {
-					width: 700px;
-				}
-				
-				#compositionBody #content #document #innerDocument .formField {
-					vertical-align: top;
-					border: thin solid black;
-					background: #99FFFF;
-					font-size: 10px;
-					width: 120px;
-					height: 20px;
-					text-align: left;
-				}
-				
-				#compositionBody #content #document #innerDocument .PDFField {
-					vertical-align: top;
-					border: thin solid black;
-					background: #F8F8F8;
-					text-align: left;
-				}
+					#compositionBody #content #document .innerDocument .PDFPage .inputPDFField {
+						vertical-align: top;
+					}
 
-				#compositionBody #content #document #innerDocument .inputPDFField {
-					vertical-align: top;
-				}
-
-				#compositionBody #content #document #innerDocument .signPDFField {
-					vertical-align: top;
-					width: 16px;
-					height: 16px;
-				}
+					#compositionBody #content #document .innerDocument .PDFPage .signPDFField {
+						vertical-align: top;
+						width: 16px;
+						height: 16px;
+					}
 	
 	#compositionBody textarea {
 		resize: none;

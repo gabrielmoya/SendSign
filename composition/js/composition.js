@@ -3,33 +3,40 @@ var Composition = (function () {
 	// Draggable options for top fields
 	var draggableTopFieldsOptions = {
 			helper: "clone",
-			scroll: false,
-			//scrollSensitivity: 100,
-			appendTo: "#innerDocument",
-			containment: "#innerDocument",
-			cancel: false,
+			scroll: true,
+			scrollSensitivity: 0,
+			appendTo: ".innerDocument",
+			containment: ".innerDocument",
+			revert: "invalid",
 			snap: true,
 			snapMode: "outer",
 			start: function (event, ui) {
 				// Add class to know that field has just been dragged from top
 				$(ui.helper).addClass("recentlyClonedDiv");
+				$(this).data("scrollposTop", $('#document').scrollTop());
+				$(this).data("scrollposLeft", $('#document').scrollLeft());
+			},
+			drag: function (event, ui) {
+				ui.position.top += $('#document').scrollTop();
+				ui.position.left += $('#document').scrollLeft();
 			}
 	};
 
 	// Draggable options for document fields
 	var draggableFieldsOptions = {
 			helper: "original",
-			scroll: false,
-			//scrollSensitivity: 100,
-			containment: "#innerDocument",
-			cancel: null,
+			scroll: true,
+			scrollSensitivity: 0,
+			appendTo: ".innerDocument",
+			containment: ".innerDocument",
+			revert: "invalid",
 			snap: true,
 			snapMode: "outer"
 	};
 	
 	// Resizable options for document fields
 	var resizableFieldsOptions = {
-			containment: "#innerDocument"
+			containment: "parent"
 	}
 	
 	// Keep counter for number of dragged fields, keep also last id assigned to avoid duplicates
@@ -45,21 +52,22 @@ var Composition = (function () {
 		// Init function for the  Composition module
 		//    MAX_DRAGS: Maximun number of the same type of field which can be added to the document
 		init: function (MAX_DRAGS) {
-					
+						
 			// Set options for top draggable fields
 			$( ".formField" ).draggable( draggableTopFieldsOptions );
-
+			
 			// Actions for droppable element
-			$("#innerDocument").droppable({
+			$(".PDFPage").droppable({
+				tolerance: "fit",
 				drop: function(event, ui) {
 
-					var $this = $(this);
+					var $droppable = $(this);
 
 					// Check if the field comes from the top bar
 					if ( $(ui.helper).hasClass("recentlyClonedDiv") ) {				 	
 
 						$(ui.helper).removeClass("recentlyClonedDiv").addClass("clonedDiv");
-						
+
 						var elId = $(ui.draggable).attr("id");
 						
 						for (var typeOfField in counter) {
@@ -77,40 +85,46 @@ var Composition = (function () {
 								}
 							}
 						}
-
+					
 						// Appends the element to the document
 						var offset = ui.helper.offset();
-						var $el = ui.helper.clone().appendTo($this).offset( offset );
-						//$this.append($el);
+						var $el = ui.helper.clone().appendTo( $droppable ).offset( offset );
 						
 						// Get snapped elements
 						var snapped = $(ui.draggable).data('ui-draggable').snapElements;
-				        var snappedTo = $.map(snapped, function(element) {
-				            return element.snapping ? element.item : null;
-				        });
+						var snappedTo = $.map(snapped, function(element) {
+							return element.snapping ? element.item : null;
+						});
 						
-				        // When email field is snapped to the sign field, inherits width and left properties
-				        if ( ($(snappedTo).length > 0)  && $(snappedTo[0]).hasClass("signField") && $el.hasClass("emailField") ) {
-				        	
-				        	//Set width to the snapped element
-						    $el.animate({
-						        width: $(snappedTo[0]).width(),
-						        left: $(snappedTo[0]).css('left')
-						    }, 1000);
+						// When email field is snapped to the sign field, inherits width and left properties
+						if ( ($(snappedTo).length > 0)  && $(snappedTo[0]).hasClass("signField") && $el.hasClass("emailField") ) {
+							
+							//Set width to the snapped element
+							$el.animate({
+								width: $(snappedTo[0]).width(),
+								left: $(snappedTo[0]).css('left')
+							}, 1000);
 
-				        }
+						}
 
-				        // Add draggable properties to the added field to be able to move it into the document 
-				        $el.draggable( draggableFieldsOptions );
+						// Add draggable properties to the added field to be able to move it into the document 
+						$el.draggable( draggableFieldsOptions );
 
 						// If field must be resizable, add also resizable properties
-				        if ( $el.hasClass('resizableField') ) {
+						if ( $el.hasClass('resizableField') ) {
 
-							$el.resizable( resizableFieldsOptions );
+							$el.resizable({
+								containment: "parent"
+							});
 							
 						}
 						
-					} // If (hasClass(recentlyClonedDiv))
+					} else { // If (hasClass(recentlyClonedDiv))
+
+						var offset = ui.helper.offset();
+						ui.draggable.appendTo( $droppable ).offset( offset );
+						
+					} // Else (hasClass(recentlyClonedDiv))
 				} // Function drop
 			}); // Droppable
 			
@@ -152,61 +166,53 @@ var Composition = (function () {
 
 			$("#sendButton").click(function () {
 
-				$("#innerDocument .ui-draggable").each(function() {
-					if ($(this).hasClass("resizableField")) {
+				$(".innerDocument .clonedDiv").each(function() {
+					if ( $(this).hasClass("resizableField") ) {
 						$(this).removeClass("resizableField");
-						CommonFunctions.destroyResizable($(this));
+						CommonFunctions.destroyResizable( $(this) );
 					}
-					CommonFunctions.destroyDraggable($(this));
+					CommonFunctions.destroyDraggable( $(this) );
+					$(this).removeClass("formField").removeClass("clonedDiv").addClass("PDFField")
 				});
 							
-				var offsets = {};
 				var $PDFFields = $("#PDFFields");
-							
-				$.each(CommonVars.typeOfFields, function () {
-				
-					var typeOfField = this;							
-					var fieldContent = $PDFFields.find("#"+typeOfField+"Field").html();
-											
-					$("#innerDocument ."+typeOfField+"Field").each(function(index) {
+				var pages = [];				
+				// For each page
+				$(".PDFPage").each( function () {
+					
+					var $pdfPage = $(this);
+
+					var page = {
+						nr : $pdfPage.attr( "pagenr" ),
+						url : "",
+						pdfFields : []
+					};
+					
+					// Order form fields according to top position in the page
+					var fieldsOrdered =  $pdfPage.find(".PDFField").toArray().sort( function (a, b) {
+						return a.style.top.split('px')[0] - b.style.top.split('px')[0];  
+					});
+														
+					$.each(fieldsOrdered, function () {
 						
-						var $field = $(this);
-						
-						$field.removeClass("formField").addClass("PDFField").html(fieldContent.replaceAll('?', index));
-						offsets[ $field.attr("id") ] = {
+						var $field = $(this);					
+						page.pdfFields.push({
+							id : $field.attr( "id" ),
+							typeOfField: $field.attr( "typeOfField" ),
 							top: $field.css("top").split("px")[0],
 							left: $field.css("left").split("px")[0],
 							width: $field.css("width").split("px")[0],
 							height: $field.css("height").split("px")[0]
-						};
-
-						var $innerField = $field.find(".innerPDFField");
-						
-						if ($innerField.hasClass("commentPDFField") || $innerField.hasClass("emailPDFField")) {
-							
-							$innerField.css({
-								height: $field.innerHeight() - 10,
-								width: ($field.innerWidth() - $field.find(".labelField").width() - 10)
-							});
-							
-						}
+						});
+											
 					});
-				});
-								
-				// Order form fields according to top position in the document
-				var fieldsOrdered =  $(".clonedDiv").toArray().sort( function (a, b) {
-					return a.style.top.split('px')[0] - b.style.top.split('px')[0];  
-				});
-				// Reinsert the DOM elements in the correct order				
-				$.each(fieldsOrdered, function () {
-					$("#innerDocument").append($(this));
-				});
+
+					pages.push( page );
+																	
+				});				
 				
-				console.log( $("#document").html() );
-				console.log( JSON.stringify( offsets ) );
-				
-				$("#htmlContent").html( $("#document").html() );
-				$("#fieldsCoords").html( JSON.stringify( offsets ) );
+				$( "#stepsNr" ).html( $( ".innerDocument .PDFField" ).length );
+				$( "#pagesJSON" ).html( JSON.stringify( pages ) );
 				
 			});
 		}
