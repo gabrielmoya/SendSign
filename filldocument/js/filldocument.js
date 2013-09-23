@@ -1,31 +1,67 @@
 var FillDocument = (function () {
 
+	var QtipDefaultClasses = "qtip-sendsign qtip-shadow qtip-rounded";
+	
 	var $tooltipDiv;
 	var $stepsDiv;
 	var $signatureDiv;
 	var pagesJSON;
+	
 	var canvasIE8 = true;
+		
+	// Check total number of tooltips
+	var numberOfSteps;
+	var remainingSteps;
 	
 	// Control variable to check when modal window is visible
 	var signModal = false;
 	
 	// Array of steps to complete
 	var steps = [];
-	
+		
 	// Track relation between fields and steps
 	var fieldSteps = {};
 
 	// Track relation between signature fields and signature divs
 	var fieldSign = {};
 	
-	// Informative message to display at the footer of the page
-	var bottomMessage = "You need to fill in ? more field before you can <span class='validateButton sendSignButton'>Finish and send</span>";
-
+	var HTML = {
+		bottomMessage : {
+			inProcess : "You need to fill in <span class='bottomMessageLink spanClickable'>? more field</span> before you can <span class='validateButton sendSignButton'>Finish and send</span>",
+			completed : "Thank you. Now you can <span class='validateButton sendSignButton activeButton'>Finish and send</span>"
+		},
+		pdfFields : {
+			page	:	'<div class="PDFPage" pagenr="?"></div>',
+			img		:	'<img class="documentIMG" src="?"/>',
+			sign	:	'<div id="?" class="PDFField" typeOfField="sign">'+
+							'<input type="image" id="?Field" src="images/signIcon.png" class="innerPDFField signPDFField inputPDFField" onclick="return false;"></input>'+
+							'<input type="text" id="?FakeValidation" name="?FakeValidation" class="fakeValidation required" style="display:none"></input>'+
+						'</div>',
+			comment	:	'<div id="?" class="PDFField" typeOfField="comment">'+
+							'<textarea id="?Field" name="?Field" class="innerPDFField commentPDFField inputPDFField required"></textarea>'+
+						'</div>',
+			email	: 	'<div id="?" class="PDFField" typeOfField="email">'+
+							'<textarea id="?Field" name="?Field" class="innerPDFField emailPDFField inputPDFField required email"></textarea>'+
+						'</div>',
+			date	: 	'<div id="?" class="PDFField" typeOfField="date">'+
+							'<span id="?Field" class="innerPDFField datePDFField">Date: </span>'+
+						'</div>'
+		},
+		canvas : '<canvas class="signatureCanvas"></canvas>'
+	};
+	
+	var setValidSignature = function ( $signatureDiv, $fakeValidationField ) {
+		$signatureDiv.find(".signatureApply").addClass( "activeButton" );
+		$fakeValidationField.val("X").trigger( "keyup" );
+	};
+	var setInvalidSignature = function ( $signatureDiv, $fakeValidationField ) {
+		$signatureDiv.find(".signatureApply").removeClass( "activeButton" );
+		$fakeValidationField.val("").trigger( "keyup" );
+	};
+	
 	// Creates drawer for the sign
 	var createDrawer = function ($signatureDiv, $fakeValidationField) {
 		
-		$('<canvas class="signatureCanvas"></canvas>').appendTo($signatureDiv.find('.signatureCanvasDiv'));
-
 		var $canvas = $signatureDiv.find('.signatureCanvas');
 		var canvas = $canvas[0];
 		
@@ -53,14 +89,13 @@ var FillDocument = (function () {
 					context.lineTo(position.x, position.y);
 					context.stroke();
 					if (typeof $fakeValidationField !== "undefined") {
-						$fakeValidationField.val("X").trigger("keyup");
+						setValidSignature( $signatureDiv, $fakeValidationField );
 					}
 				 }
 			  },
 			  touchend: function (position) {
 				 if (this.isDrawing) {
 					this.touchmove(position);
-					//context.closePath();
 					this.isDrawing = false;
 				 }
 			  },
@@ -96,24 +131,22 @@ var FillDocument = (function () {
 			   },
 			   mousemove: function (position) {
 				   if (this.isDrawing) {				   
-					   context.lineTo(position.x, position.y);
-					   context.stroke();
-					   if (typeof $fakeValidationField !== "undefined") {
-							$fakeValidationField.val("X").trigger("keyup");
-					   }
+						context.lineTo(position.x, position.y);
+						context.stroke();
+						if (typeof $fakeValidationField !== "undefined") {
+							setValidSignature( $signatureDiv, $fakeValidationField );
+						}
 				   }
 			   },
 			   mouseup: function (position) {
 				   if (this.isDrawing) {
 					   this.mousemove(position);
-					   //context.closePath();
 					   this.isDrawing = false;
 				   }
 			   },
 			   mouseleave: function (position) {
 				   if (this.isDrawing) {
 					   this.mousemove(position);
-					   //context.closePath();
 					   this.isDrawing = false;
 				   }
 			   },
@@ -137,34 +170,132 @@ var FillDocument = (function () {
 	};
 	
 	var signatureSpanClickHandler = function ( $signatureSpan, $signatureDiv, $fakeValidationField ) {	
+		
 		$signatureDiv.find('.signatureInput').attr("disabled", true);
-		createDrawer( $signatureDiv, $fakeValidationField );							
+		$signatureDiv.find('.signatureCanvas').show();
+		createDrawer( $signatureDiv, $fakeValidationField );
 		$signatureSpan.parent().hide();
-	};
-	
-	var setStepCompleted = function ( $validationField, $stepField ) {
-	
-		//console.log( $validationField.valid() );
-		//$stepField.addClass( "stepFieldCompleted" );
 		
 	};
 	
-	var fieldsHtml = {
-		page	:	'<div class="PDFPage" pagenr="?"></div>',
-		img		:	'<img class="documentIMG" src="?"/>',
-		sign	:	'<div id="?" class="PDFField" typeOfField="sign">'+
-						'<input type="image" id="?Field" src="images/signIcon.png" class="innerPDFField signPDFField inputPDFField" onclick="return false;"></input>'+
-						'<input type="text" id="?FakeValidation" name="?FakeValidation" class="fakeValidation required" style="display:none"></input>'+
-					'</div>',
-		comment	:	'<div id="?" class="PDFField" typeOfField="comment">'+
-						'<textarea id="?Field" name="?Field" class="innerPDFField commentPDFField inputPDFField required"></textarea>'+
-					'</div>',
-		email	: 	'<div id="?" class="PDFField" typeOfField="email">'+
-						'<textarea id="?Field" name="?Field" class="innerPDFField emailPDFField inputPDFField required email"></textarea>'+
-					'</div>',
-		date	: 	'<div id="?" class="PDFField" typeOfField="date">'+
-						'<span id="?Field" class="innerPDFField datePDFField">Date: </span>'+
-					'</div>'
+	var updateBottomMessage = function ( remainingSteps ) {
+	
+		if ( Number(remainingSteps) != 0 ) {
+			
+			var message = HTML.bottomMessage.inProcess.replace( "?", remainingSteps );
+			if ( Number(remainingSteps) > 1 ) {
+				message = message.replace( "field", "fields" );
+			}
+			$("#bottomMessage").html( message );
+			
+		} else {		
+			$("#bottomMessage").html( HTML.bottomMessage.completed );			
+		}
+		
+		$( "#bottomMessage" ).find( ".bottomMessageLink" ).click( function () {
+			var i;
+			for ( i = 0; i < steps.length; i++ ) {
+				if ( !steps[i].completed ) {
+					steps[i].$stepField.click();
+					break;
+				}
+			}
+		});		
+	}
+	
+	// Validate fields, control remaining steps and enables FinishAndSend button
+	var validateField = function ( $validationField, $stepField ) {
+	
+		var valid = $validationField.valid();		
+		var stepIndex = $stepField.attr( "stepnr" ) - 1;
+	
+		if ( valid ) {
+			if ( !steps[stepIndex].completed ) {
+				steps[stepIndex].completed = true;
+				remainingSteps--;
+				updateBottomMessage( remainingSteps );
+				$stepField.addClass( "stepFieldCompleted" );
+			}
+		} else {
+			if ( steps[stepIndex].completed ) {
+				steps[stepIndex].completed = false;
+				remainingSteps++;
+				updateBottomMessage( remainingSteps );
+				$stepField.removeClass( "stepFieldCompleted" );
+			}
+		}
+		
+		if ( Number(remainingSteps) == 0 ) {
+			
+			// Bind submit button to validate form
+			$(".validateButton").click(function () {
+			
+				// Save values to JSON
+				var values = [];
+				$.each(pagesJSON, function () {
+					var page = this;
+					$.each(page.pdfFields, function (){
+						var field = this;
+						var $pdfField = $( "#"+field.id );
+						var value = {
+							pagenr : page.nr,
+							id : field.id
+						};
+						if ( field.typeOfField == "sign" ) {
+							value.draw  = fieldSign[ field.id ].draw;
+							value.vml   = fieldSign[ field.id ].vml || false;
+							value.value = fieldSign[ field.id ].value;
+						} else if ( field.typeOfField == "date" ) {
+							value.value = $pdfField.find( ".datePDFField" ).html();
+						} else {
+							value.value = $pdfField.find( ".inputPDFField" ).val();
+						}
+						values.push( value );
+					});
+				});
+				$( "#valuesJSON" ).html( JSON.stringify( values ) );				
+			});
+			
+		} else {
+		
+			$(".validateButton").unbind( "click" );
+			
+		}
+		
+		return valid;
+	};
+	
+	var restartSignatureCanvas = function ( $pdfField, $signatureDiv, $signatureDivOriginal, $fakeValidationField, $signatureInput, $signatureSpan) {
+	
+		var pdfField = $pdfField[0];
+
+		// Initialize control variables
+		fieldSign[pdfField.id].signed = false;
+		fieldSign[pdfField.id].draw   = false;					
+	
+		// Set empty value and remove disabled attribute to input field
+		$signatureInput.val( "" ).removeAttr( "disabled" );
+		
+		// Reset value from fake field for validation plugin
+		setInvalidSignature( $signatureDiv, $fakeValidationField );
+		
+		// Set html content of span to original content, remove class for hand writing font and show it
+		$signatureSpan.html( $signatureDivOriginal.find(".signatureSpan").html() ).removeClass("signatureSpanHandWriting").parent().show();
+
+		// Re-bind signature span click to let the user choose if prefers to draw the signature
+		$signatureSpan.click( function () {
+			
+			fieldSign[pdfField.id].draw = true;
+			signatureSpanClickHandler( $signatureSpan, $signatureDiv, $fakeValidationField );
+			
+		}).addClass( "spanClickable" );
+	
+	}
+	
+	var closeModal = function ( $signatureDiv ) {		
+		signModal = false;
+		$('body').removeClass( "noScroll" );						
+		$signatureDiv.hide();	
 	};
 	
 	var fillDocument = function (){
@@ -172,11 +303,11 @@ var FillDocument = (function () {
 		// Set document to JSON content from server
 		$.each(pagesJSON, function (){
 			var currentPage = this;
-			var $page = $( fieldsHtml.page.replaceAll( "?", currentPage.nr ) );
-			$page.appendTo( "#innerDocument" ).append( $(fieldsHtml.img.replaceAll("?", currentPage.url) ) );
+			var $page = $( HTML.pdfFields.page.replaceAll( "?", currentPage.nr ) );
+			$page.appendTo( "#innerDocument" ).append( $(HTML.pdfFields.img.replaceAll("?", currentPage.url) ) );
 			$.each(currentPage.pdfFields, function (){
 				var field = this;
-				var $field = $( fieldsHtml[field.typeOfField].replaceAll("?", field.id) );
+				var $field = $( HTML.pdfFields[field.typeOfField].replaceAll("?", field.id) );
 				$field.appendTo( $page ).css({
 					position: "absolute",
 					top     : field.top + "px",
@@ -189,12 +320,11 @@ var FillDocument = (function () {
 		
 		// Select initial field
 		CommonFunctions.selectStepField( $("#stepStart") );
-					
-		// Check total number of tooltips
-		var numberOfTooltips = $("#document .inputPDFField").length;
-		
+							
 		// Iterate over all input fields
 		$("#document .inputPDFField").each(function (i) {
+		
+			var stepIndex = i;
 			
 			// Get references to jquery and DOM elements for the field
 			var $inputPdfField  = $(this);
@@ -205,12 +335,13 @@ var FillDocument = (function () {
 			var pdfField = $pdfField[0];
 			
 			// Set index for step ids and create new step
-			var index = i + 1;
+			var index = stepIndex + 1;
 			$("#stepFinish").before( $("#stepXX").clone().attr("id","step"+index) );
 			$("#step"+index).html( $("#stepXX").html().replaceAll("XX",index) );
 
 			// Get jquery reference to step field and add it to array control of steps
 			var $stepField = $( "#step"+index );
+			$stepField.attr("stepnr", index);
 			steps.push( {completed: false, $stepField: $stepField } );
 			
 			// Also add it to pdfField -> stepField control object
@@ -228,10 +359,11 @@ var FillDocument = (function () {
 	    		},
 	    		hide: "unfocus",
 	    		style: {
-	    	        classes: 'qtip-sendsign qtip-shadow qtip-rounded',
+	    	        classes: QtipDefaultClasses,
 					tip: {
 						width: 20,
-						height: 20
+						height: 20,
+						border: false
 					}
 	    	    },
 	    	    position: {
@@ -241,6 +373,8 @@ var FillDocument = (function () {
 	    	    	within: "#innerDocument"
 	    	    }
 	    	});
+			
+			$tooltipDiv1.find( ".signTooltipCompleted" ).hide();
 					
 			// For sign field remove comment and email tooltip content and create modal div
 			if ( $inputPdfField.hasClass( "signPDFField" ) ) {
@@ -257,11 +391,14 @@ var FillDocument = (function () {
 					signed: false,
 					draw: false
 				};
+								
+				// Add canvas to the canvas div
+				$( HTML.canvas ).appendTo( $signatureDiv1.find('.signatureCanvasDiv') ).hide();
 				
 				// Signature navigation controls: Remove back or next spans if it's the first or last step
 				if ( index == 1 ) {
 					$signatureDiv1.find(".signatureGoBack").remove();
-				} else if ( index == numberOfTooltips ) {
+				} else if ( index == numberOfSteps ) {
 					$signatureDiv1.find(".signatureNext").remove();
 				}
 
@@ -269,7 +406,8 @@ var FillDocument = (function () {
 				$inputPdfField.click(function () {
 					
 					signModal = true;
-					
+					$('body').addClass( "noScroll" );
+
 					// Show div and set correct width for signature canvas div
 					$signatureDiv1.show().find(".signatureCanvasDiv").css({
 						width: $signatureDiv1.find('.signatureInput').get(0).offsetWidth
@@ -282,13 +420,13 @@ var FillDocument = (function () {
 					
 				});
 				
-				// Get references to fake validation field and signature span
+				// Get references to fake validation field, signature span and signatureInput
 				var $fakeValidationField = $inputPdfField.parent().find(".fakeValidation");
+				var $signatureInput = $signatureDiv1.find(".signatureInput");
 				var $signatureSpan = $signatureDiv1.find(".signatureSpan");
 				
 				// Bind keyup on input field if the user decides to input his name
-				$signatureDiv1.find(".signatureInput").keyup(function () {			
-					var $this = $(this);
+				$signatureInput.keyup(function () {			
 					
 					// Add class for handwriting font and set control variable to signed
 					if ( !$signatureSpan.hasClass("signatureSpanHandWriting") ) {
@@ -297,121 +435,141 @@ var FillDocument = (function () {
 					}
 					
 					// Set content of span to value of the input field
-					$signatureSpan.html( $this.val() );
+					$signatureSpan.html( $signatureInput.val() );
 					
 					// Set fakevalidation field value and trigger keyup event for validation plugin to work correctly
-					if ( $(this).val() == "") {
-						$fakeValidationField.val("").trigger("keyup");
+					if ( $signatureInput.val() == "") {
+						setInvalidSignature( $signatureDiv1, $fakeValidationField );
 					} else {
-						$fakeValidationField.val("X").trigger("keyup");				
+						setValidSignature( $signatureDiv1, $fakeValidationField );
 					}
 					
 				});
 				
 				// Bind signature span click to let the user choose if prefers to draw the signature
 				$signatureSpan.click( function () {				
-					fieldSign[pdfField.id].draw = true;
+					
+					fieldSign[pdfField.id].draw = true;					
 					signatureSpanClickHandler( $signatureSpan, $signatureDiv1, $fakeValidationField );
+					
 				}).addClass( "spanClickable" );
 			
 				// Bind previous span navigation control of signature div
 				$signatureDiv1.find(".signatureGoBack").click( function () {
-					signModal = false;
-					$signatureDiv1.hide();
-					steps[i-1].$stepField.click();
+					closeModal( $signatureDiv1 );
+					steps[stepIndex-1].$stepField.click();
 				});
 				
 				// Bind next span navigation control of signature div
 				$signatureDiv1.find(".signatureNext").click( function () {
-					signModal = false;
-					$signatureDiv1.hide();
-					steps[i+1].$stepField.click();
+					closeModal( $signatureDiv1 );
+					steps[stepIndex+1].$stepField.click();
 				});
 
 				// Bind close span navigation control of signature div
 				$signatureDiv1.find(".signatureClose").click( function () {
-					signModal = false;
+					closeModal( $signatureDiv1 );
 					$signatureDiv1.hide();
 				});
 
 				// Bind apply button to send the signature
 				$signatureDiv1.find(".signatureApply").click( function () {
-				
-					fieldSign[pdfField.id].signed = true;
+								
+					if  ( validateField( $fakeValidationField, $stepField ) ) {
 					
-					signModal = false;
-					$signatureDiv1.hide();
-					
-					var $parent = $inputPdfField.parent();
-					
-					if ( fieldSign[pdfField.id].draw ) {
-						var canvas = $signatureDiv1.find('.signatureCanvas')[0];
-						if ( !canvas.toDataURL ) {
-							fieldSign[pdfField.id].vml = true;
-							fieldSign[pdfField.id].value = canvas.innerHTML;
+						fieldSign[pdfField.id].signed = true;						
+						closeModal( $signatureDiv1 );
+						
+						if ( fieldSign[pdfField.id].draw ) {
+							
+							var canvas = $signatureDiv1.find('.signatureCanvas')[0];
+							if ( !canvas.toDataURL ) {
+								fieldSign[pdfField.id].vml = true;
+								fieldSign[pdfField.id].value = canvas.innerHTML;
+							} else {
+								fieldSign[pdfField.id].value = canvas.toDataURL();
+							}
+							var $signatureCanvas = $signatureDiv1.find('.signatureCanvas');
+							$signatureCanvas.appendTo( $pdfField );
+							
+							$inputPdfField.qtip( "option", "show.target", $signatureCanvas);
+							$inputPdfField.qtip( "option", "position.target", $signatureCanvas);
+							
+							if ( canvasIE8 ) {
+								/*$signatureCanvas.css({
+									// Fix for IE8 set width and height css attributes
+									width: $pdfField.css( "width" ),
+									height: $pdfField.css( "height" ) 
+								}).attr({
+									// Fix for IE8 set width and height element attributes
+									width: $pdfField.css( "width" ),
+									height: $pdfField.css( "height" ) 
+								});*/
+							}
+							
 						} else {
-							fieldSign[pdfField.id].value = canvas.toDataURL();
-						}
-						var $signatureCanvas = $signatureDiv1.find('.signatureCanvas');
-						$signatureCanvas.appendTo( $parent );
-						
-						if ( canvasIE8 ) {
-							/*$signatureCanvas.css({
-								// Fix for IE8 set width and height css attributes
-								width: $parent.css( "width" ),
-								height: $parent.css( "height" ) 
-							}).attr({
-								// Fix for IE8 set width and height element attributes
-								width: $parent.css( "width" ),
-								height: $parent.css( "height" ) 
-							});*/
+							
+							fieldSign[pdfField.id].value = $signatureDiv1.find('.signatureInput').val();
+							$signatureSpan.appendTo( $pdfField );
+							
+							$inputPdfField.qtip( "option", "show.target", $signatureSpan);
+							$inputPdfField.qtip( "option", "position.target", $signatureSpan);
+							
 						}
 						
-					} else {
-						fieldSign[pdfField.id].value = $signatureDiv1.find('.signatureInput').val();
-						$signatureSpan.appendTo( $parent );
-					}
-					
-					$inputPdfField.hide();
-					
-					setStepCompleted( $fakeValidationField, $stepField );
-					
+						$inputPdfField.qtip( "option", "style.classes", QtipDefaultClasses + " qtip-sendsign-completed");
+						$tooltipDiv1.find( ".signTooltip" ).hide();
+						$tooltipDiv1.find( ".signTooltipCompleted" ).show();
+						$tooltipDiv1.find(".tooltipDelSign").show();						
+						
+						$inputPdfField.hide();					
+					}										
 				});
-				
+								
 				// Bind reset button to restart the modal div
 				$signatureDiv1.find(".signatureReset").click( function () {
-				
-					// Set empty value and remove disabled attribute to input field
-					$signatureDiv1.find( ".signatureInput" ).val( "" ).removeAttr( "disabled" );
-					// Reset value from fake field for validation plugin
-					$fakeValidationField.val("");
-					
-					// If the user was drawing remove the created canvas
-					if ( fieldSign[pdfField.id].draw ) {
-						$signatureDiv1.find( ".signatureCanvas" ).remove();
-					}
-					
-					// Set html content of span to original content, remove class for hand writing font and show it
-					$signatureSpan.html( $signatureDiv.find(".signatureSpan").html() ).removeClass("signatureSpanHandWriting").parent().show();
 
-					// Initialize control variables
-					fieldSign[pdfField.id].signed = false;
-					fieldSign[pdfField.id].draw   = false;
-					
-					// Re-bind signature span click to let the user choose if prefers to draw the signature
-					$signatureSpan.click( function () {
-						fieldSign[pdfField.id].draw = true;
-						signatureSpanClickHandler( $signatureSpan, $signatureDiv1, $fakeValidationField );
-					}).addClass( "spanClickable" );
+					// If the user was drawing hide the created canvas
+					$signatureDiv1.find( ".signatureCanvas" ).hide();
+					restartSignatureCanvas( $pdfField, $signatureDiv1, $signatureDiv, $fakeValidationField, $signatureInput, $signatureSpan );
 					
 				});
+
+				// Bind tooltip Delete Signature span
+				$tooltipDiv1.find(".tooltipDelSign").click(function () {
+				
+					// If the signature was drawn hide the created canvas
+					$pdfField.find( '.signatureCanvas' ).hide().appendTo( $signatureDiv1.find(".signatureCanvasDiv") );
+					$signatureSpan.appendTo( $signatureDiv1.find(".signatureSpanDiv") );
+
+					restartSignatureCanvas( $pdfField, $signatureDiv1, $signatureDiv, $fakeValidationField,  $signatureInput, $signatureSpan );
+				
+					$inputPdfField.show();					
+					$stepField.removeClass( "stepFieldCompleted" );
+					$tooltipDiv1.find( ".signTooltipCompleted" ).hide();
+					$tooltipDiv1.find(".tooltipDelSign").hide();
+					$tooltipDiv1.find( ".signTooltip" ).show();
+					$inputPdfField.qtip( "option", "show.target", $inputPdfField);
+					$inputPdfField.qtip( "option", "position.target", $inputPdfField);
+					$inputPdfField.qtip( "option", "style.classes", QtipDefaultClasses);
+					
+					steps[stepIndex].completed = false;
+					
+					remainingSteps++;					
+					updateBottomMessage( remainingSteps );
+					
+				});				
 				
 			// For comment field remove sign and email tooltip content
 			} else if ($inputPdfField.hasClass("commentPDFField")) {
 				
 				$tooltipDiv1.find(".signTooltip,.emailTooltip").remove();
 				$inputPdfField.keyup( function () {
-					setStepCompleted( $inputPdfField, $stepField );
+					if ( validateField( $inputPdfField, $stepField ) ){
+						$inputPdfField.qtip( "option", "style.classes", QtipDefaultClasses + " qtip-sendsign-completed" );
+					} else {
+						$inputPdfField.qtip( "option", "style.classes", QtipDefaultClasses );
+					}
 				});
 				
 			// For email field remove sign and comment tooltip content
@@ -419,28 +577,33 @@ var FillDocument = (function () {
 				
 				$tooltipDiv1.find(".signTooltip,.commentTooltip").remove();
 				$inputPdfField.keyup( function () {
-					setStepCompleted( $inputPdfField, $stepField );
+					if ( validateField( $inputPdfField, $stepField ) ){
+						$inputPdfField.qtip( "option", "style.classes", QtipDefaultClasses + " qtip-sendsign-completed");
+					} else {
+						$inputPdfField.qtip( "option", "style.classes", QtipDefaultClasses );
+					}
 				});
 				
 			}
 			
-			// Tooltip navigation controls: Remove back or next spans if it's the first or last step
+			// Tooltip navigation controls: Hide back or next spans if it's the first or last step
 			if (index == 1) {
-				$tooltipDiv1.find(".tooltipGoBack").remove();
-			} else if (index == numberOfTooltips) {
-				$tooltipDiv1.find(".tooltipNext").remove();
+				$tooltipDiv1.find(".tooltipGoBack").hide();
+			} else if (index == numberOfSteps) {
+				$tooltipDiv1.find(".tooltipNext").hide();
 			}
+			$tooltipDiv1.find(".tooltipDelSign").hide();
 			
 			// Bind tooltip GoBack span
 			$tooltipDiv1.find(".tooltipGoBack").click(function () {
 				// Simulate click on the previuos step
-				steps[i-1].$stepField.click();
+				steps[stepIndex-1].$stepField.click();
 			});
 			
 			// Bind tooltip Next span
 			$tooltipDiv1.find(".tooltipNext").click(function () {
 				// Simulate click on the next step
-				steps[i+1].$stepField.click();					
+				steps[stepIndex+1].$stepField.click();					
 			});
 
 			// Bind tooltip Close span
@@ -465,13 +628,17 @@ var FillDocument = (function () {
 				
 				if ( !signModal ) {
 					$('html, body').animate({
-						scrollTop: ($inputPdfField.offset().top - $("#topDiv").height() - 300)
-					}, 1000);					
-					$inputPdfField.focus();
-				}
-							    
-			});
-			
+						scrollTop: ($inputPdfField.parent().offset().top - $("#topDiv").height() - 300)
+					}, 1000);
+					
+					if ($inputPdfField.is(":visible")) {
+						$inputPdfField.focus();
+					} else {
+						CommonFunctions.selectStepField( $stepField );					
+						$inputPdfField.qtip( 'show' );
+					}
+				}							    
+			});			
 		});
 		
 		// Remove original stepXX field
@@ -485,6 +652,8 @@ var FillDocument = (function () {
 			$field.html( today.asString( "dd/mm/yyyy" ) );
 			
 	    });
+		
+		$(".signatureDate").html( (new Date()).asString( "dd/mm/yyyy" ) );
 	        
 	    // Validation for input fields
 	    $("#content").validate({
@@ -506,7 +675,9 @@ var FillDocument = (function () {
 		    			
 		    		});
 					
-		    		fieldSteps[$firstPDFField[0].getAttribute("id")].click();
+					/*if ( !$( document.activeElement).hasClass( errorClass ) ) {
+						fieldSteps[$firstPDFField[0].getAttribute("id")].click();
+					}*/					
 	    		}
 	    		
 				for ( i = 0, elements = this.validElements(); elements[i]; i++ ) {
@@ -519,34 +690,8 @@ var FillDocument = (function () {
 	    });
 		
 		// Set bottom message for user
-	    $("#bottomMessage").html(bottomMessage);
-	    
-		// Bind submit button to validate form
-	    $(".validateButton").click(function () {
-			
-			// Validate form
-			$("#content").valid();
-			
-			// Update JSON with values
-			$.each(pagesJSON, function () {
-				var page = this;
-				$.each(page.pdfFields, function (){
-					var field = this;
-					var $pdfField = $( "#"+field.id );
-					if ( field.typeOfField == "sign" ) {
-						field.draw  = fieldSign[ field.id ].draw;
-						field.vml   = fieldSign[ field.id ].vml;
-						field.value = fieldSign[ field.id ].value;
-					} else if ( field.typeOfField == "date" ) {
-						field.value = $pdfField.find( ".datePDFField" ).html();
-					} else {
-						field.value = $pdfField.find( ".inputPDFField" ).val();
-					}
-				});
-			});
-			$( "#pagesJSON" ).html( JSON.stringify( pagesJSON ) );						
-			
-	    });	
+		updateBottomMessage( remainingSteps );
+		
 	};
 	
 	return {
@@ -556,6 +701,7 @@ var FillDocument = (function () {
 			$tooltipDiv = $(".tooltipDiv");
 			$signatureDiv = $(".signatureDiv");
 			pagesJSON = JSON.parse( $( "#pagesJSON" ).html() );
+			remainingSteps = numberOfSteps = $("#StepsNr").html();
 			
 			fillDocument();
 			

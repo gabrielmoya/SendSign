@@ -1,11 +1,19 @@
 
--- Numero de pasos que faltan con validacion -- Here
--- Escala del canvas en IE8
--- Scroll automatico con el draggable
--- En el date el cursor de drag solo se activa sobre el texto
--- Cuando los pasos son muchos poner puntos suspensivos
+  - Cuando los pasos son muchos poner puntos suspensivos
+  - Wrappers en IE8 para canvas y modal
+  - Cuando el campo esta a la derecha del todo y se da un poco mas a la derecha se sale un pixel
+  - Escalado del canvas en IE8
 
 		
 			var date = today.asString( "ddXXXX mmmm yyyy" );
 			$field.html( $field.html() + today.getDayName() + ", " + date.replace("XXXX", today.getOrdinal()) );
 		
+		
+				.signatureDiv .signatureContent .signatureCanvasDiv .signatureCanvasWrapper {
+					position: relative;
+					width: 100%;
+					height: 100%;
+					top: -150px;
+					left: 0px;
+					z-index: 17001;
+				}			

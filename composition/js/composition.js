@@ -4,21 +4,15 @@ var Composition = (function () {
 	var draggableTopFieldsOptions = {
 			helper: "clone",
 			scroll: true,
-			scrollSensitivity: 0,
+			scrollSensitivity: 100,
 			appendTo: ".innerDocument",
 			containment: ".innerDocument",
 			revert: "invalid",
-			snap: true,
+			snap: ".clonedDiv",
 			snapMode: "outer",
 			start: function (event, ui) {
 				// Add class to know that field has just been dragged from top
 				$(ui.helper).addClass("recentlyClonedDiv");
-				$(this).data("scrollposTop", $('#document').scrollTop());
-				$(this).data("scrollposLeft", $('#document').scrollLeft());
-			},
-			drag: function (event, ui) {
-				ui.position.top += $('#document').scrollTop();
-				ui.position.left += $('#document').scrollLeft();
 			}
 	};
 
@@ -26,11 +20,11 @@ var Composition = (function () {
 	var draggableFieldsOptions = {
 			helper: "original",
 			scroll: true,
-			scrollSensitivity: 0,
+			scrollSensitivity: 100,
 			appendTo: ".innerDocument",
 			containment: ".innerDocument",
 			revert: "invalid",
-			snap: true,
+			snap: ".clonedDiv",
 			snapMode: "outer"
 	};
 	
@@ -175,7 +169,6 @@ var Composition = (function () {
 					$(this).removeClass("formField").removeClass("clonedDiv").addClass("PDFField")
 				});
 							
-				var $PDFFields = $("#PDFFields");
 				var pages = [];				
 				// For each page
 				$(".PDFPage").each( function () {

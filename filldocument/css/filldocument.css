@@ -34,7 +34,9 @@ body {
 	text-align: center;
 	vertical-align: top;
 }
-
+body.noScroll {
+	overflow: hidden;
+}
 #content {
 	float: none;
     width: 100%;
@@ -46,7 +48,7 @@ textarea {
 
 .sendSignButton {
 	font: normal 20px arial;
-	background: green;
+	background: #005826;
 	color: white;
 	padding: 15px 50px;
 	-moz-border-radius: 4px 4px 4px 4px;
@@ -55,14 +57,17 @@ textarea {
 }
 .sendSignButton2 {
 	font: normal 20px arial;
-	background: gray;
+	background: #6E6E6E;
 	color: white;
 	padding: 15px 50px;
 	-moz-border-radius: 4px 4px 4px 4px;
 	-webkit-border-radius: 4px 4px 4px 4px;
 	border-radius: 4px 4px 4px 4px;
 }
-.sendSignButton:hover, .sendSignButton2:hover  {
+.sendSignButton.activeButton {
+	background: #28902D;
+}
+.activeButton:hover  {
 	font: bold 20px arial;
 	cursor: pointer;
 }
@@ -211,10 +216,9 @@ textarea {
 					width: 16px;
 					height: 16px;
 				}
-
-.inputPDFFieldError {
-	border: 1px solid red;
-}
+				#content #document #innerDocument .PDFPage .PDFField .inputPDFFieldError {
+					background: #EC5D5D;
+				}
 
 /* SECTION: Bottom bar*/
 	#content #bottomDiv {
@@ -237,16 +241,20 @@ textarea {
 			font: bold 20px Verdana;
 			color: white;
 		}
+		#content #bottomDiv #bottomDivMessage #bottomMessage .bottomMessageLink {
+			color: #1086DE;
+			text-decoration: underline;
+		}
 
 .qtip {
-	max-width: 400px !important;
-	min-width: 250px !important;
+	max-width: 500px !important;
+	min-width: 350px !important;
 }
 
 /*! Send sign tooltip style */
 .qtip-sendsign {
 	background-color: rgba(0, 0, 0, 0.6);
-	border: 0 none transparent;
+	border-style: none;
 	color: #FFFFFF;
 	padding: 2px 2px 2px 2px;
 }
@@ -257,6 +265,10 @@ textarea {
 		-moz-border-radius: 4px 4px 4px 4px;
 		-webkit-border-radius: 4px 4px 4px 4px;
 		border-radius: 4px 4px 4px 4px;
+	}
+	
+	.qtip-sendsign-completed .tooltipTitle {
+		background-color: #28902D;
 	}
 
 	.qtip-sendsign .tooltipNav {
@@ -383,6 +395,8 @@ textarea {
 		background-color: #1086DE;
 		font: bold 12px Verdana;
 		padding: 10px;
+		width: 750px;
+		margin: 0 auto;
 		-moz-border-radius: 4px 4px 4px 4px;
 		-webkit-border-radius: 4px 4px 4px 4px;
 		border-radius: 4px 4px 4px 4px;
@@ -403,9 +417,9 @@ textarea {
 			}
 
 	.signatureDiv .signatureContent {
+		width: 750px;
 		padding-top: 20px;
 		text-align: left;
-		width: 50%;
 		margin: 0 auto;
 		font: bold 10.5px Verdana;
 	}
@@ -416,7 +430,7 @@ textarea {
 				width: 100%;
 			}
 			.signatureDiv .signatureContent .signatureInputDiv  .signatureInput {
-				width: 99%;
+				width: 98%;
 			}
 			.signatureDiv .signatureContent .signatureCanvasDiv {
 				width: 100%;
@@ -431,9 +445,20 @@ textarea {
 					padding: 10px;
 				}
 				.signatureDiv .signatureContent .signatureCanvasDiv .signatureSpan {
-					color: grey;
+					color: #5D5D5D;
 				}
-				
+				.signatureDiv .signatureContent .signatureCanvasDiv .signatureCanvas {
+					position: relative;
+					top: 0px;
+					left: 0px;
+					z-index: 18000;
+				}			
+			.signatureDiv .signatureContent .signatureDateDiv {
+				position: relative;
+				top: -50px;
+				left: 20px;
+				color: #7CB5E2;
+			}
 			.signatureDiv .signatureContent .signatureReset {
 				margin-left: 5px;
 			}

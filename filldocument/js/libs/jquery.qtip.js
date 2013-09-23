@@ -2002,9 +2002,6 @@ $.extend(Tip.prototype, {
 		if(HASCANVAS) {
 			// save() as soon as we create the canvas element so FF2 doesn't bork on our first restore()!
 			var canvas = $('<canvas />').appendTo(this.element)[0];
-			if ( !canvas.getContext ) {
-				G_vmlCanvasManager.initElement( canvas );
-			}
 			context = canvas.getContext('2d');
 
 			// Setup constant parameters

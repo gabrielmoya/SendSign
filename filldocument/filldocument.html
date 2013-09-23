@@ -44,8 +44,7 @@
     		</div>
     		<div id="bottomDiv">
     			<div id="bottomDivMessage">
-    				<span id="bottomMessage">
-    				</span>
+    				<span id="bottomMessage"></span>
     			</div>
     		</div>
     	</form>
@@ -69,9 +68,12 @@
 						<span class="signatureSpan">Tap here to draw your signature</span>
 					</div>
 				</div>
+				<div class="signatureDateDiv">
+					<span class="signatureDate"/>
+				</div>
 				<div class="signatureButtonsDiv">
 					<span class="signatureApply sendSignButton">Apply</span>
-					<span class="signatureReset sendSignButton2">Reset</span>
+					<span class="signatureReset sendSignButton2 activeButton">Reset</span>
 					<a class="signatureNotSigning" href="">Click here if you do not want to sign</a>
 				</div>				
 			</div>
@@ -83,11 +85,15 @@
 					<span class="tooltipGoBack">Go Back</span>
 					<span class="tooltipNext">Next</span>
 					<span class="tooltipClose">Hide this</span>
+					<span class="tooltipDelSign">Delete Signature</span>
 				</div>
 			</div>	
 			<div class="tooltipContent">
 				<div class="signTooltip">
-					We need your signature here. Click to sign.
+					We need your signature here - Click to sign
+				</div>
+				<div class="signTooltipCompleted">
+					You signed here
 				</div>
 				<div class="commentTooltip">
 					Insert comments
@@ -99,5 +105,6 @@
 		</div>
 		<div id="StepsNr" style="display:none">4</div>
 		<div id="pagesJSON" style="display:none">[{"nr":"1","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv1","typeOfField":"sign","top":"641","left":"102","width":"500","height":"24"},{"id":"emailDiv1","typeOfField":"email","top":"667","left":"102","width":"500","height":"20"},{"id":"commentDiv1","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"dateDiv1","typeOfField":"date","top":"809","left":"91","width":"517","height":"20"}]},{"nr":"2","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv2","typeOfField":"sign","top":"639.45","left":"102","width":"500","height":"28"}]}]</div>
-    </body>
+		<div id="valuesJSON" style="display:none"></div>
+	</body>
 </html>

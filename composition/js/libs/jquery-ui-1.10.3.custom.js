@@ -1902,7 +1902,7 @@ $.widget("ui.draggable", $.ui.mouse, {
 			scroll = this.cssPosition === "absolute" && !( this.scrollParent[ 0 ] !== document && $.contains( this.scrollParent[ 0 ], this.offsetParent[ 0 ] ) ) ? this.offsetParent : this.scrollParent;
 
 		//Cache the scroll
-		if (!this.offset.scroll) {
+		if (!this.offset.scroll || scroll.scrollTop() != this.offset.scroll.top || scroll.scrollLeft() != this.offset.scroll.left) {
 			this.offset.scroll = {top : scroll.scrollTop(), left : scroll.scrollLeft()};
 		}
 
@@ -1932,7 +1932,7 @@ $.widget("ui.draggable", $.ui.mouse, {
 			pageY = event.pageY;
 
 		//Cache the scroll
-		if (!this.offset.scroll) {
+		if (!this.offset.scroll || scroll.scrollTop() != this.offset.scroll.top || scroll.scrollLeft() != this.offset.scroll.left) {
 			this.offset.scroll = {top : scroll.scrollTop(), left : scroll.scrollLeft()};
 		}
 
