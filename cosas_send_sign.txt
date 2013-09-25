@@ -1,10 +1,8 @@
 
-  - Suavizar el canvas en IE8
-  - Escalado del canvas en IE8
-  - Corner en el tip de IE8  
+  - Suavizar y escalar el canvas en IE8
+  - Corner en el tip de IE8
   - Cuando el campo esta a la derecha del todo y se da un poco mas a la derecha se sale un pixel
   - La flecha de los steps cuando el campo esta sin seleccionar
-  - Probar lo de mostrar los steps cuando haya mas campos
 		
 			var date = today.asString( "ddXXXX mmmm yyyy" );
 			$field.html( $field.html() + today.getDayName() + ", " + date.replace("XXXX", today.getOrdinal()) );

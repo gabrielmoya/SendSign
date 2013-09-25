@@ -52,10 +52,11 @@
     		<div id="bottomDiv">
     			<div id="bottomDivMessage">
     				<span id="bottomMessage"></span>
+					<span class="signatureNotSigning spanClickable">Click here if you do not want to sign</span>
     			</div>
     		</div>
     	</form>
-		<div class="signatureBackgroundDiv" style="display:none"></div>
+		<div class="signatureWrapper" style="display:none"></div>
 		<div class="signatureDiv" style="display:none">
 			<div class="signatureTitle">
 				YOUR DIGITAL SIGNATURE
@@ -82,8 +83,24 @@
 				<div class="signatureButtonsDiv">
 					<span class="signatureApply sendSignButton">Apply</span>
 					<span class="signatureReset sendSignButton2 activeButton">Reset</span>
-					<a class="signatureNotSigning" href="">Click here if you do not want to sign</a>
 				</div>				
+			</div>
+		</div>
+		<div class="signatureNotSignDiv" style="display:none">
+			<div class="signatureNotSignTitle">
+				PLEASE INDICATE THE REASON WHY
+				<div class="signatureNotSignNav">
+					<span class="signatureNotSignClose spanClickable">Hide this</span>
+				</div>			
+			</div>	
+			<div class="signatureNotSignContent">
+				<div class="signatureNotSignInputDiv">
+					<textarea class="signatureNotSignTextArea"></textarea>
+				</div>
+				<div class="signatureNotSignButtonsDiv">
+					<span class="signatureNotSignDone sendSignButton">Done</span>
+					<span class="signatureNotSignCancel sendSignButton2 activeButton">Cancel</span>
+				</div>
 			</div>
 		</div>
 		<div class="tooltipDiv" style="display:none">

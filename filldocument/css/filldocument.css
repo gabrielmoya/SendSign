@@ -68,8 +68,27 @@ textarea {
 	background: #28902D;
 }
 .activeButton:hover  {
-	font: bold 20px arial;
+	font-weight: bold;
 	cursor: pointer;
+}
+
+.spanClickable:hover {
+	cursor: pointer;
+	font-weight: bold;
+}
+
+.signatureWrapper {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: black;
+        opacity: .5;
+        -webkit-opacity: .5;
+        -moz-opacity: .5;
+        filter: alpha(opacity=50);
+        z-index: 17000;
 }
 
 /* SECTION: Top bar */
@@ -245,6 +264,11 @@ textarea {
 			color: #1086DE;
 			text-decoration: underline;
 		}
+		#content #bottomDiv #bottomDivMessage .signatureNotSigning {
+			color: #FFFFFF;
+			font: normal 10px Verdana;
+			text-decoration: underline;
+		}
 
 .qtip {
 	max-width: 500px !important;
@@ -379,19 +403,6 @@ textarea {
 }
 
 /* SECTION: Sign document */
-.signatureBackgroundDiv {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        opacity: .0;
-        -webkit-opacity: .0;
-        -moz-opacity: .0;
-        filter: alpha(opacity=0);
-        z-index: 17000;
-}
 .signatureDiv {
 	position: fixed;
 	top: 160px;
@@ -430,6 +441,7 @@ textarea {
 			}
 
 	.signatureDiv .signatureContent {
+		clear: both;
 		width: 750px;
 		padding-top: 20px;
 		text-align: left;
@@ -482,7 +494,6 @@ textarea {
 				position: relative;
 				top: -50px;
 				left: 20px;
-				width: 90%;
 				color: #7CB5E2;
 				z-index: 17002;
 			}
@@ -491,16 +502,57 @@ textarea {
 				.signatureDiv .signatureContent .signatureButtonsDiv .signatureReset {
 					margin-left: 5px;
 				}
-			.signatureDiv .signatureContent .signatureNotSigning {
-				float: right;
-			}
-			.signatureDiv .signatureContent a {
-				color: #FFFFFF;
-			}
 			
 .signatureSpanHandWriting {
 	font: normal 30px danielregular;
 }
-.spanClickable:hover {
-	cursor: pointer;
+/* SECTION: Sign document */
+.signatureNotSignDiv {
+	position: fixed;
+	top: 160px;
+	bottom: 80px;
+	left: 0;
+	right: 0;
+	color:#FFFFFF;
+	background-color:rgba(0,0,0,0.8);
+	padding:12px;
+	z-index: 17001;
 }
+	.signatureNotSignDiv .signatureNotSignTitle {
+		text-align: left;
+		background-color: #1086DE;
+		font: bold 12px Verdana;
+		padding: 10px;
+		width: 750px;
+		margin: 0 auto;
+		-moz-border-radius: 4px 4px 4px 4px;
+		-webkit-border-radius: 4px 4px 4px 4px;
+		border-radius: 4px 4px 4px 4px;
+	}
+		.signatureNotSignDiv .signatureNotSignTitle  .signatureNotSignNav {
+			float: right;
+			font: normal 9.5px Verdana !important;
+		}
+		
+			.signatureNotSignDiv .signatureNotSignTitle  .signatureNotSignNav span {
+				margin-left: 10px;
+			}
+
+	.signatureNotSignDiv .signatureNotSignContent {
+		clear: both;
+		width: 750px;
+		padding-top: 20px;
+		text-align: left;
+		margin: 0 auto;
+		font: bold 10.5px Verdana;
+	}
+		.signatureNotSignDiv .signatureNotSignContent div {
+			margin: 0 0 20px 0;
+		}
+		.signatureNotSignDiv .signatureNotSignContent .signatureNotSignTextArea {
+			width: 700px;
+			height: 300px;
+		}
+		.signatureNotSignDiv .signatureNotSignContent .signatureNotSignButtonsDiv .signatureNotSignCancel {
+				margin-left: 5px;
+		}

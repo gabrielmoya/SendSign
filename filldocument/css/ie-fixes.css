@@ -26,7 +26,6 @@
 
 /* SECTION: Sign document */
 .signatureDiv {
-	/*background-color: black;*/
 	background: transparent;
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BB000000,endColorstr=#BB000000);
 }

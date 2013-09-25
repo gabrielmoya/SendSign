@@ -7,14 +7,11 @@ var FillDocument = (function () {
 	var $signatureDiv;
 	var pagesJSON;
 	
-	var canvasIE8 = true;
+	var canvasIE8 = !$('<canvas></canvas>')[0].getContext;
 		
 	// Check total number of tooltips
 	var numberOfSteps;
 	var remainingSteps;
-	
-	// Control variable to check when modal window is visible
-	//var signModal = false;
 	
 	// Track selected step, begin with welcome selected step
 	var selectedStep = 0;
@@ -71,10 +68,9 @@ var FillDocument = (function () {
 		canvas.width = $signatureDiv.find('.signatureInput').get(0).offsetWidth;
 		canvas.height = 150;
 				
-		if ( !canvas.getContext ) {
-			canvasIE8 = false;
+		if ( canvasIE8 ) {
 			G_vmlCanvasManager.initElement( canvas );
-		}		
+		}
 		var context = canvas.getContext("2d");
 
 		if (canvas.addEventListener) {
@@ -296,11 +292,36 @@ var FillDocument = (function () {
 	}
 	
 	var closeModal = function ( $signatureDiv ) {		
-		//signModal = false;
 		$('body').removeClass( "noScroll" );						
 		$signatureDiv.hide();
-		$(".signatureBackgroundDiv").hide();
+		$(".signatureWrapper").hide();
 	};
+
+	var lockScroll = function () {
+		
+	    var body = $("body");
+        var html = $("html");
+        var oldBodyOuterWidth = body.outerWidth(true);
+        var oldScrollTop = html.scrollTop();
+        var newBodyOuterWidth;
+        $("html").css("overflow-y", "hidden");
+        newBodyOuterWidth = $("body").outerWidth(true);
+        body.css("margin-right", (newBodyOuterWidth - oldBodyOuterWidth + "px"));
+		$("#topMainDiv,#topStepsDiv").css({ 'margin-right': (newBodyOuterWidth - oldBodyOuterWidth + "px") });
+        html.scrollTop(oldScrollTop); // necessary for Firefox
+        $("#signatureWrapper").css("width", newBodyOuterWidth + "px");
+		
+	}
+
+	var unlockScroll = function () {
+		
+		var html = $("html");
+        var oldScrollTop = html.scrollTop(); // necessary for Firefox.
+        html.css("overflow-y", "").scrollTop(oldScrollTop);
+        $("body").css("margin-right", 0);
+		$("#topDiv,#bottomDiv").css({ 'padding-right': 0 });
+		
+	}
 	
 	var fillDocument = function (){
 	
@@ -405,11 +426,10 @@ var FillDocument = (function () {
 				// Bind click on sign field to open the modal div
 				$inputPdfField.click(function () {
 					
-					//signModal = true;
 					$('body').addClass( "noScroll" );
 
 					// Show div and set correct width for signature canvas div
-					$(".signatureBackgroundDiv").show();
+					$(".signatureWrapper").show();
 					$signatureDiv1.show().find(".signatureCanvasDiv").css({
 						width: $signatureDiv1.find('.signatureInput').get(0).offsetWidth
 					});
@@ -491,17 +511,19 @@ var FillDocument = (function () {
 							$inputPdfField.qtip( "option", "show.target", $signatureCanvas);
 							$inputPdfField.qtip( "option", "position.target", $signatureCanvas);
 							
-							if ( canvasIE8 ) {
-								/*$signatureCanvas.css({
+							console.log( canvasIE8 );
+							
+							/*if ( canvasIE8 ) {
+								$signatureCanvas.css({
 									// Fix for IE8 set width and height css attributes
 									width: $pdfField.css( "width" ),
 									height: $pdfField.css( "height" ) 
 								}).attr({
 									// Fix for IE8 set width and height element attributes
-									width: $pdfField.css( "width" ),
-									height: $pdfField.css( "height" ) 
-								});*/
-							}
+									width: $pdfField.css( "width" ).split("px")[0],
+									height: $pdfField.css( "height" ).split("px")[0]
+								});
+							}*/
 							
 						} else {
 							
@@ -612,14 +634,12 @@ var FillDocument = (function () {
 	
 			// When focus or hover on document field activate corresponding step field
 			$inputPdfField.focus(function () {
-				//if ( !signModal ) {
-					CommonFunctions.selectStepField( $stepField );
-				//}
+				CommonFunctions.selectStepField( $stepField );
 			}).hoverIntent({
 				over : function (){
-					//if ( !signModal ) {
-						CommonFunctions.selectStepField( $stepField );
-					//}
+					CommonFunctions.selectStepField( $stepField );
+				},
+				out: function () {
 				},
 				interval: 200
 			});
@@ -627,19 +647,17 @@ var FillDocument = (function () {
 			// When click on step div scroll document to corresponding field position and focus that field
 			$stepField.click(function () {
 				
-				//if ( !signModal ) {
+				$('html, body').animate({
+					scrollTop: ( $inputPdfField.parent().offset().top - $( "#topDiv" ).height() - 300 )
+				}, 1000);
 				
-					$('html, body').animate({
-						scrollTop: ( $inputPdfField.parent().offset().top - $( "#topDiv" ).height() - 300 )
-					}, 1000);
-					
-					if ( $inputPdfField.is(":visible") ) {
-						$inputPdfField.focus();
-					} else {
-						CommonFunctions.selectStepField( $stepField );		
-						$inputPdfField.qtip( 'show' );
-					}
-				//}
+				if ( $inputPdfField.is(":visible") ) {
+					$inputPdfField.focus();
+				} else {
+					CommonFunctions.selectStepField( $stepField );		
+					$inputPdfField.qtip( 'show' );
+				}
+				
 			});
 		});
 		
@@ -657,6 +675,7 @@ var FillDocument = (function () {
 			
 	    });
 		
+		// Fill date for signature div
 		$(".signatureDate").html( (new Date()).asString( "dd/mm/yyyy" ) );
 	        
 	    // Validation for input fields
@@ -679,9 +698,6 @@ var FillDocument = (function () {
 		    			
 		    		});
 					
-					/*if ( !$( document.activeElement).hasClass( errorClass ) ) {
-						fieldSteps[$firstPDFField[0].getAttribute("id")].click();
-					}*/					
 	    		}
 	    		
 				for ( i = 0, elements = this.validElements(); elements[i]; i++ ) {
@@ -696,8 +712,44 @@ var FillDocument = (function () {
 		// Set bottom message for user
 		updateBottomMessage( remainingSteps );
 		
+		// Bind "not sign" link
+		$(".signatureNotSigning").click( function (){
+		
+			lockScroll();
+			$(".signatureWrapper,.signatureNotSignDiv").show();
+			$(".signatureNotSignTextArea").focus();
+			
+		});
+		$(".signatureNotSignTextArea").keyup( function(){
+			
+			var $textarea = $(this);
+			if ( $textarea.val() == "" ) {
+				$(".signatureNotSignDone").removeClass("activeButton");
+			} else {
+				$(".signatureNotSignDone").addClass("activeButton");
+			}
+			
+		});
+		$(".signatureNotSignClose").click( function (){
+			
+			unlockScroll();			
+			$(".signatureWrapper,.signatureNotSignDiv").hide();
+			
+		});		
+		$(".signatureNotSignDone").click( function (){
+			if ( $(".signatureNotSignTextArea").val() != "" ) {
+				// Navigate to finish page
+			}
+		});
+		$(".signatureNotSignCancel").click( function (){
+			$(".signatureNotSignTextArea").val("");
+			unlockScroll();
+			$(".signatureWrapper,.signatureNotSignDiv").hide();
+		});
+		
+		
 	};
-	
+		
 	return {
 		init : function () {
 		
