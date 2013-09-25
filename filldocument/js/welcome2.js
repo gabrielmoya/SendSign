@@ -1,18 +1,18 @@
 $(document).ready(function() {
 	
 	$("body").addClass("welcomeBody");
-	CommonFunctions.selectStepField( $("#stepStart") );
 	
 	var stepsNr = CommonVars.stepsNr();	
 	for (var index = 1; index <= stepsNr ;index++) {
-		$("#stepFinish").before($("#stepXX").clone().attr("id","step"+index));
-		$("#step"+index).html($("#stepXX").html().replaceAll("XX",index));		
+		$( "#stepFinish" ).before( $( "#stepXX" ).clone().attr( "id", "step"+index ));
+		$( "#step"+index ).html( $( "#stepXX" ).html().replaceAll( "XX", index ));		
 	};
 	
-	$("#stepXX").remove();
+	$( "#stepXX" ).remove();
+	CommonFunctions.selectStepField( $( "#stepStart" ));
 
-	$("#welcomeMessage1").html("Not received your passcode by SMS?");
-	$("#welcomeMessage2").html('Please <a class="welcomeLink" href="">click here to send it again</a>');
+	$( "#welcomeMessage1" ).html( "Not received your passcode by SMS?" );
+	$( "#welcomeMessage2" ).html( "Please <a class='welcomeLink' href=''>click here to send it again</a>" );
 
 	// Define tooltip
 	$(".passInput").qtip({
@@ -30,10 +30,10 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(".passInput").qtip("api").show();
+	$( ".passInput" ).qtip( "api" ).show();
 
-	$(".passButton").click(function () {
-		$("#content").submit();
+	$( ".passButton" ).click(function () {
+		$( "#content" ).submit();
 	});
 	
 });

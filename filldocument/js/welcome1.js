@@ -1,23 +1,23 @@
 $(document).ready(function() {
 	
 	$("body").addClass("welcomeBody");
-	CommonFunctions.selectStepField( $("#stepStart") );
 	
 	var stepsNr = CommonVars.stepsNr();
 	for (var index = 1; index <= stepsNr ;index++) {
-		$("#stepFinish").before($("#stepXX").clone().attr("id","step"+index));
-		$("#step"+index).html($("#stepXX").html().replaceAll("XX",index));		
+		$( "#stepFinish" ).before( $( "#stepXX" ).clone().attr( "id", "step"+index ));
+		$( "#step"+index ).html( $( "#stepXX" ).html().replaceAll( "XX", index ));		
 	};
-	
-	$("#stepXX").remove();
+		
+	$( "#stepXX" ).remove();	
+	CommonFunctions.selectStepField( $( "#stepStart" ));	
 
-	$("#welcomeMessage1").html("Forgot your password or don't want to sign online?");
-	$("#welcomeMessage2").html('Please <a class="welcomeLink" href="">click here to contact us</a>');
+	$( "#welcomeMessage1" ).html( "Forgot your password or don't want to sign online?" );
+	$( "#welcomeMessage2" ).html( "Please <a class='welcomeLink' href=''>click here to contact us</a>" );
 
 	// Define tooltip
-	$(".passInput").qtip({
+	$( ".passInput" ).qtip({
 		content: {
-			title: "Welcome, Paul Musgrave",
+			title: "Welcome, ",
 			text: "Before you can sign documents we need to confirm some security details.<br>To get started, please enter your password."
 		},
 		hide: false,
@@ -30,11 +30,10 @@ $(document).ready(function() {
 		}
 	});
 	
-	$(".passInput").qtip("api").show();
+	$( ".passInput" ).qtip( "api" ).show();
 
-	$(".passButton").click(function () {
-		$("#content").submit();
+	$( ".passButton" ).click( function (){
+		$( "#content" ).submit();
 	});
 	
 });
-	

@@ -15,6 +15,7 @@
         <script src="js/libs/jquery.validate.js"></script>
         <script src="js/libs/additional-methods.js"></script>
         <script src="js/libs/jquery.dates.js"></script>
+        <script src="js/libs/jquery.hoverIntent.js"></script>
 		<script src="js/index.js"></script>
 		<script src="js/filldocument.js"></script>
     </head>
@@ -27,13 +28,19 @@
 	    			</div>
     			</div>
 				<div id="topStepsDiv" class="stepsContainer">
-					<div id="stepStart" class="stepField stepFieldDisabled">
+					<div id="stepStart" class="stepField stepFieldDisabled" stepnr="0">
 						WELCOME		
 					</div>
-					<div id="stepXX" class="stepField stepFieldDisabled">
+					<div id="stepPrev" class="stepField stepFieldDisabled">
+						...
+					</div>
+					<div id="stepXX" class="stepField stepSelectableField stepFieldDisabled">
 						Step XX
 					</div>
-					<div id="stepFinish" class="stepField stepFieldDisabled">
+					<div id="stepNext" class="stepField stepFieldDisabled">
+						...
+					</div>
+					<div id="stepFinish" class="stepField stepFieldDisabled" stepnr="999">
 						FINISH
 					</div>
 				</div>
@@ -48,6 +55,7 @@
     			</div>
     		</div>
     	</form>
+		<div class="signatureBackgroundDiv" style="display:none"></div>
 		<div class="signatureDiv" style="display:none">
 			<div class="signatureTitle">
 				YOUR DIGITAL SIGNATURE
@@ -69,7 +77,7 @@
 					</div>
 				</div>
 				<div class="signatureDateDiv">
-					<span class="signatureDate"/>
+					<span class="signatureDate"></span>
 				</div>
 				<div class="signatureButtonsDiv">
 					<span class="signatureApply sendSignButton">Apply</span>
@@ -101,10 +109,10 @@
 				<div class="emailTooltip">
 					Enter valid email address
 				</div>
-			</div>		
+			</div>			
 		</div>
-		<div id="StepsNr" style="display:none">4</div>
-		<div id="pagesJSON" style="display:none">[{"nr":"1","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv1","typeOfField":"sign","top":"641","left":"102","width":"500","height":"24"},{"id":"emailDiv1","typeOfField":"email","top":"667","left":"102","width":"500","height":"20"},{"id":"commentDiv1","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"dateDiv1","typeOfField":"date","top":"809","left":"91","width":"517","height":"20"}]},{"nr":"2","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv2","typeOfField":"sign","top":"639.45","left":"102","width":"500","height":"28"}]}]</div>
+		<div id="stepsNr" style="display:none">6</div>
+		<div id="pagesJSON" style="display:none">[{"nr":"1","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv1","typeOfField":"sign","top":"641","left":"102","width":"500","height":"24"},{"id":"emailDiv1","typeOfField":"email","top":"667","left":"102","width":"500","height":"20"},{"id":"commentDiv1","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"dateDiv1","typeOfField":"date","top":"809","left":"91","width":"517","height":"20"}]},{"nr":"2","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv2","typeOfField":"sign","top":"639.45","left":"102","width":"500","height":"28"},{"id":"commentDiv3","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"commentDiv2","typeOfField":"comment","top":"809","left":"91","width":"517","height":"20"}]}]</div>
 		<div id="valuesJSON" style="display:none"></div>
 	</body>
 </html>

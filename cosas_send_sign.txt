@@ -1,9 +1,10 @@
 
-  - Cuando los pasos son muchos poner puntos suspensivos
-  - Wrappers en IE8 para canvas y modal
-  - Cuando el campo esta a la derecha del todo y se da un poco mas a la derecha se sale un pixel
+  - Suavizar el canvas en IE8
   - Escalado del canvas en IE8
-
+  - Corner en el tip de IE8  
+  - Cuando el campo esta a la derecha del todo y se da un poco mas a la derecha se sale un pixel
+  - La flecha de los steps cuando el campo esta sin seleccionar
+  - Probar lo de mostrar los steps cuando haya mas campos
 		
 			var date = today.asString( "ddXXXX mmmm yyyy" );
 			$field.html( $field.html() + today.getDayName() + ", " + date.replace("XXXX", today.getOrdinal()) );
@@ -17,3 +18,9 @@
 					left: 0px;
 					z-index: 17001;
 				}			
+
+					// Bind focus event on div to work as an overlay
+					/*$signatureDiv1.focus( function (event) {
+						event.stopImmediatePropagation();
+					});*/
+				

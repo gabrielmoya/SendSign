@@ -14,7 +14,10 @@ var FillDocument = (function () {
 	var remainingSteps;
 	
 	// Control variable to check when modal window is visible
-	var signModal = false;
+	//var signModal = false;
+	
+	// Track selected step, begin with welcome selected step
+	var selectedStep = 0;
 	
 	// Array of steps to complete
 	var steps = [];
@@ -47,7 +50,7 @@ var FillDocument = (function () {
 							'<span id="?Field" class="innerPDFField datePDFField">Date: </span>'+
 						'</div>'
 		},
-		canvas : '<canvas class="signatureCanvas"></canvas>'
+		canvas : '<div class="signatureCanvasWrapper"></div><canvas class="signatureCanvas"></canvas>'
 	};
 	
 	var setValidSignature = function ( $signatureDiv, $fakeValidationField ) {
@@ -172,7 +175,7 @@ var FillDocument = (function () {
 	var signatureSpanClickHandler = function ( $signatureSpan, $signatureDiv, $fakeValidationField ) {	
 		
 		$signatureDiv.find('.signatureInput').attr("disabled", true);
-		$signatureDiv.find('.signatureCanvas').show();
+		$signatureDiv.find('.signatureCanvasWrapper,.signatureCanvas').show();
 		createDrawer( $signatureDiv, $fakeValidationField );
 		$signatureSpan.parent().hide();
 		
@@ -206,7 +209,7 @@ var FillDocument = (function () {
 	// Validate fields, control remaining steps and enables FinishAndSend button
 	var validateField = function ( $validationField, $stepField ) {
 	
-		var valid = $validationField.valid();		
+		var valid = $validationField.valid();
 		var stepIndex = $stepField.attr( "stepnr" ) - 1;
 	
 		if ( valid ) {
@@ -293,9 +296,10 @@ var FillDocument = (function () {
 	}
 	
 	var closeModal = function ( $signatureDiv ) {		
-		signModal = false;
+		//signModal = false;
 		$('body').removeClass( "noScroll" );						
-		$signatureDiv.hide();	
+		$signatureDiv.hide();
+		$(".signatureBackgroundDiv").hide();
 	};
 	
 	var fillDocument = function (){
@@ -317,15 +321,10 @@ var FillDocument = (function () {
 				});
 			});
 		});
-		
-		// Select initial field
-		CommonFunctions.selectStepField( $("#stepStart") );
-							
+									
 		// Iterate over all input fields
-		$("#document .inputPDFField").each(function (i) {
+		$("#document .inputPDFField").each(function ( stepIndex ) {
 		
-			var stepIndex = i;
-			
 			// Get references to jquery and DOM elements for the field
 			var $inputPdfField  = $(this);
 			var inputPdfField = $inputPdfField[0];
@@ -335,27 +334,28 @@ var FillDocument = (function () {
 			var pdfField = $pdfField[0];
 			
 			// Set index for step ids and create new step
-			var index = stepIndex + 1;
-			$("#stepFinish").before( $("#stepXX").clone().attr("id","step"+index) );
-			$("#step"+index).html( $("#stepXX").html().replaceAll("XX",index) );
+			var stepNr = stepIndex + 1;
+			$( "#stepXX" ).before( $("#stepXX").clone().attr("id","step"+stepNr) );
+			$( "#step"+stepNr ).html( $("#stepXX").html().replaceAll("XX",stepNr) );
 
 			// Get jquery reference to step field and add it to array control of steps
-			var $stepField = $( "#step"+index );
-			$stepField.attr("stepnr", index);
+			var $stepField = $( "#step"+stepNr );
+			$stepField.attr( "stepnr", stepNr);
 			steps.push( {completed: false, $stepField: $stepField } );
 			
 			// Also add it to pdfField -> stepField control object
 			fieldSteps[inputPdfField.id] = $stepField;
 
 			// Clone tooltip content to create new tooltip with correct text
-			var $tooltipDiv1 = $tooltipDiv.clone().html( $tooltipDiv.html().replaceAll("?",index) );
+			var $tooltipDiv1 = $tooltipDiv.clone().html( $tooltipDiv.html().replaceAll("?",stepNr) );
 			
 			// Create tooltip
 			$inputPdfField.qtip({
 		    	content: $tooltipDiv1,
 	    		show: {
 	    			event: "focus mouseover",
-	    			solo: true
+	    			solo: true,
+					delay: 200
 	    		},
 	    		hide: "unfocus",
 	    		style: {
@@ -396,26 +396,22 @@ var FillDocument = (function () {
 				$( HTML.canvas ).appendTo( $signatureDiv1.find('.signatureCanvasDiv') ).hide();
 				
 				// Signature navigation controls: Remove back or next spans if it's the first or last step
-				if ( index == 1 ) {
+				if ( stepNr == 1 ) {
 					$signatureDiv1.find(".signatureGoBack").remove();
-				} else if ( index == numberOfSteps ) {
+				} else if ( stepNr == numberOfSteps ) {
 					$signatureDiv1.find(".signatureNext").remove();
 				}
 
 				// Bind click on sign field to open the modal div
 				$inputPdfField.click(function () {
 					
-					signModal = true;
+					//signModal = true;
 					$('body').addClass( "noScroll" );
 
 					// Show div and set correct width for signature canvas div
+					$(".signatureBackgroundDiv").show();
 					$signatureDiv1.show().find(".signatureCanvasDiv").css({
 						width: $signatureDiv1.find('.signatureInput').get(0).offsetWidth
-					});
-									
-					// Bind focus event on div to work as an overlay
-					$signatureDiv1.focus( function (event) {
-						event.stopImmediatePropagation();
 					});
 					
 				});
@@ -530,7 +526,7 @@ var FillDocument = (function () {
 				$signatureDiv1.find(".signatureReset").click( function () {
 
 					// If the user was drawing hide the created canvas
-					$signatureDiv1.find( ".signatureCanvas" ).hide();
+					$signatureDiv1.find('.signatureCanvasWrapper,.signatureCanvas').hide();
 					restartSignatureCanvas( $pdfField, $signatureDiv1, $signatureDiv, $fakeValidationField, $signatureInput, $signatureSpan );
 					
 				});
@@ -539,6 +535,8 @@ var FillDocument = (function () {
 				$tooltipDiv1.find(".tooltipDelSign").click(function () {
 				
 					// If the signature was drawn hide the created canvas
+					// Return span or canvas to the signature div
+					$signatureDiv1.find('.signatureCanvasWrapper').hide();
 					$pdfField.find( '.signatureCanvas' ).hide().appendTo( $signatureDiv1.find(".signatureCanvasDiv") );
 					$signatureSpan.appendTo( $signatureDiv1.find(".signatureSpanDiv") );
 
@@ -587,9 +585,9 @@ var FillDocument = (function () {
 			}
 			
 			// Tooltip navigation controls: Hide back or next spans if it's the first or last step
-			if (index == 1) {
+			if (stepNr == 1) {
 				$tooltipDiv1.find(".tooltipGoBack").hide();
-			} else if (index == numberOfSteps) {
+			} else if (stepNr == numberOfSteps) {
 				$tooltipDiv1.find(".tooltipNext").hide();
 			}
 			$tooltipDiv1.find(".tooltipDelSign").hide();
@@ -614,35 +612,41 @@ var FillDocument = (function () {
 	
 			// When focus or hover on document field activate corresponding step field
 			$inputPdfField.focus(function () {
-				if ( !signModal ) {
+				//if ( !signModal ) {
 					CommonFunctions.selectStepField( $stepField );
-				}
-			}).hover(function () {
-				if ( !signModal ) {
-					CommonFunctions.selectStepField( $stepField );
-				}
+				//}
+			}).hoverIntent({
+				over : function (){
+					//if ( !signModal ) {
+						CommonFunctions.selectStepField( $stepField );
+					//}
+				},
+				interval: 200
 			});
 			
 			// When click on step div scroll document to corresponding field position and focus that field
 			$stepField.click(function () {
 				
-				if ( !signModal ) {
+				//if ( !signModal ) {
+				
 					$('html, body').animate({
-						scrollTop: ($inputPdfField.parent().offset().top - $("#topDiv").height() - 300)
+						scrollTop: ( $inputPdfField.parent().offset().top - $( "#topDiv" ).height() - 300 )
 					}, 1000);
 					
-					if ($inputPdfField.is(":visible")) {
+					if ( $inputPdfField.is(":visible") ) {
 						$inputPdfField.focus();
 					} else {
-						CommonFunctions.selectStepField( $stepField );					
+						CommonFunctions.selectStepField( $stepField );		
 						$inputPdfField.qtip( 'show' );
 					}
-				}							    
-			});			
+				//}
+			});
 		});
 		
 		// Remove original stepXX field
 		$("#stepXX").remove();
+		// Select initial field
+		CommonFunctions.selectStepField( $("#stepStart") );		
 			
 		// For date field fill it with the todays date
 	    $(".datePDFField").each(function() {
@@ -701,7 +705,7 @@ var FillDocument = (function () {
 			$tooltipDiv = $(".tooltipDiv");
 			$signatureDiv = $(".signatureDiv");
 			pagesJSON = JSON.parse( $( "#pagesJSON" ).html() );
-			remainingSteps = numberOfSteps = $("#StepsNr").html();
+			remainingSteps = numberOfSteps = CommonVars.stepsNr();
 			
 			fillDocument();
 			

@@ -26,11 +26,12 @@ String.prototype.replaceAll = function(str1, str2, ignore) {
 var CommonVars = (function () {
 	return {
 		MAX_DRAGS : 5,
+		STEPS_TO_SHOW: 4,
 		stepsNr : 	function () {
-			return Number($("#stepsNr").html());
+			return Number( $( "#stepsNr" ).html() );
 		},
 		htmlContent : 	function () {
-			return $("#htmlContent").html();
+			return $( "#htmlContent" ).html();
 		},
 		typeOfFields : [ "sign", "comment", "date", "email" ]
 	};
@@ -40,9 +41,51 @@ var CommonFunctions = (function () {
 	return {
 		selectStepField : function ( $stepField ) {
 	
-			$(".stepFieldSelected").removeClass("stepFieldSelected").addClass("stepFieldDisabled");
-			$stepField.removeClass("stepFieldDisabled").addClass("stepFieldSelected");
-	
+			$( ".stepFieldSelected" ).removeClass( "stepFieldSelected" ).addClass( "stepFieldDisabled" );
+			$stepField.removeClass( "stepFieldDisabled" ).addClass( "stepFieldSelected" );
+						
+			this.showSteps( $stepField );
+			
+		},
+		showSteps : function ( $stepField ) {
+		
+			var stepsNr = CommonVars.stepsNr();
+			var selectedStep = Number( $stepField.attr( "stepnr" ) );
+			
+			$( "#stepPrev" ).hide();
+			$( "#stepNext" ).hide();
+		
+			if ( stepsNr > CommonVars.STEPS_TO_SHOW ) {
+			
+				$(".stepSelectableField").hide();
+				
+				var fieldsBack, fieldsNext;
+				
+				if ( CommonVars.STEPS_TO_SHOW % 2 == 0) {
+					fieldsBack = (CommonVars.STEPS_TO_SHOW / 2) - 1;
+					fieldsNext = (CommonVars.STEPS_TO_SHOW /2 );
+				} else {
+					fieldsBack = fieldsNext = (CommonVars.STEPS_TO_SHOW - 1) / 2;
+				}
+							
+				var stepIndex;
+				if ( selectedStep <= (CommonVars.STEPS_TO_SHOW - fieldsNext) ) {
+					$( "#stepNext" ).show();
+					for (stepIndex = 1; stepIndex <= CommonVars.STEPS_TO_SHOW; stepIndex++) {
+						$( "#step"+stepIndex ).show();
+					}	
+				} else if ( selectedStep > (stepsNr - (CommonVars.STEPS_TO_SHOW - fieldsBack) ) ) {
+					$( "#stepPrev" ).show();
+					for (stepIndex = (stepsNr - (CommonVars.STEPS_TO_SHOW - fieldsBack)); stepIndex <= stepsNr; stepIndex++) {
+						$( "#step"+stepIndex ).show();
+					}	
+				} else {
+					$( "#stepNext,#stepPrev" ).show();
+					for (stepIndex = (selectedStep - fieldsBack); stepIndex <= (selectedStep + fieldsNext); stepIndex++) {
+						$( "#step"+stepIndex ).show();
+					}	
+				}				
+			}
 		},
 		// Workaround to avoid resize of field when resize is destroyed
 		destroyResizable: function ($el) {
