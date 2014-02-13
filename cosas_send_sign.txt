@@ -3,15 +3,16 @@ Cosas pendientes
 
   - Que se quede en welcome en la pagina de Contact - OK
   - Steps que se muestren correctamente con los puntos suspensivos cuando hay muchos - OK
-	-- Dave: Hay que mandar solo los input fields en el stepsNr
-	-- Dave: Hay que mandar a las paginas de bienvenida y final tambien
+	-- Dave: Hay que mandar a las paginas de bienvenida y final tambien el pagesJSON
   - DD para razon por la que no se firma - OK
   - En la firma ancho del pincel al doble - OK
 
+  - Cuando no se firma DD obligatorio, texto no
   - En la firma click y hover en el campo entero en lugar de solo el icono
+
   - En la firma si se pinta en una se tienen que pintar todas, si se escribe una se tienen que escribir todas
+  - Para IE8 que no permita firmar dibujando
   
-    
   - En el composition que haya que meter un campo de input al menos antes de activar el boton
 
 
@@ -48,3 +49,20 @@ Cosas pendientes
 	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=6, Direction=150, Color='#888888')";
 				
 P4ssw0rd
+
+                          /* IE8 -- if (!canvas.toDataURL) {
+                              fieldSign[pdfField.id].vml = true;
+                              fieldSign[pdfField.id].value = canvas.innerHTML;
+                          } else {*/
+                          //}
+                          /* IE8 -- if ( canvasIE8 ) {
+                          $signatureCanvas.css({
+                          // Fix for IE8 set width and height css attributes
+                          width: $pdfField.css( "width" ),
+                          height: $pdfField.css( "height" ) 
+                          }).attr({
+                          // Fix for IE8 set width and height element attributes
+                          width: $pdfField.css( "width" ).split("px")[0],
+                          height: $pdfField.css( "height" ).split("px")[0]
+                          });
+                          }*/

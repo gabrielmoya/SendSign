@@ -1,12 +1,12 @@
 @font-face {
-    font-family: 'danielregular';
-    src: url('daniel-webfont.eot');
-    src: url('daniel-webfont.eot?#iefix') format('embedded-opentype'),
-         url('daniel-webfont.woff') format('woff'),
-         url('daniel-webfont.ttf') format('truetype'),
-         url('daniel-webfont.svg#danielregular') format('svg');
-    font-weight: normal;
-    font-style: normal;
+  font-family: 'danielregular';
+  src: url('daniel-webfont.eot');
+  src: url('daniel-webfont.eot?#iefix') format('embedded-opentype'),
+       url('daniel-webfont.woff') format('woff'),
+       url('daniel-webfont.ttf') format('truetype'),
+       url('daniel-webfont.svg#danielregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
 }
 
 root { 
@@ -14,23 +14,23 @@ root {
 }
 
 body {
-    font-family: sans-serif,arial,Verdana,danielregular;
-    font-size:12px;
-	background: #C8C8C8;
-	margin: 0px 0px 0px 0px;
-	padding: 0px 0px 0px 0px;
-	vertical-align: top;
+  font-family: sans-serif,arial,Verdana,danielregular;
+  font-size:12px;
+  background: #C8C8C8;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  vertical-align: top;
 }
 body.noScroll {
-	overflow: hidden;
+  overflow: hidden;
 }
 #content {
-	float: none;
+  float: none;
     width: 100%;
 }
 
 textarea {
-	resize: none;
+  resize: none;
 }
 ::-webkit-input-placeholder { /* WebKit browsers */
     color:    #C2C0C1;
@@ -45,547 +45,560 @@ textarea {
     color:    #C2C0C1;
 }
 
-.sendSignButton {
-	font: normal 20px sans-serif;
-	background: #005826;
-	color: white;
-	padding: 15px 50px;
-	border: none;
-	margin: none;
-	-moz-border-radius: 4px 4px 4px 4px;
-	-webkit-border-radius: 4px 4px 4px 4px;
-	border-radius: 4px 4px 4px 4px;
+.sendSignButton, .signatureNotSignDone {
+  font: normal 20px sans-serif;
+  background: #005826;
+  color: white;
+  padding: 15px 50px;
+  border: none;
+  margin: none;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
 }
 .sendSignButton2 {
-	font: normal 20px sans-serif;
-	background: #6E6E6E;
-	color: white;
-	padding: 15px 50px;
-	border: none;
-	margin: none;
-	-moz-border-radius: 4px 4px 4px 4px;
-	-webkit-border-radius: 4px 4px 4px 4px;
-	border-radius: 4px 4px 4px 4px;
+  font: normal 20px sans-serif;
+  background: #6E6E6E;
+  color: white;
+  padding: 15px 50px;
+  border: none;
+  margin: none;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
 }
 .sendSignButton.activeButton {
-	background: #28902D;
+  background: #28902D;
 }
 .activeButton:hover  {
-	cursor: pointer;
-	text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .spanClickable:hover {
-	cursor: pointer;
-	text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .signatureWrapper {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background-color: black;
-	opacity: .5;
-	-webkit-opacity: .5;
-	-moz-opacity: .5;
-	filter: alpha(opacity=50);
-	z-index: 17000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+  opacity: .5;
+  -webkit-opacity: .5;
+  -moz-opacity: .5;
+  filter: alpha(opacity=50);
+  z-index: 17000;
 }
 
 /* SECTION: Top bar */
 #topDiv {
-	position: fixed;
-	top: 0;
-	width: 100%;
-	height: 160px;
-	background: #FFFFFF;	
-	-moz-box-shadow: 1px 5px 5px #888888;
-	-webkit-box-shadow: 1px 5px 5px #888888;
-	box-shadow: 1px 5px 5px #888888;
-	z-index: 16000;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 160px;
+  background: #FFFFFF;  
+  -moz-box-shadow: 1px 5px 5px #888888;
+  -webkit-box-shadow: 1px 5px 5px #888888;
+  box-shadow: 1px 5px 5px #888888;
+  z-index: 16000;
 }
-	#topDiv #topMainDiv #photoContainer {
-		margin-left: 20px;
-		margin-bottom: 10px;
-	}
-		#topDiv #topMainDiv  #photoContainer #sampleTitle {
-			height: 80px;
-		}
-	
-	#topDiv #topStepsDiv{
-		margin-left: 20px;
-	}
+  #topDiv #topMainDiv #photoContainer {
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+    #topDiv #topMainDiv  #photoContainer #sampleTitle {
+			height: 84px;
+    }
+  
+  #topDiv #topStepsDiv{
+    margin-left: 20px;
+  }
 
 .stepField {
-	position: relative;
-	display: inline-block;
-	font: bold 15px sans-serif;
-	padding: 10px;
-	padding-left: 30px;
-	margin: -1px;
-	-moz-border-radius: 4px 0px 0px 4px;
-	-webkit-border-radius: 4px 0px 0px 4px;
-	border-radius: 4px 0px 0px 4px;
+  position: relative;
+  display: inline-block;
+  font: bold 15px sans-serif;
+  padding: 10px;
+  padding-left: 30px;
+  margin: -1px;
+  -moz-border-radius: 4px 0px 0px 4px;
+  -webkit-border-radius: 4px 0px 0px 4px;
+  border-radius: 4px 0px 0px 4px;
 }
 .stepFieldDisabled.stepSelectableField:hover {
-	cursor: pointer;
-	text-decoration: underline;
-	color: #AAAAAA;
+  cursor: pointer;
+  text-decoration: underline;
+  color: #AAAAAA;
 }
 .stepFieldDisabled {
-	color: #9D9D9D;
-	background: rgba(255, 255, 255, 0);
-	border-top: 1px solid #9D9D9D;
-	border-bottom: 1px solid #9D9D9D;
-	cursor: text;
-	z-index: 16001;
+  color: #9D9D9D;
+  background: rgba(255, 255, 255, 0);
+  border-top: 1px solid #9D9D9D;
+  border-bottom: 1px solid #9D9D9D;
+  cursor: text;
+  z-index: 16001;
 }
 .stepFieldSelected {
-	color: #F8F8F8;
-	background: #1086DE;
-	cursor: text;
-	border-top: 1px solid #1086DE;
-	border-bottom: 1px solid #1086DE;
-	border-right: 1px solid #1086DE;
-	-webkit-filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
-	filter: url(shadow.svg#drop-shadow);
-	z-index: 16002;
+  color: #F8F8F8;
+  background: #1086DE;
+  cursor: text;
+  border-top: 1px solid #1086DE;
+  border-bottom: 1px solid #1086DE;
+  border-right: 1px solid #1086DE;
+  -webkit-filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+  filter: url(shadow.svg#drop-shadow);
+  z-index: 16002;
 }
 .stepFieldDisabled[stepnr="0"] {
-	border-left: 1px solid #9D9D9D;
+  border-left: 1px solid #9D9D9D;
 }
 .stepFieldSelected[stepnr="0"] {
-	border-left: 1px solid #1086DE;
-	-moz-border-radius: 4px 4px 4px 4px;
-	-webkit-border-radius: 4px 4px 4px 4px;
-	border-radius: 4px 4px 4px 4px;
+  border-left: 1px solid #1086DE;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
 }
-	/* Arrow for selected field */
-	.stepFieldSelected:after, .stepFieldSelected:before, .stepFieldDisabled:after, .stepFieldDisabled:before {
-		left: 100%;
-		border: solid transparent;
-		content: " ";
-		height: 0;
-		width: 0;
-		position: absolute;
-	}
-	.stepFieldSelected:after {
-		border-color: rgba(136, 183, 213, 0);
-		border-left-color: #1086DE;
-		border-width: 19px;
-		top: 50%;
-		margin-top: -19px;
-	}
-	.stepFieldSelected:before {
-		border-color: rgba(194, 225, 245, 0);
-		border-left-color: #1086DE;
-		border-width: 20px;
-		top: 50%;
-		margin-top: -20px;
-	}
-	.stepFieldDisabled:after {
-		border-color: rgba(255, 255, 255, 0);
-		border-left-color: #FFFFFF;
-		border-width: 19px;
-		top: 50%;
-		margin-top: -19px;
-	}
-	.stepFieldDisabled:before {
-		border-color: rgba(157, 157, 157, 0);
-		border-left-color: #9D9D9D;
-		border-width: 20px;
-		top: 50%;
-		margin-top: -20px;
-	}
+  /* Arrow for selected field */
+  .stepFieldSelected:after, .stepFieldSelected:before, .stepFieldDisabled:after, .stepFieldDisabled:before {
+    left: 100%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+  }
+  .stepFieldSelected:after {
+    border-color: rgba(136, 183, 213, 0);
+    border-left-color: #1086DE;
+    border-width: 19px;
+    top: 50%;
+    margin-top: -19px;
+  }
+  .stepFieldSelected:before {
+    border-color: rgba(194, 225, 245, 0);
+    border-left-color: #1086DE;
+    border-width: 20px;
+    top: 50%;
+    margin-top: -20px;
+  }
+  .stepFieldDisabled:after {
+    border-color: rgba(255, 255, 255, 0);
+    border-left-color: #FFFFFF;
+    border-width: 19px;
+    top: 50%;
+    margin-top: -19px;
+  }
+  .stepFieldDisabled:before {
+    border-color: rgba(157, 157, 157, 0);
+    border-left-color: #9D9D9D;
+    border-width: 20px;
+    top: 50%;
+    margin-top: -20px;
+  }
 .stepFieldSelected.stepFieldCompleted {
-	background: #28902D;
-	border-top: 1px solid #28902D;
-	border-bottom: 1px solid #28902D;
+  background: #28902D;
+  border-top: 1px solid #28902D;
+  border-bottom: 1px solid #28902D;
 }
-	.stepFieldSelected.stepFieldCompleted:after {
-		border-color: rgba(40, 144, 95, 0);
-		border-left-color: #28902D;
-	}
-	.stepFieldSelected.stepFieldCompleted:before {
-		border-color: rgba(40, 144, 95, 0);
-		border-left-color: #28902D;
-	}
-	
+  .stepFieldSelected.stepFieldCompleted:after {
+    border-color: rgba(40, 144, 95, 0);
+    border-left-color: #28902D;
+  }
+  .stepFieldSelected.stepFieldCompleted:before {
+    border-color: rgba(40, 144, 95, 0);
+    border-left-color: #28902D;
+  }
+  
 /* SECTION: Viewer */
 
-	#content #document {
-		position: relative;
-		margin-left: 50px;		
-		width: 700px;
-	}
+  #content #document {
+    position: relative;
+    margin-left: 50px;    
+    width: 700px;
+  }
 
-		#content #document #innerDocument {
-			margin-top: 160px;
-			margin-bottom: 80px;
-		}
+    #content #document #innerDocument {
+      margin-top: 160px;
+      margin-bottom: 80px;
+    }
 
-		#content #document #innerDocument img {
-			width: 700px;
-		}
-		
-		#content #document #innerDocument .PDFPage {
-			position: relative;
-			clear: both;
-			margin-top: 30px;
-		}
+    #content #document #innerDocument img {
+      width: 700px;
+    }
+    
+    #content #document #innerDocument .PDFPage {
+      position: relative;
+      clear: both;
+      margin-top: 30px;
+    }
 
-			#content #document #innerDocument .PDFPage .PDFField {
-				vertical-align: top;
-				border: thin solid black;
-				background: #F8F8F8;
-				text-align: left;
-			}
-			
-				#content #document #innerDocument .PDFPage .PDFField .inputPDFField {
-					vertical-align: top;
-				}
-				#content #document #innerDocument .PDFPage .PDFField .commentPDFField,
-				#content #document #innerDocument .PDFPage .PDFField .emailPDFField,
-				#content #document #innerDocument .PDFPage .PDFField .signatureSpan,
-				#content #document #innerDocument .PDFPage .PDFField .signatureCanvas {
-					width: 100%;
-					height: 100%;
-					padding: 0;
-					margin: 0;
-					border: none;
-				}
-				#content #document #innerDocument .PDFPage .PDFField .signPDFField {
-					width: 16px;
-					height: 16px;
-				}
-				#content #document #innerDocument .PDFPage .PDFField .inputPDFFieldError {
-					background: #EC5D5D;
-				}
+      #content #document #innerDocument .PDFPage .PDFField {
+        vertical-align: top;
+        border: thin solid black;
+        background: #F8F8F8;
+        text-align: left;
+      }
+      
+        #content #document #innerDocument .PDFPage .PDFField .inputPDFField {
+          vertical-align: top;
+        }
+        #content #document #innerDocument .PDFPage .PDFField .commentPDFField,
+        #content #document #innerDocument .PDFPage .PDFField .emailPDFField,
+        #content #document #innerDocument .PDFPage .PDFField .signContainer,
+        #content #document #innerDocument .PDFPage .PDFField .signContainer .signatureSpan,
+        #content #document #innerDocument .PDFPage .PDFField .signContainer .signatureCanvas {
+          width: 100%;
+          height: 100%;
+          padding: 0;
+          margin: 0;
+          border: none;
+        }
+        #content #document #innerDocument .PDFPage .PDFField .signPDFField {
+          width: 100%;
+          height: 100%;
+        }
+        #content #document #innerDocument .PDFPage .PDFField .signPDFField:hover {
+          cursor: pointer;
+        }
+        #content #document #innerDocument .PDFPage .PDFField .signPDFField .signIcon {
+          width: 16px;
+          height: 16px;
+        }
+        #content #document #innerDocument .PDFPage .PDFField .inputPDFFieldError {
+          background: #EC5D5D;
+        }
 
 /* SECTION: Bottom bar*/
-	#content #bottomDiv {
-		display: table;
-		position: fixed;
-		bottom: 0;
-		width: 100%;
-		height: 80px;
-		background: rgba(0, 0, 0, 0.8);
-		z-index: 16000;
-	}
-	#content #bottomDiv #bottomDivMessage {
-		position:relative;
-		vertical-align: middle;
-		text-align: center;
-		margin-top: 10px;
-		text-align: center;
-		width: 800px;
-	}
-		#content #bottomDiv #bottomDivMessage #bottomMessage {
-			display: inline;
-			font: bold 20px sans-serif;
-			color: white;
-		}
-		#content #bottomDiv #bottomDivMessage #bottomMessage .bottomMessageLink {
-			color: #1086DE;
-			text-decoration: underline;
-		}
-	#content #bottomDiv #bottomDivMessage1 {
-		position:relative;
-		vertical-align: middle;
-		text-align: center;
-		width: 800px;
-		margin-top: -10px;
-	}
-		#content #bottomDiv #bottomDivMessage1 .signatureNotSigning {
+  #content #bottomDiv {
+    display: table;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 80px;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 16000;
+  }
+  #content #bottomDiv #bottomDivMessage {
+    position:relative;
+    vertical-align: middle;
+    text-align: center;
+    margin-top: 10px;
+    text-align: center;
+    width: 800px;
+  }
+    #content #bottomDiv #bottomDivMessage #bottomMessage {
+      display: inline;
+      font: bold 20px sans-serif;
+      color: white;
+    }
+    #content #bottomDiv #bottomDivMessage #bottomMessage .bottomMessageLink {
+      color: #1086DE;
+      text-decoration: underline;
+    }
+  #content #bottomDiv #bottomDivMessage1 {
+    position:relative;
+    vertical-align: middle;
+    text-align: center;
+    width: 800px;
+    margin-top: -10px;
+		margin-left: -40px;
+  }
+    #content #bottomDiv #bottomDivMessage1 .signatureNotSigning {
+      color: #FFFFFF;
+      font: normal 10px sans-serif;
+      text-decoration: underline;
+    }
+#content #bottomDiv #bottomDivMessage1 .previewDocument {
 			color: #FFFFFF;
 			font: normal 10px sans-serif;
 			text-decoration: underline;
 		}
-
 .qtip {
-	max-width: 500px !important;
-	min-width: 450px !important;
+  max-width: 500px !important;
+  min-width: 450px !important;
 }
 
 /*! Send sign tooltip style */
 .qtip-sendsign {
-	background-color: rgba(0, 0, 0, 0.6);
-	border-style: none;
-	color: #FFFFFF;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-style: none;
+  color: #FFFFFF;
 }
-	.qtip-sendsign .tooltipTitle {
-		background-color: #1086DE;
-		font: bold 12px sans-serif;
-		padding: 10px;
-		-moz-border-radius: 4px 4px 4px 4px;
-		-webkit-border-radius: 4px 4px 4px 4px;
-		border-radius: 4px 4px 4px 4px;
-		-moz-box-shadow: 0px 5px 5px #000000;
-		-webkit-box-shadow: 0px 5px 5px #000000;
-		box-shadow: 0px 5px 5px #000000;
-	}
-	
-	.qtip-sendsign-completed .tooltipTitle {
-		background-color: #28902D;
-	}
-	.qtip-sendsign .tooltipNav {
-		float: right;
-		font: normal 11px sans-serif !important;
-	}
-		
-		.qtip-sendsign .tooltipNav span {
-			margin-left: 3px;
-		}		
-		
-		.qtip-sendsign span:hover {
-			text-decoration: underline;
-			cursor: pointer;
-		}
+  .qtip-sendsign .tooltipTitle {
+    background-color: #1086DE;
+    font: bold 12px sans-serif;
+    padding: 10px;
+    -moz-border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
+    -moz-box-shadow: 0px 5px 5px #000000;
+    -webkit-box-shadow: 0px 5px 5px #000000;
+    box-shadow: 0px 5px 5px #000000;
+  }
+  
+  .qtip-sendsign-completed .tooltipTitle {
+    background-color: #28902D;
+  }
+  .qtip-sendsign .tooltipNav {
+    float: right;
+    font: normal 11px sans-serif !important;
+  }
+    
+    .qtip-sendsign .tooltipNav span {
+      margin-left: 3px;
+    }   
+    
+    .qtip-sendsign span:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
 
-	.qtip-sendsign .tooltipContent {
-		font: bold 12px sans-serif;
-		padding: 10px;
-	}
+  .qtip-sendsign .tooltipContent {
+    font: bold 12px sans-serif;
+    padding: 10px;
+  }
 
 /* WELCOME Page */
 .welcomeBody {
-	background: #000000;
-	vertical-align: top;
-	color: #FFFFFF;
+  background: #000000;
+  vertical-align: top;
+  color: #FFFFFF;
 }
 
 .welcomeContent {
-	width: 700px;
-	margin-left: 50px;
+  width: 700px;
+  margin-left: 50px;
 }
 
-	.welcomeContent a {
-		color: #FFFFFF;
-	}
+  .welcomeContent a {
+    color: #FFFFFF;
+  }
 
-	.welcomeContent .welcomeDiv {
-		height: 100%;
-		width: 100%;
-		margin-top: 350px;
-		margin-bottom: 80px;
-		text-align: left;
-	}
+  .welcomeContent .welcomeDiv {
+    height: 100%;
+    width: 100%;
+    margin-top: 350px;
+    margin-bottom: 80px;
+    text-align: left;
+  }
 
-	.welcomeContent .welcomeDiv .welcomeInputDiv {
-		display: inline;
-		vertical-align: middle;
-	}
+  .welcomeContent .welcomeDiv .welcomeInputDiv {
+    display: inline;
+    vertical-align: middle;
+  }
 
-		.welcomeContent .welcomeDiv .welcomeInputDiv .passInput {
-			font: bold 40px sans-serif;
-			width: 500px;
-			margin-left: 10px;
-			margin-right: 10px;
-			float: left;
-			padding: 3px;
-		}
+    .welcomeContent .welcomeDiv .welcomeInputDiv .passInput {
+      font: bold 40px sans-serif;
+      width: 500px;
+      margin-left: 10px;
+      margin-right: 10px;
+      float: left;
+      padding: 3px;
+    }
 
-	.welcomeContent .welcomeDiv .welcomeMessage {
-		margin-left: 30px;
-		margin-top: 10px;
-		font: normal 15px sans-serif;
-	}
+  .welcomeContent .welcomeDiv .welcomeMessage {
+    margin-left: 30px;
+    margin-top: 10px;
+    font: normal 15px sans-serif;
+  }
 
 .qtip-welcome {
-	background-color: #1086DE;
-	border-color: #FFFFFF;
-	color: #FFFFFF;
-	padding: 10px 10px 10px 10px;
-	text-align: left;
+  background-color: #1086DE;
+  border-color: #FFFFFF;
+  color: #FFFFFF;
+  padding: 10px 10px 10px 10px;
+  text-align: left;
 }
 
-	.qtip-welcome .qtip-titlebar {
-		background-color: #1086DE;
-		font: bold 20px sans-serif;
-		padding: 5px;
-	}
+  .qtip-welcome .qtip-titlebar {
+    background-color: #1086DE;
+    font: bold 20px sans-serif;
+    padding: 5px;
+  }
 
-	.qtip-welcome .qtip-content {
-		font: normal 15px sans-serif;
-		margin-top: 5px;
-	}
+  .qtip-welcome .qtip-content {
+    font: normal 15px sans-serif;
+    margin-top: 5px;
+  }
 
 /* FINISH and CONTACT Pages */
 .finishBody, .contactBody {
-	background: #000000;
-	vertical-align: top;
-	color: #FFFFFF;
+  background: #000000;
+  vertical-align: top;
+  color: #FFFFFF;
 }
 
 .finishContent, .contactContent {
-	background-color: #1086DE;
-	border: 1px solid #FFFFFF;
-	padding: 30px;
-	margin-top: 300px;
-	width: 700px;
-	-moz-border-radius: 4px 4px 4px 4px;
-	-webkit-border-radius: 4px 4px 4px 4px;
-	border-radius: 4px 4px 4px 4px;
+  background-color: #1086DE;
+  border: 1px solid #FFFFFF;
+  padding: 30px;
+  margin-top: 300px;
+  width: 700px;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
 }
 
 .finishMessage, .contactMessage {
-	margin-left: 30px;
-	font: normal 30px sans-serif;
+  margin-left: 30px;
+  font: normal 30px sans-serif;
 }
 
 /* SECTION: Sign document */
 .signatureDiv {
-	position: fixed;
-	top: 160px;
-	bottom: 80px;
-	left: 0;
-	right: 0;
-	color:#FFFFFF;
-	background-color:rgba(0,0,0,0.8);
-	padding:12px;
-	z-index: 17001;
+  position: fixed;
+  top: 160px;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  color:#FFFFFF;
+  background-color:rgba(0,0,0,0.8);
+  padding:12px;
+  z-index: 17001;
 }
-	.signatureDiv .signatureTitle {
-		text-align: left;
-		background-color: #1086DE;
-		font: bold 12px sans-serif;
-		padding: 10px;
-		width: 750px;
-		margin: 0 auto;
-		-moz-border-radius: 4px 4px 4px 4px;
-		-webkit-border-radius: 4px 4px 4px 4px;
-		border-radius: 4px 4px 4px 4px;
-	}
+  .signatureDiv .signatureTitle {
+    text-align: left;
+    background-color: #1086DE;
+    font: bold 12px sans-serif;
+    padding: 10px;
+    width: 750px;
+    margin: 0 auto;
+    -moz-border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
+  }
 
-		.signatureDiv .signatureTitle  .signatureNav {
-			float: right;
-			font: normal 11px sans-serif !important;
-		}
-		
-			.signatureDiv .signatureTitle  .signatureNav span {
-				margin-left: 10px;
-			}
+    .signatureDiv .signatureTitle  .signatureNav {
+      float: right;
+      font: normal 11px sans-serif !important;
+    }
+    
+      .signatureDiv .signatureTitle  .signatureNav span {
+        margin-left: 10px;
+      }
 
-			.signatureDiv .signatureTitle  .signatureNav span:hover {
-				text-decoration: underline;
-				cursor: pointer;
-			}
+      .signatureDiv .signatureTitle  .signatureNav span:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
 
-	.signatureDiv .signatureContent {
-		clear: both;
-		width: 750px;
-		padding-top: 20px;
-		text-align: left;
-		margin: 0 auto;
-		font: bold 11px sans-serif;
-	}
-		.signatureDiv .signatureContent div {
-			margin: 0 0 20px 0;
-		}
-			.signatureDiv .signatureContent .signatureInputDiv {
-				width: 100%;
-			}
-			.signatureDiv .signatureContent .signatureInputDiv  .signatureInput {
-				width: 98%;
-			}
-			.signatureDiv .signatureContent .signatureCanvasDiv {
-				position: relative;
-				width: 100%;
-				height: 150px;
-				border: 1px solid #000000;
-				background-color: white;
-			}			
-				.signatureDiv .signatureContent .signatureCanvasDiv .signatureSpanDiv {
-					width: 100%;
-					height: 50px;
-					margin-top: 50px;
-					padding: 10px;
-				}
-				.signatureDiv .signatureContent .signatureCanvasDiv .signatureSpan {
-					color: #5D5D5D;
-				}
-				.signatureDiv .signatureContent .signatureCanvasDiv .signatureCanvasWrapper {
-					position: absolute;
-					top: 0px;
-					width: 100%;
-					height: 150px;
-					background-color: white;
-					opacity: .0;
-					-webkit-opacity: .0;
-					-moz-opacity: .0;
-					filter: alpha(opacity=0);
-					z-index: 17003;
-				}
-				.signatureDiv .signatureContent .signatureCanvasDiv .signatureCanvas {
-					position: absolute;
-					top: 0px;
-					z-index: 17004;					
-				}			
-			.signatureDiv .signatureContent .signatureDateDiv {
-				position: relative;
-				top: -50px;
-				left: 20px;
-				color: #7CB5E2;
-				z-index: 17002;
-			}
-			.signatureDiv .signatureContent .signatureButtonsDiv {
-			}			
-				.signatureDiv .signatureContent .signatureButtonsDiv .signatureReset {
-					margin-left: 5px;
-				}
-			
+  .signatureDiv .signatureContent {
+    clear: both;
+    width: 750px;
+    padding-top: 20px;
+    text-align: left;
+    margin: 0 auto;
+    font: bold 11px sans-serif;
+  }
+    .signatureDiv .signatureContent div {
+      margin: 0 0 20px 0;
+    }
+      .signatureDiv .signatureContent .signatureInputDiv {
+        width: 100%;
+      }
+      .signatureDiv .signatureContent .signatureInputDiv  .signatureInput {
+        width: 98%;
+      }
+      .signatureDiv .signatureContent .signatureCanvasDiv {
+        position: relative;
+        width: 100%;
+        height: 150px;
+        border: 1px solid #000000;
+        background-color: white;
+      }     
+        .signatureDiv .signatureContent .signatureCanvasDiv .signatureSpanDiv {
+          width: 100%;
+          height: 50px;
+          margin-top: 50px;
+          padding: 10px;
+        }
+        .signatureDiv .signatureContent .signatureCanvasDiv .signatureSpan {
+          color: #5D5D5D;
+        }
+        .signatureDiv .signatureContent .signatureCanvasDiv .signatureCanvasWrapper {
+          position: absolute;
+          top: 0px;
+          width: 100%;
+          height: 150px;
+          background-color: white;
+          opacity: .0;
+          -webkit-opacity: .0;
+          -moz-opacity: .0;
+          filter: alpha(opacity=0);
+          z-index: 17003;
+        }
+        .signatureDiv .signatureContent .signatureCanvasDiv .signatureCanvas {
+          position: absolute;
+          top: 0px;
+          z-index: 17004;         
+        }     
+      .signatureDiv .signatureContent .signatureDateDiv {
+        position: relative;
+        top: -50px;
+        left: 20px;
+        color: #7CB5E2;
+        z-index: 17002;
+      }
+      .signatureDiv .signatureContent .signatureButtonsDiv {
+      }     
+        .signatureDiv .signatureContent .signatureButtonsDiv .signatureReset {
+          margin-left: 5px;
+        }
+      
 .signatureSpanHandWriting {
-	font: normal 30px danielregular;
+  font: normal 30px danielregular;
 }
 /* SECTION: Sign document */
 .signatureNotSignDiv {
-	position: fixed;
-	top: 160px;
-	bottom: 80px;
-	left: 0;
-	right: 0;
-	color:#FFFFFF;
-	background-color:rgba(0,0,0,0.8);
-	padding:12px;
-	z-index: 17001;
+  position: fixed;
+  top: 160px;
+  bottom: 80px;
+  left: 0;
+  right: 0;
+  color:#FFFFFF;
+  background-color:rgba(0,0,0,0.8);
+  padding:12px;
+  z-index: 17001;
 }
-	.signatureNotSignDiv .signatureNotSignTitle {
-		text-align: left;
-		background-color: #1086DE;
-		font: bold 12px sans-serif;
-		padding: 10px;
-		width: 750px;
-		margin: 0 auto;
-		-moz-border-radius: 4px 4px 4px 4px;
-		-webkit-border-radius: 4px 4px 4px 4px;
-		border-radius: 4px 4px 4px 4px;
-	}
-		.signatureNotSignDiv .signatureNotSignTitle  .signatureNotSignNav {
-			float: right;
-			font: normal 11px sans-serif !important;
-		}
-		
-			.signatureNotSignDiv .signatureNotSignTitle  .signatureNotSignNav span {
-				margin-left: 10px;
-			}
+  .signatureNotSignDiv .signatureNotSignTitle {
+    text-align: left;
+    background-color: #1086DE;
+    font: bold 12px sans-serif;
+    padding: 10px;
+    width: 750px;
+    margin: 0 auto;
+    -moz-border-radius: 4px 4px 4px 4px;
+    -webkit-border-radius: 4px 4px 4px 4px;
+    border-radius: 4px 4px 4px 4px;
+  }
+    .signatureNotSignDiv .signatureNotSignTitle  .signatureNotSignNav {
+      float: right;
+      font: normal 11px sans-serif !important;
+    }
+    
+      .signatureNotSignDiv .signatureNotSignTitle  .signatureNotSignNav span {
+        margin-left: 10px;
+      }
 
-	.signatureNotSignDiv .signatureNotSignContent {
-		clear: both;
-		width: 750px;
-		padding-top: 20px;
-		text-align: left;
-		margin: 0 auto;
-		font: bold 11px sans-serif;
-	}
-		.signatureNotSignDiv .signatureNotSignContent div {
-			margin: 0 0 20px 0;
-		}
-		.signatureNotSignDiv .signatureNotSignContent .signatureNotSignTextArea {
-			width: 700px;
-			height: 300px;
-		}
-		.signatureNotSignDiv .signatureNotSignContent .signatureNotSignButtonsDiv .signatureNotSignCancel {
-				margin-left: 5px;
-		}
+  .signatureNotSignDiv .signatureNotSignContent {
+    clear: both;
+    width: 750px;
+    padding-top: 20px;
+    text-align: left;
+    margin: 0 auto;
+    font: bold 11px sans-serif;
+  }
+    .signatureNotSignDiv .signatureNotSignContent div {
+      margin: 0 0 20px 0;
+    }
+    .signatureNotSignDiv .signatureNotSignContent .signatureNotSignTextArea {
+      width: 700px;
+      height: 300px;
+    }
+    .signatureNotSignDiv .signatureNotSignContent .signatureNotSignButtonsDiv .signatureNotSignCancel {
+        margin-left: 5px;
+    }

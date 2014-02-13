@@ -1,24 +1,18 @@
 $(document).ready(function() {
-	
-	$("body").addClass("welcomeBody");
-	
-	var stepsNr = CommonVars.stepsNr();
-	for (var index = 1; index <= stepsNr ;index++) {
-		$( "#stepFinish" ).before( $( "#stepXX" ).clone().attr( "id", "step"+index ));
-		$( "#step"+index ).html( $( "#stepXX" ).html().replaceAll( "XX", index ));		
-	};
-		
-	$( "#stepXX" ).remove();	
-	CommonFunctions.selectStepField( $( "#stepStart" ));	
 
-	$( "#welcomeMessage1" ).html( "Forgot your password or don't want to sign online?" );
-	$( "#welcomeMessage2" ).html( "Please <a class='welcomeLink' href=''>click here to contact us</a>" );
+  $("body").addClass("welcomeBody");
 
-	// Define tooltip
-	$( ".passInput" ).qtip({
+  CommonFunctions.createSteps();
+  CommonFunctions.selectStepField( $( "#stepStart" ));
+
+  $( "#welcomeMessage1" ).html( "Forgot your password or don't want to sign online?" );
+  $( "#welcomeMessage2" ).html( "Please <a class='welcomeLink' href='/Contact.aspx'>click here to contact us</a>" );
+
+  // Define tooltip
+  $( ".passInput" ).qtip({
 		content: {
-			title: "Welcome, ",
-			text: "Before you can sign documents we need to confirm some security details.<br>To get started, please enter your password."
+          title: $(".passInput").attr("banner"),
+		  text: $(".passInput").attr("message")
 		},
 		hide: false,
 		style: {

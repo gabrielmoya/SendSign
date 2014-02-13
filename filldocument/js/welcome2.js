@@ -1,24 +1,17 @@
 $(document).ready(function() {
-	
-	$("body").addClass("welcomeBody");
-	
-	var stepsNr = CommonVars.stepsNr();	
-	for (var index = 1; index <= stepsNr ;index++) {
-		$( "#stepFinish" ).before( $( "#stepXX" ).clone().attr( "id", "step"+index ));
-		$( "#step"+index ).html( $( "#stepXX" ).html().replaceAll( "XX", index ));		
-	};
-	
-	$( "#stepXX" ).remove();
-	CommonFunctions.selectStepField( $( "#stepStart" ));
+
+  $("body").addClass("welcomeBody");
+
+  CommonFunctions.createSteps();
+  CommonFunctions.selectStepField( $( "#stepStart" ));
 
 	$( "#welcomeMessage1" ).html( "Not received your passcode by SMS?" );
-	$( "#welcomeMessage2" ).html( "Please <a class='welcomeLink' href=''>click here to send it again</a>" );
 
 	// Define tooltip
 	$(".passInput").qtip({
 		content: {
-			title: "Thank you. Please check your mobile phone.",
-			text: "We have just sent an SMS to your mobile phone.<br>Please enter this passcode to continue."
+		title: $(".passInput").attr("banner"),
+		text: $(".passInput").attr("message")
 		},
 		hide: false,
 		style: {

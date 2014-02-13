@@ -232,7 +232,7 @@ function getHTML() {
 		});
 
 		pages.push( page );
-														
+
 	});				
 	
 	$( "#ctl00_ctl00_MainContent_MainContent_hidPageCount" ).html( $( ".innerDocument .PDFField" ).length );

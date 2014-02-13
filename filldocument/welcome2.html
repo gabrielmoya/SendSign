@@ -17,18 +17,24 @@
 					<img id="sampleTitle" src="images/sampleTitle.png"/>
 				</div>
 			</div>
-			<div id="topStepsDiv" class="stepsContainer">
-				<div id="stepStart" class="stepField stepFieldDisabled" stepnr="0">
-					WELCOME		
-				</div>
-				<div id="stepXX" class="stepField stepFieldDisabled">
-					STEP XX
-				</div>
-				<div id="stepFinish" class="stepField stepFieldDisabled" stepnr="999">
-					FINISH
-				</div>
-			</div>
-		</div>
+      <div id="topStepsDiv" class="stepsContainer">
+        <div id="stepStart" class="stepField stepFieldDisabled" stepnr="0">
+          WELCOME		
+        </div>
+        <div id="stepPrev" class="stepField stepFieldDisabled">
+          ...
+        </div>
+        <div id="stepXX" class="stepField stepSelectableField stepFieldDisabled">
+          STEP XX
+        </div>
+        <div id="stepNext" class="stepField stepFieldDisabled">
+          ...
+        </div>
+        <div id="stepFinish" class="stepField stepFieldDisabled" stepnr="999">
+          FINISH
+        </div>
+      </div>
+    </div>
 		<div class="welcomeContent">
 			<form id="content" method="get" action="filldocument.html">
 				<div class="welcomeDiv">
@@ -43,6 +49,6 @@
 				</div>
 			</form>
 		</div>
-		<div id="stepsNr" style="display:none">3</div>
+		<div id="pagesJSON" style="display:none">[{"nr":"1","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv1","typeOfField":"sign","top":"641","left":"102","width":"500","height":"24"},{"id":"emailDiv1","typeOfField":"email","top":"667","left":"102","width":"500","height":"20"},{"id":"commentDiv1","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"dateDiv1","typeOfField":"date","top":"809","left":"91","width":"517","height":"20"}]},{"nr":"2","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv2","typeOfField":"sign","top":"639.45","left":"102","width":"500","height":"28"},{"id":"commentDiv3","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"commentDiv2","typeOfField":"comment","top":"809","left":"91","width":"517","height":"20"}]}]</div>
     </body>
 </html>
