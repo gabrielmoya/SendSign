@@ -1,13 +1,7 @@
-/* 
-    Document   : index
-    Created on : 27-feb-2013, 10:03:46
-    Author     : Gabriel
-    Description:
-        CSS for Fill documents section.
-*/
-
 /* SECTION: Top bar */
-
+#topDiv {
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=6, Direction=135, Color='#888888')";
+}
 /* Arrow for selected field */
 /* SECTION: Viewer */
 /* SECTION: Bottom bar*/
@@ -19,9 +13,13 @@
 /*! Send sign tooltip style */
 .qtip-sendsign {
 	background: transparent;
+}
+.qtip-sendsign .qtip-tip {
+    filter: alpha(opacity=50);
+}
+.qtip-sendsign .qtip-content {
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#80000000,endColorstr=#80000000);
 }
-
 /* WELCOME Page */
 
 /* SECTION: Sign document */

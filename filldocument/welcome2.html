@@ -18,13 +18,13 @@
 				</div>
 			</div>
 			<div id="topStepsDiv" class="stepsContainer">
-				<div id="stepStart" class="stepField stepFieldDisabled">
+				<div id="stepStart" class="stepField stepFieldDisabled" stepnr="0">
 					WELCOME		
 				</div>
 				<div id="stepXX" class="stepField stepFieldDisabled">
-					Step XX
+					STEP XX
 				</div>
-				<div id="stepFinish" class="stepField stepFieldDisabled">
+				<div id="stepFinish" class="stepField stepFieldDisabled" stepnr="999">
 					FINISH
 				</div>
 			</div>
@@ -34,7 +34,7 @@
 				<div class="welcomeDiv">
 					<div class="welcomeInputDiv">
 						<input class="passInput" type="text" placeholder="Enter passcode"/>
-						<span class="passButton sendSignButton activeButton">Enter</span>
+						<input type="submit" class="passButton sendSignButton" value="Enter"></input>
 					</div>
 					<div id="welcomeMessage1" class="welcomeMessage">
 					</div>
@@ -43,8 +43,6 @@
 				</div>
 			</form>
 		</div>
-		<div id="stepsNr" style="display:none">
-		3
-		</div>
+		<div id="stepsNr" style="display:none">3</div>
     </body>
 </html>

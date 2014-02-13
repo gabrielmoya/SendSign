@@ -1,15 +1,3 @@
-	/* 
-    Document   : index
-    Created on : 27-feb-2013, 10:03:46
-    Author     : Gabriel
-    Description:
-        CSS for Fill documents section.
-*/
-
-/*article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section{
-	display: block;
-}*/
-
 @font-face {
     font-family: 'danielregular';
     src: url('daniel-webfont.eot');
@@ -26,12 +14,11 @@ root {
 }
 
 body {
-    font-family:arial,Verdana,helvetica,sans-serif,danielregular;
+    font-family: sans-serif,arial,Verdana,danielregular;
     font-size:12px;
 	background: #C8C8C8;
 	margin: 0px 0px 0px 0px;
 	padding: 0px 0px 0px 0px;
-	text-align: center;
 	vertical-align: top;
 }
 body.noScroll {
@@ -45,21 +32,37 @@ body.noScroll {
 textarea {
 	resize: none;
 }
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #C2C0C1;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #C2C0C1;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #C2C0C1;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #C2C0C1;
+}
 
 .sendSignButton {
-	font: normal 20px arial;
+	font: normal 20px sans-serif;
 	background: #005826;
 	color: white;
 	padding: 15px 50px;
+	border: none;
+	margin: none;
 	-moz-border-radius: 4px 4px 4px 4px;
 	-webkit-border-radius: 4px 4px 4px 4px;
 	border-radius: 4px 4px 4px 4px;
 }
 .sendSignButton2 {
-	font: normal 20px arial;
+	font: normal 20px sans-serif;
 	background: #6E6E6E;
 	color: white;
 	padding: 15px 50px;
+	border: none;
+	margin: none;
 	-moz-border-radius: 4px 4px 4px 4px;
 	-webkit-border-radius: 4px 4px 4px 4px;
 	border-radius: 4px 4px 4px 4px;
@@ -68,27 +71,27 @@ textarea {
 	background: #28902D;
 }
 .activeButton:hover  {
-	font-weight: bold;
 	cursor: pointer;
+	text-decoration: underline;
 }
 
 .spanClickable:hover {
 	cursor: pointer;
-	font-weight: bold;
+	text-decoration: underline;
 }
 
 .signatureWrapper {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: black;
-        opacity: .5;
-        -webkit-opacity: .5;
-        -moz-opacity: .5;
-        filter: alpha(opacity=50);
-        z-index: 17000;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: .5;
+	-webkit-opacity: .5;
+	-moz-opacity: .5;
+	filter: alpha(opacity=50);
+	z-index: 17000;
 }
 
 /* SECTION: Top bar */
@@ -98,43 +101,66 @@ textarea {
 	width: 100%;
 	height: 160px;
 	background: #FFFFFF;	
-	box-shadow: 5px 5px 5px #888888;
+	-moz-box-shadow: 1px 5px 5px #888888;
+	-webkit-box-shadow: 1px 5px 5px #888888;
+	box-shadow: 1px 5px 5px #888888;
 	z-index: 16000;
 }
 	#topDiv #topMainDiv #photoContainer {
+		margin-left: 20px;
 		margin-bottom: 10px;
 	}
 		#topDiv #topMainDiv  #photoContainer #sampleTitle {
-			height: 90px;
+			height: 80px;
 		}
+	
+	#topDiv #topStepsDiv{
+		margin-left: 20px;
+	}
 
 .stepField {
 	position: relative;
 	display: inline-block;
-	font: bold 15px Verdana;
+	font: bold 15px sans-serif;
 	padding: 10px;
-	padding-left: 20px;
+	padding-left: 30px;
 	margin: -1px;
+	-moz-border-radius: 4px 0px 0px 4px;
+	-webkit-border-radius: 4px 0px 0px 4px;
+	border-radius: 4px 0px 0px 4px;
 }
-.stepSelectableField:hover {
+.stepFieldDisabled.stepSelectableField:hover {
 	cursor: pointer;
+	text-decoration: underline;
+	color: #AAAAAA;
 }
 .stepFieldDisabled {
-	color: #CCCCCC;
-	background: #FFFFFF;
-	border: 1px solid #CCCCCC;
+	color: #9D9D9D;
+	background: rgba(255, 255, 255, 0);
+	border-top: 1px solid #9D9D9D;
+	border-bottom: 1px solid #9D9D9D;
 	cursor: text;
 	z-index: 16001;
 }
 .stepFieldSelected {
 	color: #F8F8F8;
-	background: #1086DE ;
-	border: 1px solid #1086DE;
+	background: #1086DE;
 	cursor: text;
-	-moz-box-shadow: 5px 5px 8px #888;
-	-webkit-box-shadow: 5px 5px 8px #888;
-	box-shadow: 5px 5px 8px #888;
+	border-top: 1px solid #1086DE;
+	border-bottom: 1px solid #1086DE;
+	border-right: 1px solid #1086DE;
+	-webkit-filter: drop-shadow(5px 5px 5px rgba(0,0,0,0.3));
+	filter: url(shadow.svg#drop-shadow);
 	z-index: 16002;
+}
+.stepFieldDisabled[stepnr="0"] {
+	border-left: 1px solid #9D9D9D;
+}
+.stepFieldSelected[stepnr="0"] {
+	border-left: 1px solid #1086DE;
+	-moz-border-radius: 4px 4px 4px 4px;
+	-webkit-border-radius: 4px 4px 4px 4px;
+	border-radius: 4px 4px 4px 4px;
 }
 	/* Arrow for selected field */
 	.stepFieldSelected:after, .stepFieldSelected:before, .stepFieldDisabled:after, .stepFieldDisabled:before {
@@ -144,8 +170,6 @@ textarea {
 		height: 0;
 		width: 0;
 		position: absolute;
-		pointer-events: none;
-		z-index: 16003;
 	}
 	.stepFieldSelected:after {
 		border-color: rgba(136, 183, 213, 0);
@@ -169,15 +193,16 @@ textarea {
 		margin-top: -19px;
 	}
 	.stepFieldDisabled:before {
-		border-color: rgba(204, 204, 204, 0);
-		border-left-color: #CCCCCC;
+		border-color: rgba(157, 157, 157, 0);
+		border-left-color: #9D9D9D;
 		border-width: 20px;
 		top: 50%;
 		margin-top: -20px;
 	}
-
 .stepFieldSelected.stepFieldCompleted {
 	background: #28902D;
+	border-top: 1px solid #28902D;
+	border-bottom: 1px solid #28902D;
 }
 	.stepFieldSelected.stepFieldCompleted:after {
 		border-color: rgba(40, 144, 95, 0);
@@ -189,10 +214,10 @@ textarea {
 	}
 	
 /* SECTION: Viewer */
+
 	#content #document {
 		position: relative;
-		margin-left: auto;
-		margin-right: auto;
+		margin-left: 50px;		
 		width: 700px;
 	}
 
@@ -243,7 +268,6 @@ textarea {
 	#content #bottomDiv {
 		display: table;
 		position: fixed;
-		text-align: center;
 		bottom: 0;
 		width: 100%;
 		height: 80px;
@@ -251,28 +275,38 @@ textarea {
 		z-index: 16000;
 	}
 	#content #bottomDiv #bottomDivMessage {
-		display: table-cell;
+		position:relative;
 		vertical-align: middle;
-		top: 50%;
+		text-align: center;
+		margin-top: 10px;
+		text-align: center;
+		width: 800px;
 	}
 		#content #bottomDiv #bottomDivMessage #bottomMessage {
-			display: block;
-			font: bold 20px Verdana;
+			display: inline;
+			font: bold 20px sans-serif;
 			color: white;
 		}
 		#content #bottomDiv #bottomDivMessage #bottomMessage .bottomMessageLink {
 			color: #1086DE;
 			text-decoration: underline;
 		}
-		#content #bottomDiv #bottomDivMessage .signatureNotSigning {
+	#content #bottomDiv #bottomDivMessage1 {
+		position:relative;
+		vertical-align: middle;
+		text-align: center;
+		width: 800px;
+		margin-top: -10px;
+	}
+		#content #bottomDiv #bottomDivMessage1 .signatureNotSigning {
 			color: #FFFFFF;
-			font: normal 10px Verdana;
+			font: normal 10px sans-serif;
 			text-decoration: underline;
 		}
 
 .qtip {
 	max-width: 500px !important;
-	min-width: 350px !important;
+	min-width: 450px !important;
 }
 
 /*! Send sign tooltip style */
@@ -280,126 +314,125 @@ textarea {
 	background-color: rgba(0, 0, 0, 0.6);
 	border-style: none;
 	color: #FFFFFF;
-	padding: 2px 2px 2px 2px;
 }
 	.qtip-sendsign .tooltipTitle {
 		background-color: #1086DE;
-		font: bold 12px Verdana;
+		font: bold 12px sans-serif;
 		padding: 10px;
 		-moz-border-radius: 4px 4px 4px 4px;
 		-webkit-border-radius: 4px 4px 4px 4px;
 		border-radius: 4px 4px 4px 4px;
+		-moz-box-shadow: 0px 5px 5px #000000;
+		-webkit-box-shadow: 0px 5px 5px #000000;
+		box-shadow: 0px 5px 5px #000000;
 	}
 	
 	.qtip-sendsign-completed .tooltipTitle {
 		background-color: #28902D;
 	}
-
 	.qtip-sendsign .tooltipNav {
 		float: right;
-		font: normal 9.5px Verdana !important;		
+		font: normal 11px sans-serif !important;
 	}
-
+		
 		.qtip-sendsign .tooltipNav span {
 			margin-left: 3px;
-		}
-
+		}		
+		
 		.qtip-sendsign span:hover {
-			font: bold 9.5px Verdana !important;
+			text-decoration: underline;
 			cursor: pointer;
 		}
 
 	.qtip-sendsign .tooltipContent {
-		font: bold 10.5px Verdana;
-		margin-top: 5px;
+		font: bold 12px sans-serif;
+		padding: 10px;
 	}
 
 /* WELCOME Page */
 .welcomeBody {
 	background: #000000;
-	text-align: center;
 	vertical-align: top;
 	color: #FFFFFF;
 }
 
 .welcomeContent {
-	margin-right: auto;
-	margin-left: auto;
 	width: 700px;
+	margin-left: 50px;
 }
 
-.welcomeContent a {
-	color: #FFFFFF;
-}
-
-.welcomeDiv {
-	height: 100%;
-	width: 100%;
-	margin-top: 160px;
-	margin-bottom: 80px;
-	text-align: left;
-}
-
-.welcomeInputDiv{
-	margin-top:400px;
-	margin-bottom: 10px;
-}
-
-.passInput {
-	font: bold 30px arial;
-	width: 500px;
-	margin-left: 10px;
-}
-
-.welcomeMessage {
-	margin-left: 30px;
-	margin-top: 10px;
-	font: normal 15px arial;
-}
-
-	.qtip-welcome {
-		background-color: #1086DE;
-		border-color: #FFFFFF;
+	.welcomeContent a {
 		color: #FFFFFF;
-		padding: 10px 10px 10px 10px;
+	}
+
+	.welcomeContent .welcomeDiv {
+		height: 100%;
+		width: 100%;
+		margin-top: 350px;
+		margin-bottom: 80px;
 		text-align: left;
 	}
 
-		.qtip-welcome .qtip-titlebar {
-			background-color: #1086DE;
-			font: bold 20px Verdana;
-			padding: 5px;
+	.welcomeContent .welcomeDiv .welcomeInputDiv {
+		display: inline;
+		vertical-align: middle;
+	}
+
+		.welcomeContent .welcomeDiv .welcomeInputDiv .passInput {
+			font: bold 40px sans-serif;
+			width: 500px;
+			margin-left: 10px;
+			margin-right: 10px;
+			float: left;
+			padding: 3px;
 		}
 
-		.qtip-welcome .qtip-content {
-			font: normal 15px Verdana;
-			margin-top: 5px;
-		}
+	.welcomeContent .welcomeDiv .welcomeMessage {
+		margin-left: 30px;
+		margin-top: 10px;
+		font: normal 15px sans-serif;
+	}
 
-/* FINISH Page */
-.finishBody {
+.qtip-welcome {
+	background-color: #1086DE;
+	border-color: #FFFFFF;
+	color: #FFFFFF;
+	padding: 10px 10px 10px 10px;
+	text-align: left;
+}
+
+	.qtip-welcome .qtip-titlebar {
+		background-color: #1086DE;
+		font: bold 20px sans-serif;
+		padding: 5px;
+	}
+
+	.qtip-welcome .qtip-content {
+		font: normal 15px sans-serif;
+		margin-top: 5px;
+	}
+
+/* FINISH and CONTACT Pages */
+.finishBody, .contactBody {
 	background: #000000;
-	text-align: center;
 	vertical-align: top;
 	color: #FFFFFF;
 }
 
-.finishContent {
+.finishContent, .contactContent {
 	background-color: #1086DE;
 	border: 1px solid #FFFFFF;
 	padding: 30px;
 	margin-top: 300px;
-	margin-right: auto;
-	margin-left: auto;
 	width: 700px;
 	-moz-border-radius: 4px 4px 4px 4px;
 	-webkit-border-radius: 4px 4px 4px 4px;
 	border-radius: 4px 4px 4px 4px;
 }
 
-.finishMessage {
+.finishMessage, .contactMessage {
 	margin-left: 30px;
-	font: normal 30px arial;
+	font: normal 30px sans-serif;
 }
 
 /* SECTION: Sign document */
@@ -417,7 +450,7 @@ textarea {
 	.signatureDiv .signatureTitle {
 		text-align: left;
 		background-color: #1086DE;
-		font: bold 12px Verdana;
+		font: bold 12px sans-serif;
 		padding: 10px;
 		width: 750px;
 		margin: 0 auto;
@@ -428,7 +461,7 @@ textarea {
 
 		.signatureDiv .signatureTitle  .signatureNav {
 			float: right;
-			font: normal 9.5px Verdana !important;		
+			font: normal 11px sans-serif !important;
 		}
 		
 			.signatureDiv .signatureTitle  .signatureNav span {
@@ -436,7 +469,7 @@ textarea {
 			}
 
 			.signatureDiv .signatureTitle  .signatureNav span:hover {
-				font: bold 9.5px Verdana !important;
+				text-decoration: underline;
 				cursor: pointer;
 			}
 
@@ -446,7 +479,7 @@ textarea {
 		padding-top: 20px;
 		text-align: left;
 		margin: 0 auto;
-		font: bold 10.5px Verdana;
+		font: bold 11px sans-serif;
 	}
 		.signatureDiv .signatureContent div {
 			margin: 0 0 20px 0;
@@ -521,7 +554,7 @@ textarea {
 	.signatureNotSignDiv .signatureNotSignTitle {
 		text-align: left;
 		background-color: #1086DE;
-		font: bold 12px Verdana;
+		font: bold 12px sans-serif;
 		padding: 10px;
 		width: 750px;
 		margin: 0 auto;
@@ -531,7 +564,7 @@ textarea {
 	}
 		.signatureNotSignDiv .signatureNotSignTitle  .signatureNotSignNav {
 			float: right;
-			font: normal 9.5px Verdana !important;
+			font: normal 11px sans-serif !important;
 		}
 		
 			.signatureNotSignDiv .signatureNotSignTitle  .signatureNotSignNav span {
@@ -544,7 +577,7 @@ textarea {
 		padding-top: 20px;
 		text-align: left;
 		margin: 0 auto;
-		font: bold 10.5px Verdana;
+		font: bold 11px sans-serif;
 	}
 		.signatureNotSignDiv .signatureNotSignContent div {
 			margin: 0 0 20px 0;

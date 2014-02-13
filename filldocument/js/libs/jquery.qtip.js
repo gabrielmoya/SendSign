@@ -2309,7 +2309,7 @@ $.extend(Tip.prototype, {
 			})
 			.each(function(i) {
 				var $this = $(this);
-
+				
 				// Set shape specific attributes
 				$this[ $this.prop ? 'prop' : 'attr' ]({
 					coordsize: (size[0]+border) + ' ' + (size[1]+border),

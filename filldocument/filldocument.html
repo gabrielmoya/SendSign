@@ -1,8 +1,12 @@
+
+
 <!DOCTYPE html>
+
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sign document - Submit sign</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/jquery.qtip.css">
         <link rel="stylesheet" type="text/css" href="css/filldocument.css">
 		<!--[if lt IE 9]>
@@ -20,7 +24,7 @@
 		<script src="js/filldocument.js"></script>
     </head>
     <body>
-    	<form id="content" method="get" action="http://www.google.com">
+    	<form id="content" method="get" action="">
     		<div id="topDiv">
     			<div id="topMainDiv">
 	    			<div id="photoContainer">
@@ -35,7 +39,7 @@
 						...
 					</div>
 					<div id="stepXX" class="stepField stepSelectableField stepFieldDisabled">
-						Step XX
+						STEP XX
 					</div>
 					<div id="stepNext" class="stepField stepFieldDisabled">
 						...
@@ -51,85 +55,88 @@
     		</div>
     		<div id="bottomDiv">
     			<div id="bottomDivMessage">
-    				<span id="bottomMessage"></span>
-					<span class="signatureNotSigning spanClickable">Click here if you do not want to sign</span>
+					<span id="bottomMessage"></span>
+					<input type="submit" id="btnFinish" class="validateButton sendSignButton activeButton" value="Finish and send" onclick="FillDocument.submitForm()"></span>
     			</div>
+    			<div id="bottomDivMessage1">
+					<span class="signatureNotSigning spanClickable">Click here if you do not want to sign</span>
+    			</div>				
     		</div>
-    	</form>
-		<div class="signatureWrapper" style="display:none"></div>
-		<div class="signatureDiv" style="display:none">
-			<div class="signatureTitle">
-				YOUR DIGITAL SIGNATURE
-				<div class="signatureNav">
-					<span class="signatureGoBack">Go Back</span>
-					<span class="signatureNext">Next</span>
-					<span class="signatureClose">Hide this</span>
-				</div>			
-			</div>	
-			<div class="signatureContent">
-				<span>Enter your name to create your digital signature</span>
-				<div class="signatureInputDiv">
-					<input class="signatureInput" type="text"/>
+			<div class="signatureWrapper" style="display:none"></div>
+			<div class="signatureDiv" style="display:none">
+				<div class="signatureTitle">
+					YOUR DIGITAL SIGNATURE
+					<div class="signatureNav">
+						<span class="signatureGoBack">◀ Go Back</span>
+						<span class="signatureNext">Next ▶</span>
+						<span class="signatureClose">Hide this ✖</span>
+					</div>			
+				</div>	
+				<div class="signatureContent">
+					<span>Enter your name to create your digital signature</span>
+					<div class="signatureInputDiv">
+						<input class="signatureInput" type="text"/>
+					</div>
+					<span>Or draw your own signature below</span>
+					<div class="signatureCanvasDiv">
+						<div class="signatureSpanDiv">
+							<span class="signatureSpan">Tap here to draw your signature</span>
+						</div>
+					</div>
+					<div class="signatureDateDiv">
+						<span class="signatureDate"></span>
+					</div>
+					<div class="signatureButtonsDiv">
+						<span class="signatureApply sendSignButton">Apply</span>
+						<span class="signatureReset sendSignButton2 activeButton">Reset</span>
+					</div>				
 				</div>
-				<span>Or draw your own signature below</span>
-				<div class="signatureCanvasDiv">
-					<div class="signatureSpanDiv">
-						<span class="signatureSpan">Tap here to draw your signature</span>
+			</div>
+			<div class="signatureNotSignDiv" style="display:none">
+				<div class="signatureNotSignTitle">
+					PLEASE INDICATE THE REASON WHY
+					<div class="signatureNotSignNav">
+						<span class="signatureNotSignClose spanClickable">Hide this ✖</span>
+					</div>			
+				</div>	
+				<div class="signatureNotSignContent">
+					<div class="signatureNotSignInputDiv">
+						<textarea class="signatureNotSignTextArea"></textarea>
+					</div>
+					<div class="signatureNotSignButtonsDiv">
+						<span class="signatureNotSignDone sendSignButton">Done</span>
+						<span class="signatureNotSignCancel sendSignButton2 activeButton">Cancel</span>
 					</div>
 				</div>
-				<div class="signatureDateDiv">
-					<span class="signatureDate"></span>
-				</div>
-				<div class="signatureButtonsDiv">
-					<span class="signatureApply sendSignButton">Apply</span>
-					<span class="signatureReset sendSignButton2 activeButton">Reset</span>
-				</div>				
 			</div>
-		</div>
-		<div class="signatureNotSignDiv" style="display:none">
-			<div class="signatureNotSignTitle">
-				PLEASE INDICATE THE REASON WHY
-				<div class="signatureNotSignNav">
-					<span class="signatureNotSignClose spanClickable">Hide this</span>
+			<div class="tooltipDiv" style="display:none">
+				<div class="tooltipTitle">
+					STEP ?
+					<div class="tooltipNav">
+						<span class="tooltipGoBack">◀ Go Back</span>
+						<span class="tooltipNext">Next ▶</span>
+						<span class="tooltipClose">Hide this ✖</span>
+						<span class="tooltipDelSign">Delete Signature</span>
+					</div>
+				</div>	
+				<div class="tooltipContent">
+					<div class="signTooltip">
+						We need your signature here - Click to sign
+					</div>
+					<div class="signTooltipCompleted">
+						You signed here
+					</div>
+					<div class="commentTooltip">
+						Insert comments
+					</div>
+					<div class="emailTooltip">
+						Enter valid email address
+					</div>
 				</div>			
-			</div>	
-			<div class="signatureNotSignContent">
-				<div class="signatureNotSignInputDiv">
-					<textarea class="signatureNotSignTextArea"></textarea>
-				</div>
-				<div class="signatureNotSignButtonsDiv">
-					<span class="signatureNotSignDone sendSignButton">Done</span>
-					<span class="signatureNotSignCancel sendSignButton2 activeButton">Cancel</span>
-				</div>
 			</div>
-		</div>
-		<div class="tooltipDiv" style="display:none">
-			<div class="tooltipTitle">
-				STEP ?
-				<div class="tooltipNav">
-					<span class="tooltipGoBack">Go Back</span>
-					<span class="tooltipNext">Next</span>
-					<span class="tooltipClose">Hide this</span>
-					<span class="tooltipDelSign">Delete Signature</span>
-				</div>
-			</div>	
-			<div class="tooltipContent">
-				<div class="signTooltip">
-					We need your signature here - Click to sign
-				</div>
-				<div class="signTooltipCompleted">
-					You signed here
-				</div>
-				<div class="commentTooltip">
-					Insert comments
-				</div>
-				<div class="emailTooltip">
-					Enter valid email address
-				</div>
-			</div>			
-		</div>
-		<div id="stepsNr" style="display:none">6</div>
-		<div id="pagesJSON" style="display:none">[{"nr":"1","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv1","typeOfField":"sign","top":"641","left":"102","width":"500","height":"24"},{"id":"emailDiv1","typeOfField":"email","top":"667","left":"102","width":"500","height":"20"},{"id":"commentDiv1","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"dateDiv1","typeOfField":"date","top":"809","left":"91","width":"517","height":"20"}]},{"nr":"2","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv2","typeOfField":"sign","top":"639.45","left":"102","width":"500","height":"28"},{"id":"commentDiv3","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"commentDiv2","typeOfField":"comment","top":"809","left":"91","width":"517","height":"20"}]}]</div>
-		<div id="valuesJSON" style="display:none"></div>
+			<div id="stepsNr" style="display:none">6</div>
+			<div id="pagesJSON" style="display:none">[{"nr":"1","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv1","typeOfField":"sign","top":"641","left":"102","width":"500","height":"24"},{"id":"emailDiv1","typeOfField":"email","top":"667","left":"102","width":"500","height":"20"},{"id":"commentDiv1","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"dateDiv1","typeOfField":"date","top":"809","left":"91","width":"517","height":"20"}]},{"nr":"2","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv2","typeOfField":"sign","top":"639.45","left":"102","width":"500","height":"28"},{"id":"commentDiv3","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"commentDiv2","typeOfField":"comment","top":"809","left":"91","width":"517","height":"20"}]}]</div>
+			<input type="hidden" id="hidCompletedJSON" style="display:none"></input>
+    	</form>
 	</body>
 </html>

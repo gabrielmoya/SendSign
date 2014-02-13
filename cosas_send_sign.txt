@@ -1,8 +1,21 @@
 
-  - Suavizar y escalar el canvas en IE8
-  - Corner en el tip de IE8
+Cosas pendientes
+
+  - Ancho del pincel al pintar la firma
+  - DD para razon por la que no se firma
+  - Que se quede en welcome en la pagina de Contact - OK
+  - Steps que se muestren correctamente con los puntos suspensivos cuando hay muchos
+  - En la firma click y hover en el campo entero en lugar de solo el icono
+    
+  - En el composition que haya que meter un campo de input al menos antes de activar el boton
+
+
+
+  - El panel de stepsNr en welcome y passcode no esta controlado, está fijo a 3
   - Cuando el campo esta a la derecha del todo y se da un poco mas a la derecha se sale un pixel
-  - La flecha de los steps cuando el campo esta sin seleccionar
+  - IE8 esquinas redondeadas y sombras
+  - Suavizar y escalar el canvas en IE8
+  
 		
 			var date = today.asString( "ddXXXX mmmm yyyy" );
 			$field.html( $field.html() + today.getDayName() + ", " + date.replace("XXXX", today.getOrdinal()) );
@@ -21,4 +34,12 @@
 					/*$signatureDiv1.focus( function (event) {
 						event.stopImmediatePropagation();
 					});*/
+	
+	/*-moz-box-shadow: 5px 5px 8px #888;
+	-webkit-box-shadow: 5px 5px 8px #888;
+	box-shadow: 5px 5px 8px #888;*/
+	
+	-ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=5, OffY=5, Color='gray')";
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=6, Direction=150, Color='#888888')";
 				
+P4ssw0rd

@@ -159,59 +159,83 @@ var Composition = (function () {
 		    });
 
 			$("#sendButton").click(function () {
-
-				$(".innerDocument .clonedDiv").each(function() {
-					if ( $(this).hasClass("resizableField") ) {
-						$(this).removeClass("resizableField");
-						CommonFunctions.destroyResizable( $(this) );
-					}
-					CommonFunctions.destroyDraggable( $(this) );
-					$(this).removeClass("formField").removeClass("clonedDiv").addClass("PDFField")
-				});
-							
-				var pages = [];				
-				// For each page
-				$(".PDFPage").each( function () {
-					
-					var $pdfPage = $(this);
-
-					var page = {
-						nr : $pdfPage.attr( "pagenr" ),
-						url : "",
-						pdfFields : []
-					};
-					
-					// Order form fields according to top position in the page
-					var fieldsOrdered =  $pdfPage.find(".PDFField").toArray().sort( function (a, b) {
-						return a.style.top.split('px')[0] - b.style.top.split('px')[0];  
-					});
-														
-					$.each(fieldsOrdered, function () {
-						
-						var $field = $(this);					
-						page.pdfFields.push({
-							id : $field.attr( "id" ),
-							typeOfField: $field.attr( "typeOfField" ),
-							top: $field.css("top").split("px")[0],
-							left: $field.css("left").split("px")[0],
-							width: $field.css("width").split("px")[0],
-							height: $field.css("height").split("px")[0]
-						});
-											
-					});
-
-					pages.push( page );
-																	
-				});				
-				
-				$( "#stepsNr" ).html( $( ".innerDocument .PDFField" ).length );
-				$( "#pagesJSON" ).html( JSON.stringify( pages ) );
-				
+				getHTML();				
 			});
 		}
 	};
 })();
 
+function setDocumentHeight () {
+	
+	// Adjust document div height to fill available space
+	var calcHeight = $(window).height() - $("#topFieldsDiv").outerHeight( true ) - $("#sendDiv").outerHeight( true ) - $("#header").outerHeight( true ) - $(".welcome").outerHeight( true ) - $("#footer").outerHeight( true ) - 50;
+	$("#document").css({
+		height : calcHeight
+	});
+	
+}
+
 $(document).ready(function() {
+
+	// Set height of document
+	setDocumentHeight();
+	
+	// Bind resize of window to recalculate document div height
+	$( window ).resize( function (){
+		setDocumentHeight();
+	});
+	
 	Composition.init( CommonVars.MAX_DRAGS );
+	
 });
+
+function getHTML() {
+
+	$(".innerDocument .clonedDiv").each(function() {
+		if ( $(this).hasClass("resizableField") ) {
+			$(this).removeClass("resizableField");
+			CommonFunctions.destroyResizable( $(this) );
+		}
+		CommonFunctions.destroyDraggable( $(this) );
+		$(this).removeClass("formField").removeClass("clonedDiv").addClass("PDFField")
+	});
+				
+	var pages = [];				
+	// For each page
+	$(".PDFPage").each( function () {
+		
+		var $pdfPage = $(this);
+
+		var page = {
+			nr : $pdfPage.attr( "pagenr" ),
+			url : "",
+			pdfFields : []
+		};
+		
+		// Order form fields according to top position in the page
+		var fieldsOrdered =  $pdfPage.find(".PDFField").toArray().sort( function (a, b) {
+			return a.style.top.split('px')[0] - b.style.top.split('px')[0];  
+		});
+											
+		$.each(fieldsOrdered, function () {
+			
+			var $field = $(this);					
+			page.pdfFields.push({
+				id : $field.attr( "id" ),
+				typeOfField: $field.attr( "typeOfField" ),
+				top: $field.css("top").split("px")[0],
+				left: $field.css("left").split("px")[0],
+				width: $field.css("width").split("px")[0],
+				height: $field.css("height").split("px")[0]
+			});
+								
+		});
+
+		pages.push( page );
+														
+	});				
+	
+	$( "#ctl00_ctl00_MainContent_MainContent_hidPageCount" ).html( $( ".innerDocument .PDFField" ).length );
+	$( "#ctl00_ctl00_MainContent_MainContent_hidDocJSON" ).html( JSON.stringify( pages ) );
+	
+}

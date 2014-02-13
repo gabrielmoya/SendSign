@@ -27,8 +27,8 @@ var FillDocument = (function () {
 	
 	var HTML = {
 		bottomMessage : {
-			inProcess : "You need to fill in <span class='bottomMessageLink spanClickable'>? more field</span> before you can <span class='validateButton sendSignButton'>Finish and send</span>",
-			completed : "Thank you. Now you can <span class='validateButton sendSignButton activeButton'>Finish and send</span>"
+			inProcess : "You need to fill in <span class='bottomMessageLink spanClickable'>? more field</span> before you can ",
+			completed : "Thank you. Now you can "
 		},
 		pdfFields : {
 			page	:	'<div class="PDFPage" pagenr="?"></div>',
@@ -165,7 +165,7 @@ var FillDocument = (function () {
 	           			.mousedown(drawMouse.handler)
 	           			.mousemove(drawMouse.handler)
 	           			.mouseup(drawMouse.handler)
-	           			.mouseleave(drawMouse.handler);		
+	           			.mouseleave(drawMouse.handler);
 	};
 	
 	var signatureSpanClickHandler = function ( $signatureSpan, $signatureDiv, $fakeValidationField ) {	
@@ -186,10 +186,14 @@ var FillDocument = (function () {
 				message = message.replace( "field", "fields" );
 			}
 			$("#bottomMessage").html( message );
+			$("#bottomDivMessage1").show();
 			
 		} else {		
-			$("#bottomMessage").html( HTML.bottomMessage.completed );			
+			$("#bottomMessage").html( HTML.bottomMessage.completed );
+			$("#bottomDivMessage1").hide();
 		}
+		
+		toggleStateSubmitButton();
 		
 		$( "#bottomMessage" ).find( ".bottomMessageLink" ).click( function () {
 			var i;
@@ -201,6 +205,16 @@ var FillDocument = (function () {
 			}
 		});		
 	}
+	
+	var toggleStateSubmitButton = function ( ) {
+
+		if ( Number(remainingSteps) == 0 ) {
+			$(".validateButton").removeAttr("disabled").addClass("activeButton");
+		} else {		
+			$(".validateButton").attr("disabled", true).removeClass( "activeButton" );
+		}
+
+	};
 	
 	// Validate fields, control remaining steps and enables FinishAndSend button
 	var validateField = function ( $validationField, $stepField ) {
@@ -224,43 +238,8 @@ var FillDocument = (function () {
 			}
 		}
 		
-		if ( Number(remainingSteps) == 0 ) {
-			
-			// Bind submit button to validate form
-			$(".validateButton").click(function () {
-			
-				// Save values to JSON
-				var values = [];
-				$.each(pagesJSON, function () {
-					var page = this;
-					$.each(page.pdfFields, function (){
-						var field = this;
-						var $pdfField = $( "#"+field.id );
-						var value = {
-							pagenr : page.nr,
-							id : field.id
-						};
-						if ( field.typeOfField == "sign" ) {
-							value.draw  = fieldSign[ field.id ].draw;
-							value.vml   = fieldSign[ field.id ].vml || false;
-							value.value = fieldSign[ field.id ].value;
-						} else if ( field.typeOfField == "date" ) {
-							value.value = $pdfField.find( ".datePDFField" ).html();
-						} else {
-							value.value = $pdfField.find( ".inputPDFField" ).val();
-						}
-						values.push( value );
-					});
-				});
-				$( "#valuesJSON" ).html( JSON.stringify( values ) );				
-			});
-			
-		} else {
-		
-			$(".validateButton").unbind( "click" );
-			
-		}
-		
+		toggleStateSubmitButton();
+				
 		return valid;
 	};
 	
@@ -292,7 +271,7 @@ var FillDocument = (function () {
 	}
 	
 	var closeModal = function ( $signatureDiv ) {		
-		$('body').removeClass( "noScroll" );						
+		unlockScroll();
 		$signatureDiv.hide();
 		$(".signatureWrapper").hide();
 	};
@@ -307,9 +286,8 @@ var FillDocument = (function () {
         $("html").css("overflow-y", "hidden");
         newBodyOuterWidth = $("body").outerWidth(true);
         body.css("margin-right", (newBodyOuterWidth - oldBodyOuterWidth + "px"));
-		$("#topMainDiv,#topStepsDiv").css({ 'margin-right': (newBodyOuterWidth - oldBodyOuterWidth + "px") });
+		$("#topMainDiv,#topStepsDiv,.validateButton,.signatureNotSigning").css({ 'margin-right': (newBodyOuterWidth - oldBodyOuterWidth + "px") });
         html.scrollTop(oldScrollTop); // necessary for Firefox
-        $("#signatureWrapper").css("width", newBodyOuterWidth + "px");
 		
 	}
 
@@ -319,10 +297,10 @@ var FillDocument = (function () {
         var oldScrollTop = html.scrollTop(); // necessary for Firefox.
         html.css("overflow-y", "").scrollTop(oldScrollTop);
         $("body").css("margin-right", 0);
-		$("#topDiv,#bottomDiv").css({ 'padding-right': 0 });
+		$("#topMainDiv,#topStepsDiv,.validateButton,.signatureNotSigning").css({ 'margin-right': 0 });
 		
 	}
-	
+		
 	var fillDocument = function (){
 	
 		// Set document to JSON content from server
@@ -342,6 +320,9 @@ var FillDocument = (function () {
 				});
 			});
 		});
+		
+		// Get number of steps to complete
+		remainingSteps = numberOfSteps = $("#document .inputPDFField").length;
 									
 		// Iterate over all input fields
 		$("#document .inputPDFField").each(function ( stepIndex ) {
@@ -426,7 +407,8 @@ var FillDocument = (function () {
 				// Bind click on sign field to open the modal div
 				$inputPdfField.click(function () {
 					
-					$('body').addClass( "noScroll" );
+					// Hide scrollbar and avoids current view to shift
+					lockScroll();
 
 					// Show div and set correct width for signature canvas div
 					$(".signatureWrapper").show();
@@ -510,8 +492,6 @@ var FillDocument = (function () {
 							
 							$inputPdfField.qtip( "option", "show.target", $signatureCanvas);
 							$inputPdfField.qtip( "option", "position.target", $signatureCanvas);
-							
-							console.log( canvasIE8 );
 							
 							/*if ( canvasIE8 ) {
 								$signatureCanvas.css({
@@ -711,7 +691,8 @@ var FillDocument = (function () {
 		
 		// Set bottom message for user
 		updateBottomMessage( remainingSteps );
-		
+		toggleStateSubmitButton();
+				
 		// Bind "not sign" link
 		$(".signatureNotSigning").click( function (){
 		
@@ -745,8 +726,7 @@ var FillDocument = (function () {
 			$(".signatureNotSignTextArea").val("");
 			unlockScroll();
 			$(".signatureWrapper,.signatureNotSignDiv").hide();
-		});
-		
+		});		
 		
 	};
 		
@@ -757,12 +737,39 @@ var FillDocument = (function () {
 			$tooltipDiv = $(".tooltipDiv");
 			$signatureDiv = $(".signatureDiv");
 			pagesJSON = JSON.parse( $( "#pagesJSON" ).html() );
-			remainingSteps = numberOfSteps = CommonVars.stepsNr();
 			
 			fillDocument();
 			
-		}		
-	};		
+		},
+		submitForm : function () {
+		
+			// Save values to JSON
+			var values = [];
+			$.each(pagesJSON, function () {
+				var page = this;
+				$.each(page.pdfFields, function (){
+					var field = this;
+					var $pdfField = $( "#"+field.id );
+					var value = {
+						pagenr : page.nr,
+						id : field.id
+					};
+					if ( field.typeOfField == "sign" ) {
+						value.draw  = fieldSign[ field.id ].draw;
+						value.vml   = fieldSign[ field.id ].vml || false;
+						value.value = fieldSign[ field.id ].value;
+					} else if ( field.typeOfField == "date" ) {
+						value.value = $pdfField.find( ".datePDFField" ).html();
+					} else {
+						value.value = $pdfField.find( ".inputPDFField" ).val();
+					}
+					values.push( value );
+				});
+			});
+			$( "#hidCompletedJSON" ).val( JSON.stringify( values ) );
+
+		}
+	};
 })();
 
 $(document).ready(function() {

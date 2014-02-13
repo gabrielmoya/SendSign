@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Composition</title>
+        <title>Add signatures</title>
         <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.10.3.custom.css">
         <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
         <link rel="stylesheet" type="text/css" href="css/composition.css">
@@ -28,7 +28,6 @@
 				<div id="emailDiv" class="formField resizableField inputFormField emailField" typeOfField="email">
 					<div id="emailLabel" class="formInnerDiv">Email</div>
 				</div>
-				<span id="sendButton">Check</span>
 			</div>
 			<div id="content">
 				<div id="document">
@@ -42,10 +41,12 @@
 					</div>
 				</div>
 			</div>
+			<div id="sendDiv">
+				<span id="bottomMessage">When you have located and sized all the elements click</span>
+				<input type="submit" class="button" id="sendButton" value="Finish" style="width:120px;"></input>
+			</div>
 		</div>
-		<div id="stepsNr" style="display:none">
-		</div>
-		<div id="pagesJSON" style="display:none">
-		</div>
+		<div id="ctl00_ctl00_MainContent_MainContent_hidPageCount" style="display:none"></div>
+		<div id="ctl00_ctl00_MainContent_MainContent_hidDocJSON" style="display:none"></div>
     </body>
 </html>

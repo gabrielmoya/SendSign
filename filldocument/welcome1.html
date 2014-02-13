@@ -1,16 +1,21 @@
+
+
 <!DOCTYPE html>
+
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sign document - Welcome 1</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/jquery.qtip.css">
         <link rel="stylesheet" type="text/css" href="css/filldocument.css">
         <script src="js/libs/jquery-1.9.1.js"></script>
         <script src="js/libs/jquery.qtip.js"></script>
 		<script src="js/index.js"></script>
-		<script src="js/welcome1.js"></script>
-    </head>
-    <body>
+		<script src="js/welcome1.js"></script>    
+</head>
+<body>
+
 		<div id="topDiv">
 			<div id="topMainDiv">
 				<div id="photoContainer">
@@ -18,13 +23,13 @@
 				</div>
 			</div>
 			<div id="topStepsDiv" class="stepsContainer">
-				<div id="stepStart" class="stepField stepFieldDisabled">
+				<div id="stepStart" class="stepField stepFieldDisabled" stepnr="0">
 					WELCOME		
 				</div>
 				<div id="stepXX" class="stepField stepFieldDisabled">
-					Step XX
+					STEP XX
 				</div>
-				<div id="stepFinish" class="stepField stepFieldDisabled">
+				<div id="stepFinish" class="stepField stepFieldDisabled" stepnr="999">
 					FINISH
 				</div>
 			</div>
@@ -34,7 +39,7 @@
 				<div class="welcomeDiv">
 					<div class="welcomeInputDiv">
 						<input class="passInput" type="text" placeholder="Enter password"/>
-						<span class="passButton sendSignButton activeButton">Enter</span>
+						<input type="submit" class="passButton sendSignButton" value="Enter"></input>
 					</div>
 					<div id="welcomeMessage1" class="welcomeMessage">
 					</div>
@@ -43,8 +48,6 @@
 				</div>
 			</form>
 		</div>
-		<div id="stepsNr" style="display:none">
-		3
-		</div>
+		<div id="stepsNr" style="display:none">3</div>
     </body>
 </html>

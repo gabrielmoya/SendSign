@@ -22,7 +22,11 @@ $(document).ready(function() {
 		},
 		hide: false,
 		style: {
-			classes: 'qtip-welcome qtip-shadow qtip-rounded'
+			classes: 'qtip-welcome qtip-shadow qtip-rounded',
+			tip: {
+				width: 25,
+				height: 25
+			}
 		},
 		position: {
 			my: "bottom left",
@@ -30,6 +34,13 @@ $(document).ready(function() {
 		}
 	});
 	
+	$( ".passInput" ).keyup( function() {
+		if ($( ".passInput" ).val() == "") {
+			$( ".passButton" ).removeClass("activeButton");
+		} else {
+			$( ".passButton" ).addClass("activeButton");
+		}
+	});
 	$( ".passInput" ).qtip( "api" ).show();
 
 	$( ".passButton" ).click( function (){
