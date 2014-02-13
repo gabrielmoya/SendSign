@@ -1,11 +1,16 @@
 
 Cosas pendientes
 
-  - Ancho del pincel al pintar la firma
-  - DD para razon por la que no se firma
   - Que se quede en welcome en la pagina de Contact - OK
-  - Steps que se muestren correctamente con los puntos suspensivos cuando hay muchos
+  - Steps que se muestren correctamente con los puntos suspensivos cuando hay muchos - OK
+	-- Dave: Hay que mandar solo los input fields en el stepsNr
+	-- Dave: Hay que mandar a las paginas de bienvenida y final tambien
+  - DD para razon por la que no se firma - OK
+  - En la firma ancho del pincel al doble - OK
+
   - En la firma click y hover en el campo entero en lugar de solo el icono
+  - En la firma si se pinta en una se tienen que pintar todas, si se escribe una se tienen que escribir todas
+  
     
   - En el composition que haya que meter un campo de input al menos antes de activar el boton
 

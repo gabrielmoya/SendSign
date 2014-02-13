@@ -28,7 +28,7 @@ var CommonVars = (function () {
 		MAX_DRAGS : 5,
 		STEPS_TO_SHOW: 4,
 		stepsNr : 	function () {
-			return Number( $( "#stepsNr" ).html() );
+			return Number( $( "#StepsNr" ).html() );
 		},
 		htmlContent : 	function () {
 			return $( "#htmlContent" ).html();
