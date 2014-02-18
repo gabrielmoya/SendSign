@@ -249,6 +249,8 @@ textarea {
         #content #document #innerDocument .PDFPage .PDFField .commentPDFField,
         #content #document #innerDocument .PDFPage .PDFField .emailPDFField,
         #content #document #innerDocument .PDFPage .PDFField .signContainer,
+        #content #document #innerDocument .PDFPage .PDFField .signContainer .signatureCanvasDiv,
+        #content #document #innerDocument .PDFPage .PDFField .signContainer .signatureSpanDiv,
         #content #document #innerDocument .PDFPage .PDFField .signContainer .signatureSpan,
         #content #document #innerDocument .PDFPage .PDFField .signContainer .signatureCanvas {
           width: 100%;
@@ -466,7 +468,7 @@ textarea {
     font: bold 12px sans-serif;
     padding: 10px;
     width: 750px;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     -moz-border-radius: 4px 4px 4px 4px;
     -webkit-border-radius: 4px 4px 4px 4px;
     border-radius: 4px 4px 4px 4px;
@@ -491,7 +493,7 @@ textarea {
     width: 750px;
     padding-top: 20px;
     text-align: left;
-    margin: 0 auto;
+    /*margin: 0 auto;*/
     font: bold 11px sans-serif;
   }
     .signatureDiv .signatureContent div {
@@ -503,39 +505,48 @@ textarea {
       .signatureDiv .signatureContent .signatureInputDiv  .signatureInput {
         width: 98%;
       }
-      .signatureDiv .signatureContent .signatureCanvasDiv {
+      .signatureDiv .signatureContent .signatureSignDiv {
         position: relative;
         width: 100%;
         height: 150px;
         border: 1px solid #000000;
         background-color: white;
       }     
-        .signatureDiv .signatureContent .signatureCanvasDiv .signatureSpanDiv {
+        .signatureDiv .signatureContent .signatureSignDiv .signatureSpanDiv,
+        .signatureDiv .signatureContent .signatureSignDiv .signatureSpanClickableDiv {
           width: 100%;
           height: 50px;
           margin-top: 50px;
           padding: 10px;
         }
-        .signatureDiv .signatureContent .signatureCanvasDiv .signatureSpan {
+        .signatureDiv .signatureContent .signatureSignDiv .signatureSpanDiv .signatureSpan,
+        .signatureDiv .signatureContent .signatureSignDiv .signatureSpanClickableDiv .signatureSpanClickable {
           color: #5D5D5D;
         }
-        .signatureDiv .signatureContent .signatureCanvasDiv .signatureCanvasWrapper {
-          position: absolute;
-          top: 0px;
+        
+        .signatureDiv .signatureContent .signatureSignDiv .signatureCanvasDiv {
           width: 100%;
-          height: 150px;
-          background-color: white;
-          opacity: .0;
-          -webkit-opacity: .0;
-          -moz-opacity: .0;
-          filter: alpha(opacity=0);
-          z-index: 17003;
+          height: 100%;
         }
-        .signatureDiv .signatureContent .signatureCanvasDiv .signatureCanvas {
-          position: absolute;
-          top: 0px;
-          z-index: 17004;         
-        }     
+      
+          .signatureDiv .signatureContent .signatureSignDiv .signatureCanvasDiv .signatureCanvasWrapper {
+            position: absolute;
+            top: 0px;
+            width: 100%;
+            height: 150px;
+            background-color: white;
+            opacity: .0;
+            -webkit-opacity: .0;
+            -moz-opacity: .0;
+            filter: alpha(opacity=0);
+            z-index: 17003;
+          }
+          
+          .signatureDiv .signatureContent .signatureSignDiv .signatureCanvasDiv .signatureCanvas {
+            position: absolute;
+            top: 0px;
+            z-index: 17004;         
+          }     
       .signatureDiv .signatureContent .signatureDateDiv {
         position: relative;
         top: -50px;

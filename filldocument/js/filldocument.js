@@ -8,7 +8,16 @@ var FillDocument = (function() {
   var pagesJSON;
 
   var canvasIE8 = !$('<canvas></canvas>')[0].getContext;
-
+  
+  // Control if any sign has already been entered
+  var signControl = {
+    signed : function () {
+      return this.draw || this.write;
+    },
+    draw: false,
+    write: false
+  };
+  
   // Check total number of tooltips
   var numberOfSteps;
   var remainingSteps;
@@ -50,8 +59,8 @@ var FillDocument = (function() {
           date: '<div id="?" class="PDFField" typeOfField="date">' +
                   '<span id="?Field" class="innerPDFField datePDFField">Date: </span>' +
                 '</div>'
-      },
-      canvas: '<div class="signatureCanvasWrapper"></div><canvas class="signatureCanvas"></canvas>'
+      }
+      //canvas: '<div class="signatureCanvasWrapper"></div><canvas class="signatureCanvas"></canvas>'
   };
 
   var setValidSignature = function($signatureDiv, $fakeValidationField) {
@@ -62,22 +71,98 @@ var FillDocument = (function() {
     $signatureDiv.find(".signatureApply").removeClass("activeButton");
     $fakeValidationField.val("").trigger("keyup");
   };
+  
+  var clearCanvas = function( $signatureDiv ) {
+      
+    var $canvas = $signatureDiv.find('.signatureCanvas');
+    var canvas = $canvas[0];    
+    var context = canvas.getContext("2d");
+    
+    // Store the current transformation matrix
+    //context.save();
+
+    // Use the identity matrix while clearing the canvas
+    //context.setTransform(1, 0, 0, 1, 0, 0);
+    
+    context.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Restore the transform
+    //context.restore();
+    
+    // Set line size
+    // context.lineWidth = 2;
+
+  }
 
   // Creates drawer for the sign
   var createDrawer = function($signatureDiv, $fakeValidationField) {
 
       var $canvas = $signatureDiv.find('.signatureCanvas');
+      
+      var drawer = {
+        canvas : {},
+        stage : {},
+        drawingCanvas : {},
+        oldPt : {},
+        oldMidPt : {},
+        color : {},
+        stroke : {},
+        index : {},
+        handleMouseDown : function (event) {
+            drawer.color = "#000000";
+            drawer.stroke = 4;
+            drawer.oldPt = new createjs.Point(drawer.stage.mouseX, drawer.stage.mouseY);
+            drawer.oldMidPt = drawer.oldPt;
+            drawer.stage.addEventListener("stagemousemove" , drawer.handleMouseMove);
+        },
+        handleMouseMove : function (event) {
+            var midPt = new createjs.Point(drawer.oldPt.x + drawer.stage.mouseX>>1, drawer.oldPt.y+drawer.stage.mouseY>>1);
+
+            drawer.drawingCanvas.graphics.clear().setStrokeStyle(drawer.stroke, 'round', 'round').beginStroke(drawer.color).moveTo(midPt.x, midPt.y).curveTo(drawer.oldPt.x, drawer.oldPt.y, drawer.oldMidPt.x, drawer.oldMidPt.y);
+
+            drawer.oldPt.x = drawer.stage.mouseX;
+            drawer.oldPt.y = drawer.stage.mouseY;
+
+            drawer.oldMidPt.x = midPt.x;
+            drawer.oldMidPt.y = midPt.y;
+
+            drawer.stage.update();
+            
+            if (typeof $fakeValidationField !== "undefined") {
+                setValidSignature($signatureDiv, $fakeValidationField);
+            }
+            
+        },
+        handleMouseUp : function (event) {
+            drawer.stage.removeEventListener("stagemousemove" , drawer.handleMouseMove);
+        }
+      };
+
+      drawer.canvas = $canvas[0];
+      drawer.index = 0;
+
+      //check to see if we are running in a browser with touch support
+      drawer.stage = new createjs.Stage(drawer.canvas);
+      drawer.stage.autoClear = false;
+      drawer.stage.enableDOMEvents(true);
+
+      createjs.Touch.enable(drawer.stage);
+      createjs.Ticker.setFPS(24);
+
+      drawer.drawingCanvas = new createjs.Shape();
+            
+      drawer.stage.addEventListener("stagemousedown", drawer.handleMouseDown);
+      drawer.stage.addEventListener("stagemouseup", drawer.handleMouseUp);
+
+      drawer.stage.addChild( drawer.drawingCanvas );
+      drawer.stage.update();
+        
+      /*     
       var canvas = $canvas[0];
-
-      canvas.width = $signatureDiv.find('.signatureInput').get(0).offsetWidth;
-      canvas.height = 150;
-
-      if (canvasIE8) {
-          G_vmlCanvasManager.initElement(canvas);
-      }
       var context = canvas.getContext("2d");
       context.lineWidth = 2;
-
+      clearCanvas( $signatureDiv );
+      
       if (canvas.addEventListener) {
 
           // create a drawer which tracks touch movements
@@ -171,16 +256,51 @@ var FillDocument = (function() {
                 .mousemove(drawMouse.handler)
                 .mouseup(drawMouse.handler)
                 .mouseleave(drawMouse.handler);
+
+      */
   };
-
-  var signatureSpanClickHandler = function($signatureSpan, $signatureDiv, $fakeValidationField) {
-
-      $signatureDiv.find('.signatureInput').attr("disabled", true);
-      $signatureDiv.find('.signatureCanvasWrapper,.signatureCanvas').show();
-      createDrawer($signatureDiv, $fakeValidationField);
-      $signatureSpan.parent().hide();
-
+  
+  var SIGNATURE_DIV_MODES = {
+    choose : 0,
+    draw : 1,
+    write : 2,
+    onlyWrite : 3
   };
+  
+  var setSignatureDivMode = function ( mode, $signatureDiv ) {
+  
+    switch ( mode ) {
+      
+      case SIGNATURE_DIV_MODES.choose:
+      
+        // Initially shows span to let user decide if wants to write the sign or draw it
+        $signatureDiv.find('.signatureSpanClickableDiv').show();
+        $signatureDiv.find('.signatureSpanDiv, .signatureCanvasDiv').hide();
+        $signatureDiv.find('.signatureInput').attr("disabled", false);
+        break;
+        
+      case SIGNATURE_DIV_MODES.draw:
+        
+        $signatureDiv.find('.signatureSpanClickableDiv,.signatureSpanDiv').hide();
+        $signatureDiv.find('.signatureInput').attr("disabled", true);
+        $signatureDiv.find('.signatureCanvasDiv').show();
+        break;
+        
+      case SIGNATURE_DIV_MODES.onlyWrite:
+      
+        // Removes draw sign messages
+        $signatureDiv.find(".signatureDrawOption").html("");
+        
+      case SIGNATURE_DIV_MODES.write:
+      
+        $signatureDiv.find('.signatureSpanClickableDiv,.signatureCanvasDiv').hide();
+        $signatureDiv.find('.signatureInput').attr("disabled", false);
+        $signatureDiv.find('.signatureSpanDiv').show();
+        break;
+        
+    }
+    
+  }
 
   var updateBottomMessage = function(remainingSteps) {
 
@@ -197,9 +317,7 @@ var FillDocument = (function() {
           $("#bottomMessage").html(HTML.bottomMessage.completed);
           $("#bottomDivMessage1").hide();
       }
-
-      toggleStateSubmitButton();
-
+      
       $("#bottomMessage").find(".bottomMessageLink").click(function() {
           var i;
           for (i = 0; i < steps.length; i++) {
@@ -248,32 +366,45 @@ var FillDocument = (function() {
       return valid;
   };
 
-  var restartSignatureCanvas = function($pdfField, $signatureDiv, $signatureDivOriginal, $fakeValidationField, $signatureInput, $signatureSpan) {
+  var restartSignatureDiv = function($pdfField, $signatureDiv, $fakeValidationField, $signatureInput, $signatureSpan, $signatureSpanClickable) {
 
-      var pdfField = $pdfField[0];
+    var pdfField = $pdfField[0];
 
-      // Initialize control variables
-      fieldSign[pdfField.id].signed = false;
+    // Initialize control variables
+    fieldSign[pdfField.id].signed = false;
+    
+    // Reset value from fake field for validation plugin
+    setInvalidSignature($signatureDiv, $fakeValidationField);
+    
+    // Set empty values for input and span
+    $signatureInput.val("");
+    $signatureSpan.html("");
+    
+    if ( !canvasIE8 ) {
+      // Clear canvas
+      clearCanvas( $signatureDiv );
+    }
+
+    // Check if any sign remains entered
+    var anySignedField = false;
+    $.each(fieldSign, function(pdfFieldId, pdfFieldVal) {
+      if ( pdfFieldVal.signed ) {
+        anySignedField = true;
+      }
+    });
+    if ( !anySignedField ) {
+      signControl.draw = signControl.write = false;
+    }    
+    
+    // Control if any sign already entered and drawing is allowed
+    if ( !signControl.signed() && !canvasIE8 ) {
+      
+      // Restart draw flag
       fieldSign[pdfField.id].draw = false;
-
-      // Set empty value and remove disabled attribute to input field
-      $signatureInput.val("").removeAttr("disabled");
-
-      // Reset value from fake field for validation plugin
-      setInvalidSignature($signatureDiv, $fakeValidationField);
-
-      // Set html content of span to original content, remove class for hand writing font and show it
-      $signatureSpan.html($signatureDivOriginal.find(".signatureSpan").html()).removeClass("signatureSpanHandWriting").parent().show();
-
-      // Re-bind signature span click to let the user choose if prefers to draw the signature
-      $signatureSpan.click(function() {
-
-          fieldSign[pdfField.id].draw = true;
-          signatureSpanClickHandler($signatureSpan, $signatureDiv, $fakeValidationField);
-
-      }).addClass("spanClickable");
-
-  }
+      setSignatureDivMode( SIGNATURE_DIV_MODES.choose, $signatureDiv );
+      
+    }
+  };
 
   var closeModal = function($signatureDiv) {
       unlockScroll();
@@ -388,9 +519,29 @@ var FillDocument = (function() {
 
               // Remove comment and email tooltip content
               $tooltipDiv1.find(".commentTooltip,.emailTooltip").remove();
-
+              
               // Clone original signature div content
               var $signatureDiv1 = $signatureDiv.clone().appendTo("body");
+
+              // Get references to fake validation field, signature input field, signature clickable span, signature span for handwriting, signature canvas and canvas DOM
+              var $fakeValidationField = $inputPdfField.parent().find(".fakeValidation");
+              var $signatureInput = $signatureDiv1.find(".signatureInput");
+              var $signatureSpanClickable = $signatureDiv1.find(".signatureSpanClickable");
+              var $signatureSpan = $signatureDiv1.find(".signatureSpan");
+              var $signatureCanvas = $signatureDiv1.find(".signatureCanvas");
+              var canvas = {};
+              var context = {};
+              
+              if ( !canvasIE8 ) {
+                
+                canvas = $signatureDiv1.find('.signatureCanvas')[0];
+                context = canvas.getContext("2d");
+                
+                // Create drawer for canvas
+                createDrawer( $signatureDiv1, $fakeValidationField );
+                
+              }
+              
 
               // Add signature div to control variable for signature fields
               fieldSign[pdfField.id] = {
@@ -399,8 +550,15 @@ var FillDocument = (function() {
                   draw: false
               };
 
-              // Add canvas to the canvas div
-              $(HTML.canvas).appendTo($signatureDiv1.find('.signatureCanvasDiv')).hide();
+              // Initially shows span to let user decide if wants to write the sign or draw it
+              setSignatureDivMode( SIGNATURE_DIV_MODES.choose, $signatureDiv1 );
+
+              // IE8 canvas control: Do not allow draw sign option when canvas is not available
+              if ( canvasIE8 ) {
+              
+                setSignatureDivMode( SIGNATURE_DIV_MODES.onlyWrite, $signatureDiv1 );
+                
+              }
 
               // Signature navigation controls: Remove back or next spans if it's the first or last step
               if (stepNr == 1) {
@@ -414,63 +572,90 @@ var FillDocument = (function() {
 
                   // Hide scrollbar and avoids current view to shift
                   lockScroll();
-
-                  // Show div and set correct width for signature canvas div
+                  
+                  // Show wrapper div and set correct width for signature div
                   $(".signatureWrapper").show();
-                  $signatureDiv1.show().find(".signatureCanvasDiv").css({
+                  $signatureDiv1.show().find(".signatureSignDiv").css({
                       width: $signatureDiv1.find('.signatureInput').get(0).offsetWidth
                   });
+                  
+                  if ( !canvasIE8 ) {
+                  
+                    // Set canvas size
+                    canvas.width = $signatureDiv1.find('.signatureInput').get(0).offsetWidth;
+                    canvas.height = 150;
+                    // Set canvas line size
+                    context.lineWidth = 2;
+                    
+                  }
+                  
+                  // Check if any sign has already been entered
+                  if ( signControl.signed() ) {
+
+                    // When writing sign not showing span
+                    if ( signControl.write ) {
+                    
+                      fieldSign[pdfField.id].draw = false;
+                      setSignatureDivMode( SIGNATURE_DIV_MODES.write, $signatureDiv1 );
+                      
+                    } else {
+                    
+                      fieldSign[pdfField.id].draw = true;
+                      setSignatureDivMode( SIGNATURE_DIV_MODES.draw, $signatureDiv1 );
+                      
+                    }
+                    
+                  } else {
+                  
+                    setSignatureDivMode( SIGNATURE_DIV_MODES.choose, $signatureDiv1 );
+                  
+                  }
 
               });
-
-              // Get references to fake validation field, signature span and signatureInput
-              var $fakeValidationField = $inputPdfField.parent().find(".fakeValidation");
-              var $signatureInput = $signatureDiv1.find(".signatureInput");
-              var $signatureSpan = $signatureDiv1.find(".signatureSpan");
 
               // Bind keyup on input field if the user decides to input his name
               $signatureInput.keyup(function() {
 
-                  // Add class for handwriting font and set control variable to signed
-                  if (!$signatureSpan.hasClass("signatureSpanHandWriting")) {
-                      fieldSign[pdfField.id].signed = true;
-                      $signatureSpan.addClass("signatureSpanHandWriting").unbind("click").removeClass("spanClickable");
-                  }
+                  $signatureSpanClickable.parent().hide();
+                  $signatureSpan.parent().show();
 
                   // Set content of span to value of the input field
-                  $signatureSpan.html($signatureInput.val());
+                  $signatureSpan.html( $signatureInput.val() );
 
                   // Set fakevalidation field value and trigger keyup event for validation plugin to work correctly
                   if ($signatureInput.val() == "") {
-                      setInvalidSignature($signatureDiv1, $fakeValidationField);
+                    setInvalidSignature($signatureDiv1, $fakeValidationField);
                   } else {
-                      setValidSignature($signatureDiv1, $fakeValidationField);
+                    setValidSignature($signatureDiv1, $fakeValidationField);
                   }
 
               });
-
+              
               // Bind signature span click to let the user choose if prefers to draw the signature
-              $signatureSpan.click(function() {
-
-                  fieldSign[pdfField.id].draw = true;
-                  signatureSpanClickHandler($signatureSpan, $signatureDiv1, $fakeValidationField);
-
+              $signatureSpanClickable.click(function() {
+              
+                fieldSign[pdfField.id].draw = true;
+                setSignatureDivMode( SIGNATURE_DIV_MODES.draw, $signatureDiv1 );
+                
               }).addClass("spanClickable");
 
               // Bind previous span navigation control of signature div
               $signatureDiv1.find(".signatureGoBack").click(function() {
+                  restartSignatureDiv($pdfField, $signatureDiv1, $fakeValidationField, $signatureInput, $signatureSpan, $signatureSpanClickable);
                   closeModal($signatureDiv1);
                   steps[stepIndex - 1].$stepField.click();
               });
 
               // Bind next span navigation control of signature div
               $signatureDiv1.find(".signatureNext").click(function() {
+                  restartSignatureDiv($pdfField, $signatureDiv1, $fakeValidationField, $signatureInput, $signatureSpan, $signatureSpanClickable);
                   closeModal($signatureDiv1);
                   steps[stepIndex + 1].$stepField.click();
               });
 
               // Bind close span navigation control of signature div
               $signatureDiv1.find(".signatureClose").click(function() {
+                  restartSignatureDiv($pdfField, $signatureDiv1, $fakeValidationField, $signatureInput, $signatureSpan, $signatureSpanClickable);
                   closeModal($signatureDiv1);
                   $signatureDiv1.hide();
               });
@@ -478,7 +663,7 @@ var FillDocument = (function() {
               // Bind apply button to send the signature
               $signatureDiv1.find(".signatureApply").click(function() {
 
-                  if (validateField($fakeValidationField, $stepField)) {
+                  if ( validateField( $fakeValidationField, $stepField ) ) {
 
                       fieldSign[pdfField.id].signed = true;
                       closeModal($signatureDiv1);
@@ -487,15 +672,17 @@ var FillDocument = (function() {
 
                       if (fieldSign[pdfField.id].draw) {
 
-                          var canvas = $signatureDiv1.find('.signatureCanvas')[0];
                           fieldSign[pdfField.id].value = canvas.toDataURL();
-                          var $signatureCanvas = $signatureDiv1.find('.signatureCanvas');
-                          $signatureCanvas.appendTo( $signContainer );
+                          $signatureCanvas.parent().appendTo( $signContainer );
+                          
+                          signControl.draw = true;
 
                       } else {
 
-                          fieldSign[pdfField.id].value = $signatureDiv1.find('.signatureInput').val();
-                          $signatureSpan.appendTo( $signContainer );
+                          fieldSign[pdfField.id].value = $signatureInput.val();
+                          $signatureSpan.parent().appendTo( $signContainer );
+
+                          signControl.write = true;
 
                       }
 
@@ -514,36 +701,38 @@ var FillDocument = (function() {
               // Bind reset button to restart the modal div
               $signatureDiv1.find(".signatureReset").click(function() {
 
-                  // If the user was drawing hide the created canvas
-                  $signatureDiv1.find('.signatureCanvasWrapper,.signatureCanvas').hide();
-                  restartSignatureCanvas($pdfField, $signatureDiv1, $signatureDiv, $fakeValidationField, $signatureInput, $signatureSpan);
+                  // Restart the signature div
+                  restartSignatureDiv($pdfField, $signatureDiv1, $fakeValidationField, $signatureInput, $signatureSpan, $signatureSpanClickable);
 
               });
 
               // Bind tooltip Delete Signature span
               $tooltipDiv1.find(".tooltipDelSign").click(function() {
 
-                  // If the signature was drawn hide the created canvas
                   // Return span or canvas to the signature div
-                  $signatureDiv1.find('.signatureCanvasWrapper').hide();
-                  $pdfField.find('.signatureCanvas').hide().appendTo($signatureDiv1.find(".signatureCanvasDiv"));
-                  $signatureSpan.appendTo($signatureDiv1.find(".signatureSpanDiv"));
-
-                  restartSignatureCanvas($pdfField, $signatureDiv1, $signatureDiv, $fakeValidationField, $signatureInput, $signatureSpan);
-
+                  $pdfField.find('.signContainer').children().first().appendTo( $signatureDiv1.find(".signatureSignDiv") );
+                  // Shows the input field again
                   $inputPdfField.show();
-                  $stepField.removeClass("stepFieldCompleted");
+                  
+                  // Restart the signature div
+                  restartSignatureDiv($pdfField, $signatureDiv1, $fakeValidationField, $signatureInput, $signatureSpan, $signatureSpanClickable);
+                  
                   $tooltipDiv1.find(".signTooltipCompleted").hide();
                   $tooltipDiv1.find(".tooltipDelSign").hide();
                   $tooltipDiv1.find(".signTooltip").show();
+                  
                   $inputPdfField.qtip("option", "show.target", $inputPdfField);
                   $inputPdfField.qtip("option", "position.target", $inputPdfField);
                   $inputPdfField.qtip("option", "style.classes", QtipDefaultClasses);
 
-                  steps[stepIndex].completed = false;
-
+                  /*steps[stepIndex].completed = false;
                   remainingSteps++;
                   updateBottomMessage(remainingSteps);
+                  $stepField.removeClass("stepFieldCompleted");
+
+                  toggleStateSubmitButton();*/
+                  
+                  validateField($fakeValidationField, $stepField);
 
               });
 
@@ -687,10 +876,10 @@ var FillDocument = (function() {
           $(".signatureNotSignTextArea").focus();
 
       });
-      $(".signatureNotSignTextArea").keyup(function() {
+      $(".signatureNotSignDropDown").change(function() {
 
-          var $textarea = $(this);
-          if ($textarea.val() == "") {
+          var $dropdown = $(this);
+          if ($dropdown.val() == "") {
               $(".signatureNotSignDone").removeClass("activeButton");
           } else {
               $(".signatureNotSignDone").addClass("activeButton");
@@ -704,13 +893,9 @@ var FillDocument = (function() {
 
       });
       $(".signatureNotSignDone").click(function() {
-          if ($(".signatureNotSignTextArea").val() != "") {
-              // Navigate to finish page
-              return true;
-          }
       });
       $(".signatureNotSignCancel").click(function() {
-          $(".signatureNotSignTextArea").val("");
+          //$(".signatureNotSignTextArea").val("");
           unlockScroll();
           $(".signatureWrapper,.signatureNotSignDiv").hide();
       });

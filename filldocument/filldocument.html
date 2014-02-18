@@ -11,7 +11,6 @@
         <link rel="stylesheet" type="text/css" href="css/filldocument.css">
 		<!--[if lt IE 9]>
 			<link rel="stylesheet" type="text/css" href="css/ie-fixes.css">
-			<script src="js/libs/excanvas.js"></script>
 		<![endif]-->		
         <script src="js/libs/jquery-1.9.1.js"></script>
         <script src="js/libs/jquery.simplemodal-1.4.4.js"></script>		
@@ -20,6 +19,7 @@
         <script src="js/libs/additional-methods.js"></script>
         <script src="js/libs/jquery.dates.js"></script>
         <script src="js/libs/jquery.hoverIntent.js"></script>
+        <script src="js/libs/easeljs-0.7.1.min.js"></script>
 		<script src="js/index.js"></script>
 		<script src="js/filldocument.js"></script>
     </head>
@@ -77,11 +77,18 @@
 					<div class="signatureInputDiv">
 						<input class="signatureInput" type="text"/>
 					</div>
-					<span>Or draw your own signature below</span>
-					<div class="signatureCanvasDiv">
-						<div class="signatureSpanDiv">
-							<span class="signatureSpan">Tap here to draw your signature</span>
+					<span class="signatureDrawOption">Or draw your own signature below</span>
+					<div class="signatureSignDiv">
+						<div class="signatureSpanClickableDiv">
+							<span class="signatureSpanClickable">Tap here to draw your signature</span>
 						</div>
+						<div class="signatureSpanDiv">
+              <span class="signatureSpan signatureSpanHandWriting"></span>
+            </div>
+						<div class="signatureCanvasDiv">
+              <div class="signatureCanvasWrapper"></div>
+              <canvas class="signatureCanvas"></canvas>
+            </div>
 					</div>
 					<div class="signatureDateDiv">
 						<span class="signatureDate"></span>
@@ -89,7 +96,7 @@
 					<div class="signatureButtonsDiv">
 						<span class="signatureApply sendSignButton">Apply</span>
 						<span class="signatureReset sendSignButton2 activeButton">Reset</span>
-					</div>				
+					</div>
 				</div>
 			</div>
 			<div class="signatureNotSignDiv" style="display:none">
@@ -144,7 +151,9 @@
 					</div>
 				</div>			
 			</div>
-			<div id="pagesJSON" style="display:none">[{"nr":"1","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv1","typeOfField":"sign","top":"641","left":"102","width":"500","height":"24"},{"id":"emailDiv1","typeOfField":"email","top":"667","left":"102","width":"500","height":"20"},{"id":"commentDiv1","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"dateDiv1","typeOfField":"date","top":"809","left":"91","width":"517","height":"20"}]},{"nr":"2","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv2","typeOfField":"sign","top":"639.45","left":"102","width":"500","height":"28"},{"id":"commentDiv3","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"commentDiv2","typeOfField":"comment","top":"809","left":"91","width":"517","height":"20"}]}]</div>
+			<div id="pagesJSON" style="display:none">
+      [{"nr":"1","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv1","typeOfField":"sign","top":"641","left":"102","width":"500","height":"24"},{"id":"emailDiv1","typeOfField":"email","top":"667","left":"102","width":"500","height":"20"},{"id":"commentDiv1","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"dateDiv1","typeOfField":"date","top":"809","left":"91","width":"517","height":"20"}]},{"nr":"2","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv2","typeOfField":"sign","top":"639.45","left":"102","width":"500","height":"28"},{"id":"commentDiv3","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"commentDiv2","typeOfField":"comment","top":"809","left":"91","width":"517","height":"20"}]}]
+      </div>
 			<input type="hidden" id="hidCompletedJSON" style="display:none"></input>
     	</form>
 	</body>

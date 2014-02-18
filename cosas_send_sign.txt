@@ -3,26 +3,22 @@ Cosas pendientes
 
   - Que se quede en welcome en la pagina de Contact - OK
   - Steps que se muestren correctamente con los puntos suspensivos cuando hay muchos - OK
-	-- Dave: Hay que mandar a las paginas de bienvenida y final tambien el pagesJSON
-  - DD para razon por la que no se firma - OK
+    -- Dave: Hay que mandar a las paginas de bienvenida y final tambien el pagesJSON
   - En la firma ancho del pincel al doble - OK
+  - En la firma click y hover en el campo entero en lugar de solo el icono - OK
+  - DD para razon por la que no se firma - OK
+  - Cuando no se firma DD obligatorio, texto no - OK
+  - Para IE8 que no permita firmar dibujando - OK
+  - En la firma si se pinta en una se tienen que pintar todas, si se escribe una se tienen que escribir todas - OK   
+  - En el composition que haya que meter un campo de input al menos antes de activar el boton - OK
 
-  - Cuando no se firma DD obligatorio, texto no
-  - En la firma click y hover en el campo entero en lugar de solo el icono
+  - Popup contenido a la izquierda OK
+  - ¿Usar libreria easeljs para pintar en el canvas?
 
-  - En la firma si se pinta en una se tienen que pintar todas, si se escribe una se tienen que escribir todas
-  - Para IE8 que no permita firmar dibujando
-  
-  - En el composition que haya que meter un campo de input al menos antes de activar el boton
-
-
-
-  - El panel de stepsNr en welcome y passcode no esta controlado, está fijo a 3
   - Cuando el campo esta a la derecha del todo y se da un poco mas a la derecha se sale un pixel
   - IE8 esquinas redondeadas y sombras
-  - Suavizar y escalar el canvas en IE8
   
-		
+
 			var date = today.asString( "ddXXXX mmmm yyyy" );
 			$field.html( $field.html() + today.getDayName() + ", " + date.replace("XXXX", today.getOrdinal()) );
 		
@@ -47,8 +43,13 @@ Cosas pendientes
 	
 	-ms-filter: "progid:DXImageTransform.Microsoft.Dropshadow(OffX=5, OffY=5, Color='gray')";
 	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=6, Direction=150, Color='#888888')";
-				
+
+  createjs.com
+
+paulmusgrave
 P4ssw0rd
+Wa5 1lw
+07123456789
 
                           /* IE8 -- if (!canvas.toDataURL) {
                               fieldSign[pdfField.id].vml = true;
@@ -66,3 +67,9 @@ P4ssw0rd
                           height: $pdfField.css( "height" ).split("px")[0]
                           });
                           }*/
+
+			<script src="js/libs/excanvas.js"></script>
+
+      
+[{"nr":"1","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv1","typeOfField":"sign","top":"641","left":"102","width":"500","height":"24"},{"id":"emailDiv1","typeOfField":"email","top":"667","left":"102","width":"500","height":"20"},{"id":"commentDiv1","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"dateDiv1","typeOfField":"date","top":"809","left":"91","width":"517","height":"20"}]},{"nr":"2","url":"images/sampleDoc.png","pdfFields":[{"id":"signDiv2","typeOfField":"sign","top":"639.45","left":"102","width":"500","height":"28"},{"id":"commentDiv3","typeOfField":"comment","top":"713","left":"91","width":"120","height":"25"},{"id":"commentDiv2","typeOfField":"comment","top":"809","left":"91","width":"517","height":"20"}]}]
+[{"nr":0,"pdfFields":[{"height":20,"id":"signDiv9","left":69,"top":279,"typeOfField":"sign","width":120},{"height":20,"id":"signDiv8","left":196,"top":582,"typeOfField":"sign","width":120},{"height":20,"id":"signDiv7","left":47,"top":591,"typeOfField":"sign","width":120},{"height":20,"id":"emailDiv1","left":493,"top":625,"typeOfField":"email","width":120},{"height":20,"id":"emailDiv4","left":436,"top":690,"typeOfField":"email","width":120},{"height":20,"id":"signDiv6","left":108,"top":839,"typeOfField":"sign","width":120}],"url":"images/sampleDoc.png"},{"nr":1,"pdfFields":[{"height":20,"id":"commentDiv8","left":164,"top":60,"typeOfField":"comment","width":120},{"height":20,"id":"commentDiv7","left":218,"top":165,"typeOfField":"comment","width":120},{"height":20,"id":"commentDiv1","left":162,"top":362,"typeOfField":"comment","width":120},{"height":20,"id":"commentDiv6","left":166,"top":395,"typeOfField":"comment","width":120},{"height":20,"id":"signDiv5","left":103,"top":487,"typeOfField":"sign","width":120},{"height":20,"id":"signDiv4","left":410,"top":622,"typeOfField":"sign","width":120},{"height":20,"id":"signDiv1","left":145,"top":890,"typeOfField":"sign","width":120}],"url":"images/sampleDoc.png"},{"nr":2,"pdfFields":[{"height":20,"id":"commentDiv5","left":213,"top":77,"typeOfField":"comment","width":120},{"height":20,"id":"signDiv2","left":141,"top":219,"typeOfField":"sign","width":120},{"height":20,"id":"commentDiv4","left":264,"top":312,"typeOfField":"comment","width":120},{"height":20,"id":"signDiv3","left":120,"top":432,"typeOfField":"sign","width":120},{"height":20,"id":"commentDiv3","left":109,"top":911,"typeOfField":"comment","width":120}],"url":"images/sampleDoc.png"},{"nr":3,"pdfFields":[{"height":20,"id":"emailDiv3","left":466,"top":207,"typeOfField":"email","width":120},{"height":20,"id":"dateDiv1","left":292,"top":281,"typeOfField":"date","width":120},{"height":20,"id":"dateDiv2","left":292,"top":299,"typeOfField":"date","width":120},{"height":20,"id":"emailDiv2","left":220,"top":361,"typeOfField":"email","width":120},{"height":20,"id":"commentDiv2","left":275,"top":794,"typeOfField":"comment","width":120}],"url":"images/sampleDoc.png"},{"nr":4,"pdfFields":[],"url":"images/sampleDoc.png"},{"nr":5,"pdfFields":[],"url":"images/sampleDoc.png"},{"nr":6,"pdfFields":[],"url":"images/sampleDoc.png"},{"nr":7,"pdfFields":[],"url":"images/sampleDoc.png"}]

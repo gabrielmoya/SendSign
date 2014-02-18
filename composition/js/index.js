@@ -25,20 +25,63 @@ String.prototype.replaceAll = function(str1, str2, ignore) {
 
 var CommonVars = (function () {
 	return {
-		MAX_DRAGS : 5,
+    MAX_DRAGS: 5,
 		STEPS_TO_SHOW: 4,
+    pagesJSON: function () {
+
+      var pagesJSON = CommonVars["__pagesJSON"] || {};
+      if ( $.isEmptyObject( pagesJSON ) ) {
+        pagesJSON = JSON.parse( $("#pagesJSON").html() );
+      }
+      
+      return pagesJSON;
+    },
 		stepsNr : 	function () {
-			return Number( $( "#stepsNr" ).html() );
+      
+      var stepsNr = CommonVars["__stepsNr"] || 0;
+      
+      if ( stepsNr == 0 ) {
+
+        $.each( CommonVars.pagesJSON(), function() {
+        
+          var currentPage = this;
+          $.each(currentPage.pdfFields, function() {
+            var field = this;
+            if ( $.inArray(field.typeOfField, CommonVars.inputFields) > -1 ) {
+              stepsNr++;
+            }
+          });
+          
+        });
+        
+        CommonVars["__stepsNr"] = stepsNr;
+      }
+      
+      return stepsNr;
 		},
-		htmlContent : 	function () {
-			return $( "#htmlContent" ).html();
-		},
-		typeOfFields : [ "sign", "comment", "date", "email" ]
+    typeOfFields : [ "sign", "comment", "date", "email" ],
+    inputFields : [ "sign", "comment", "email" ]
 	};
 })();
 
 var CommonFunctions = (function () {
 	return {
+    createSteps: function () {
+      
+      var stepsNr = CommonVars.stepsNr();
+      for (var index = 1; index <= stepsNr ;index++) {
+        
+        $( "#stepXX" ).before( $( "#stepXX" ).clone().attr({
+          id: "step"+index,
+          stepnr: index
+        }));
+        $( "#step"+index ).html( $( "#stepXX" ).html().replaceAll( "XX", index ));
+        
+      };
+        
+      $( "#stepXX" ).remove();
+      
+    },
 		selectStepField : function ( $stepField ) {
 	
 			$( ".stepFieldSelected" ).removeClass( "stepFieldSelected" ).addClass( "stepFieldDisabled" );
