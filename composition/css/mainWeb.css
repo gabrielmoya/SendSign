@@ -1,0 +1,121 @@
+body {
+  background-color: #FFFFFF;
+  margin: 0px;
+}
+.caseTypeSelectorForm {
+  background-color : #FFFFFF;
+  width: 900px;
+  margin:0 auto;
+}
+
+  .caseTypeSelectorForm .caseTypeSelectorDiv .caseTypeSelectorContent {
+  }
+
+    .caseTypeSelectorForm .caseTypeSelectorDiv .caseTypeSelectorContent h2 {
+      font-size: 2.5em;
+      color: #646263;
+    }
+
+    .caseTypeSelectorForm .caseTypeSelectorDiv  .caseTypeSelectorContent p {
+      font-size: 1.5em;
+      color: #000000;
+      margin-top: 5px;
+    }
+    
+    .caseTypeSelectorForm .caseTypeSelectorDiv  .caseTypeSelectorContent .caseTypeSelectorColumnsDiv {
+      margin-top: 30px;
+    }
+    
+    .caseTypeSelectorForm .caseTypeSelectorDiv .caseTypeSelectorContent .caseTypeSelectorColumnsDiv .caseTypeSelectorNormalSignupDiv {
+      float: left;
+      width: 40%;
+      margin-left: 5%;
+      margin-left: 5%;
+    }
+
+    .caseTypeSelectorForm .caseTypeSelectorDiv .caseTypeSelectorContent .caseTypeSelectorColumnsDiv .caseTypeSelectorOnlineSignupDiv {
+      float: right;
+      width: 40%;
+      margin-right: 5%;
+      margin-left: 5%;
+    }
+    
+    .caseTypeSelectorForm .caseTypeSelectorDiv  .caseTypeSelectorContent .caseTypeSelectorColumnsDiv .caseTypeSelectorButton {
+      font-size: 3em;
+      font-weight: bold;
+      color: #FFFFFF;
+      padding: 40px 10px;
+      -moz-border-radius: 20px;
+      -webkit-border-radius: 20px;
+      -khtml-border-radius: 20px;
+      border-radius: 20px;
+    }
+
+    .caseTypeSelectorForm .caseTypeSelectorDiv  .caseTypeSelectorContent .caseTypeSelectorColumnsDiv .caseTypeSelectorButtonBlueWrapper {
+      background-color: #1086DE;
+      margin-bottom: 30px;
+      -moz-border-radius: 20px;
+      -webkit-border-radius: 20px;
+      -khtml-border-radius: 20px;
+      border-radius: 20px;
+      text-align: center;
+    }
+      .caseTypeSelectorForm .caseTypeSelectorDiv  .caseTypeSelectorContent .caseTypeSelectorColumnsDiv .caseTypeSelectorButtonBlueWrapper .caseTypeSelectorButtonBlue {
+        background-color: #1086DE;
+        border:0;
+      }
+    
+    .caseTypeSelectorForm .caseTypeSelectorDiv  .caseTypeSelectorContent .caseTypeSelectorColumnsDiv .caseTypeSelectorButtonGreenWrapper {
+      background-color: #017232;
+      margin-bottom: 30px;
+      -moz-border-radius: 20px;
+      -webkit-border-radius: 20px;
+      -khtml-border-radius: 20px;
+      border-radius: 20px;
+      text-align: center;      
+    }
+      .caseTypeSelectorForm .caseTypeSelectorDiv  .caseTypeSelectorContent .caseTypeSelectorColumnsDiv .caseTypeSelectorButtonGreenWrapper .caseTypeSelectorButtonGreen {
+        background-color: #017232;
+        border:0;
+      }
+    
+.caseTypeSelectorButtonArrowGreen {
+  position: relative;
+}
+.caseTypeSelectorButtonArrowGreen:after {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(1, 114, 50, 0);
+  border-top-color: #017232;
+  border-width: 30px;
+  margin-left: -30px;
+}
+
+.caseTypeSelectorButtonArrowBlue {
+  position: relative;
+}
+.caseTypeSelectorButtonArrowBlue:after {
+  top: 100%;
+  left: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(16, 134, 222, 0);
+  border-top-color: #1086DE;
+  border-width: 30px;
+  margin-left: -30px;
+}
+
+.activeButton:hover  {
+  cursor: pointer;
+  text-decoration: underline;
+}

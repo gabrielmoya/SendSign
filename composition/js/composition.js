@@ -11,8 +11,13 @@ var Composition = (function () {
       snap: ".clonedDiv",
       snapMode: "outer",
       start: function (event, ui) {
+        
         // Add class to know that field has just been dragged from top
         $(ui.helper).addClass("recentlyClonedDiv");
+        
+        // Hide and destroy informational tip
+        $( '#signDiv' ).qtip('destroy', true);
+        
       }
   };
 
@@ -58,7 +63,7 @@ var Composition = (function () {
           content: {
             text: $('.tooltipDiv')
           },
-          hide: "unfocus",
+          hide: false,
           style: {
               classes: 'qtip-composition-blue qtip-rounded',
               tip: {

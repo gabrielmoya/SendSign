@@ -293,6 +293,7 @@ var FillDocument = (function() {
         
       case SIGNATURE_DIV_MODES.write:
       
+        console.log( "En el write mode" );
         $signatureDiv.find('.signatureSpanClickableDiv,.signatureCanvasDiv').hide();
         $signatureDiv.find('.signatureInput').removeAttr("disabled");
         $signatureDiv.find('.signatureSpanDiv').show();
@@ -608,7 +609,12 @@ var FillDocument = (function() {
                   } else {
                   
                     setSignatureDivMode( SIGNATURE_DIV_MODES.choose, $signatureDiv1 );
-                  
+                    
+                    // IE8 canvas control: Do not allow draw sign option when canvas is not available
+                    if ( canvasIE8 ) {
+                      setSignatureDivMode( SIGNATURE_DIV_MODES.onlyWrite, $signatureDiv1 );
+                    }
+                    
                   }
 
               });

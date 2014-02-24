@@ -11,12 +11,14 @@ Cosas pendientes
   - Para IE8 que no permita firmar dibujando - OK
   - En la firma si se pinta en una se tienen que pintar todas, si se escribe una se tienen que escribir todas - OK   
   - En el composition que haya que meter un campo de input al menos antes de activar el boton - OK
+  - ¿Usar libreria easeljs para pintar en el canvas? - OK
+  - El span clickable aparece cuando se esta escribiendo la firma en el IE8 - OK
 
-  - Popup contenido a la izquierda OK
-  - ¿Usar libreria easeljs para pintar en el canvas?
+  - Popup contenido a la izquierda
 
   - Cuando el campo esta a la derecha del todo y se da un poco mas a la derecha se sale un pixel
   - IE8 esquinas redondeadas y sombras
+  - Scroll algo raro en el composition
   
 
 			var date = today.asString( "ddXXXX mmmm yyyy" );

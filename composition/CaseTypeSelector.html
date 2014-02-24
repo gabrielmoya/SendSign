@@ -1,0 +1,34 @@
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link rel="stylesheet" type="text/css" href="css/mainWeb.css">
+</head>
+<body>
+  <form id="form1" runat="server" class="caseTypeSelectorForm">
+    <div ID="pnlLayout" runat="server" class="caseTypeSelectorDiv clearfix" Style="margin-left:20px" >
+      <div ID="divMessage" runat="server"></div>
+      <div class="guidanceText" id="divGuidanceText" runat="server"></div>
+      <div id="content" class="caseTypeSelectorContent">
+        <h2>Select signup process</h2>
+        <p>We now provide a service enabling your clients to sign their documents via an on-line system.</p>
+        <div class="caseTypeSelectorColumnsDiv">
+          <div class="caseTypeSelectorNormalSignupDiv">
+            <div class="caseTypeSelectorButtonBlueWrapper caseTypeSelectorButtonArrowBlue">
+              <input type="submit" ID="btnNormalSignup"  runat="server" value="Agent visit signup" class="caseTypeSelectorButton caseTypeSelectorButtonBlue activeButton"/>
+            </div>
+            <p>We will send an agent out to visit your client and complete the sign-up process.</p>
+          </div>
+          <div class="caseTypeSelectorOnlineSignupDiv"> 
+            <div class="caseTypeSelectorButtonGreenWrapper caseTypeSelectorButtonArrowGreen">
+              <input type="submit" ID="btnWebSignup" runat="server" value="Online signup"  class="caseTypeSelectorButton caseTypeSelectorButtonGreen activeButton"/>
+            </div>
+            <p>A succesful online signup provides faster turnaround and reduced costs to you.</p>
+            <p>If your client chooses not to sign on-line, we will send an agent out to visit them and complete the sign-up process.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</body>
+</html>

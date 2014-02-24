@@ -1,0 +1,1332 @@
+/****************************************
+ Main CSS (c) Copyright Musgrave
+ 
+ Author: Paul Welsh
+ Email: welshy@themusgraveoffice.com
+****************************************/
+
+@import url("reset.css");
+
+html{
+	background: #346bc0; /* changed by st */
+}
+
+body{
+	font-family: Tahoma, Helvetica, Arial, sans-serif; /* changed by st */
+	font-size: 62.5%;
+	color: #333333;
+	height: 100%;	
+	background: url(../images/header-bg.png) left -20px repeat-x; /* changed by st */
+}
+
+.rm{
+	position: absolute;
+	left: -9999em;
+}
+
+strong{
+	font-weight: bold;
+}
+
+.clearfix:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
+}
+
+.clearfix {
+	display: inline-block;
+}
+
+html[xmlns] .clearfix {
+ 	display: block;
+}
+
+* html .clearfix {
+	height: 1%;
+}
+
+.error{
+	background: #CF0000;
+	color: #fff;
+	padding: 10px;
+	margin-bottom: 10px;
+	font-size: 1.1em;
+}
+
+.success{
+	background: #55B05A;
+	color: #fff;
+	padding: 10px;
+	margin-bottom: 10px;
+	font-size: 1.1em;
+}
+
+.printable{
+	display: none;
+}
+/****************************************
+ Container
+****************************************/
+
+#container{
+	position: relative;
+	z-index: 1;
+}
+
+/****************************************
+ Form Elements
+****************************************/
+
+#ctl00_ctl00_MainContent_MainContent_lblFlexi {
+    vertical-align:bottom;
+    line-height:1.5em;    
+    Font-Size:1.14em;
+}
+
+input.button {
+	padding: 2px 0px;
+	border: 1px solid #74b3f6;
+	font-size: 1.2em;
+	overflow:visible;
+    outline: 0;
+	text-align: center;
+	background: #D0D0D0 url(../images/h2_bg.png) bottom left repeat-x;
+	color: #fff;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+input.button.blue{
+	background: #4090FB url(../images/blue_btn_bg.png) bottom left repeat-x;
+}
+
+input.button.green{
+	background: #56AA62 url(../images/green_btn_bg.png) bottom left repeat-x;
+	border: 1px solid #E9F7DE;
+}
+
+input.button.unselect{
+    background: #D0D0D0 url(../images/grey_btn_bg.png) bottom left repeat-x!important;
+    color: #666!important;        
+    cursor: default!important;
+    border: 1px solid #8d8d8e;
+}
+
+select, input, textarea{
+	font-family: Arial, Helvetica, Verdana, sans-serif;
+	font-size: 1.1em;	
+	background: url(../images/input-bg.jpg) left top repeat-x #cee1e8;
+	border: 1px solid #3b7fae;
+	padding: 2px;
+}
+
+textarea 
+{
+	font-size: 1.1em;
+	border: 1px solid #3b7fae;
+	padding: 2px;
+	background: url(../images/input-bg.jpg) left top repeat-x #cee1e8;
+}
+
+.checkbox_elm input{
+	vertical-align: middle;
+}
+
+.checkbox_elm label{
+	vertical-align: middle;
+	margin-right: 10px;
+}
+
+.inputbox{
+	font-size: 1.1em;
+	padding: 2px;
+}
+
+/****************************************
+ Header
+****************************************/
+
+#header{
+	padding: 20px 20px 30px 20px; /* changed by st */
+	width: 930px;
+}
+
+#logo{
+	float: left;
+}
+
+#help_options{
+	float: right;
+	padding-top: 12px;
+}
+
+#help_options li{
+	float: left;
+	margin-left: 5px;
+}
+
+#help_options a {
+	float: left;
+	display: block;
+	padding: 6px 8px;
+	border: 1px solid #0079c9; /* changed by st */
+	font-size: 1em;
+	min-width: 66px;
+	text-align: center;
+	background: #3f99d8 url(../images/blue_btn_bg.png) bottom left repeat-x; /* changed by st */
+	color: #fff;
+	text-decoration: none;	
+	text-transform: uppercase;
+	font-weight: bold;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+* html #help_options a {
+	font-size: 1.1em!important;
+}
+
+.upload_box{
+	width: 386px;
+	float: left;
+	padding-top: 1px;
+	padding-bottom: 1px;
+}
+
+input.filename_box
+{
+	float: left;
+	font-family: Arial, Helvetica, Verdana, sans-serif;
+	background: #fff;
+	color: #666;
+	border: 1px solid #bbb;
+	padding: 2px;
+	margin-bottom: 6px;
+	margin-right:3px;
+	font-size: 11px;
+	letter-spacing: 1px;
+	width: 381px;
+}
+
+.removeButton {
+        display: block;
+        float:left;
+        padding: 3px 0px;
+        border: 1px solid #74b3f6;
+        font-size: 1.2em;
+        width: 120px;
+        text-align: center;
+        background: #4090FB url(/images/blue_btn_bg.png) bottom left repeat-x;
+        color: #fff;
+        text-decoration: none;
+}
+
+.cancelUpload
+{
+	display:none;
+}
+
+* #help_options a{
+	 /* changed by st */
+}
+
+.welcome{
+	background: #ededef;
+	padding: 10px 20px 10px 20px;
+	color: #267dc3;
+	font-size: 1.1em;
+	border-top: 1px solid #fff;
+}
+
+/****************************************
+ Main
+****************************************/
+
+#main{
+	background: #fff;
+}
+
+#main h1{
+	margin-bottom: 22px;
+	font-size: 2.4em;
+	color: #3796DE;
+	font-weight: normal;
+	font-family: Futura;
+}
+
+#main h2{
+	padding: 3px 0;
+	font-size: 1.6em;
+	border-bottom: 2px solid #ededef;
+	color: #1a70b6;
+	font-family: "HelveticaNeue", Helvetica, Arial, sans-serif;
+	margin-top: 20px;
+}
+
+#main p{
+	font-size: 1.2em;
+	margin-bottom: 12px;
+	line-height: 1.5em;
+}
+
+.guidanceText p
+{
+/*	font-size:  1.1em!important; */
+}
+
+#sidebar label, #content label{
+	font-size: 1.1em;
+}
+
+#sidebar .inputbox{
+	font-size: 1.1em;
+	border: 1px solid #3b7fae;
+	padding: 2px;
+	background: url(../images/input-bg.jpg) left top repeat-x #cee1e8;
+}
+
+#main .rm_link{
+	color:#58A0F3;
+	font-size:12px;
+	float:left;
+	line-height:21px;
+}
+
+/****************************************
+ Layout 1
+****************************************/
+
+#main .layout_1{
+	width: 950px;
+	padding: 10px;
+}
+
+#main .layout_1 #sidebar{
+	width: 225px;
+	margin-right: 10px;
+	float: left;
+	margin-top: 30px;
+		border-right: 1px solid #bbb;
+}
+
+#main .layout_1 #sidebar .sidebox{
+	width: 206px;
+	padding: 9px 9px 0px 9px;
+}
+
+#main .layout_1 #sidebar .form_el{
+	width: 206px;
+	padding-bottom: 5px;
+}
+
+#main .layout_1 #sidebar .form_btns{
+	padding-bottom: 10px;
+	padding-top: 5px;
+	width: 206px;
+}
+
+#main .layout_1 #sidebar .form_btns .button{
+	float: right;
+	margin-bottom: 5px;
+}
+
+#main .layout_1 #sidebar .form_el label{
+	float: left;
+	width: 85px;
+	line-height: 1.6em;
+}
+
+#main .layout_1 #sidebar .form_el .inputbox{
+	float: left;
+	width: 115px;
+}
+
+#main .layout_1 #sidebar .form_el .datebox{
+	float: left;
+	width: 92px;
+	margin-right: 2px;
+}
+
+#main .layout_1 #sidebar .form_el.smallbox label{
+	float: left;
+	width: 130px;
+	line-height: 1.6em;
+}
+
+#main .layout_1 #sidebar .form_el.smallbox .inputbox{
+	float: left;
+	width: 70px;
+}
+
+#main .layout_1 #content{
+	width: 714px;
+	float: left;
+}
+
+#main .layout_1 #content .welcome_msg{
+	padding-left: 15px;
+	padding-top: 30px;
+}
+
+#main .layout_1 #content .welcome_msg h1{
+	margin-bottom: 30px;
+}
+
+#main .layout_1 #content .welcome_msg p{
+	font-size: 1.4em;
+	margin-bottom: 20px;
+}
+
+#main .layout_1 #content .welcome_msg a{
+	color: #3796DE;
+}
+
+#main .layout_1 #content .welcome_msg ul{
+	padding-bottom: 10px;
+}
+
+#main .layout_1 #content .welcome_msg li{
+	font-size: 1.4em;
+	margin-bottom: 10px;
+	margin-left: 30px;
+	list-style: disc;
+}
+
+#main .layout_1 #content .welcome_msg h3{
+	margin-bottom: 10px;
+	padding-top: 10px;
+	font-size: 1.8em;
+	color: #3796DE;
+	font-weight: normal;
+	font-family: Futura;
+}
+.checkbox input{
+	float:left;
+	margin-right:3px;
+}
+
+.checkbox input{
+	float:left;
+	margin-right:3px;
+}
+
+/****************************************
+ Layout 2
+****************************************/
+
+.default_table{
+	width: 100%;
+	border: 1px solid #387dad;
+}
+
+.default_table th{
+	padding: 3px 5px 3px 5px;
+	background: #4090FB url(../images/h2_bg.png) bottom left repeat-x;
+	color: #fff;
+	text-align: center;
+	font-size: 1.1em;
+}
+
+
+.default_table tr.even{
+	background: #d0e6ed;
+}
+
+.default_table tr.odd{
+	background: #e8f3f6;
+}
+
+
+.default_table td{
+	padding: 4px 8px 4px 8px;
+	font-size: 1.1em;
+}
+
+.default_table td.btnbox{
+	border-right: 0;
+	padding: 1px 2px;
+	font-size: 1em;
+	width:100px!important;
+}
+
+.default_table td.btnbox input.button{
+	width:100px!important;
+}
+
+#main .default_table td p{
+	font-size: 1em;
+	margin: 0;
+	line-height: auto;
+}
+
+
+#main .layout_2{
+	width: 950px;
+	padding: 10px;
+}
+
+#main .layout_2 #sidebar{
+	width: 310px;
+	margin-right: 10px;
+	padding-right: 10px;
+	border-right: 1px solid #bbb;
+	float: left;
+}
+
+#main .layout_2 #sidebar .sidebox{
+	width: 290px;
+	padding: 10px;
+}
+
+#main .layout_2 #sidebar .form_el{
+	width: 290px;
+	padding-bottom: 5px;
+}
+
+#main .layout_2 #sidebar .form_el p{
+	font-size: 1.1em!important;
+	margin: 0!important;
+	padding: 0!important
+}
+
+.long_select{
+	width: 290px;
+}
+
+#main .layout_2 #sidebar .form_btns{
+	padding-bottom: 10px;
+	padding-top: 5px;
+	width: 290px;
+}
+
+#main .layout_2 #sidebar .form_btns .button{
+	margin-bottom: 5px;
+}
+
+#main .layout_2 #sidebar .form_el label{
+	float: left;
+	width: 85px;
+	line-height: 1.6em;
+}
+
+#main .layout_2 #sidebar .form_el .inputbox{
+	float: left;
+	width: 199px;
+}
+
+#main .layout_2 #sidebar .form_el .datebox{
+	float: left;
+	width: 176px;
+	margin-right: 2px;
+}
+
+#main .layout_2 #sidebar .form_el.smallbox label{
+	float: left;
+	width: 130px;
+	line-height: 1.6em;
+}
+
+#main .layout_2 #sidebar .form_el.smallbox .inputbox{
+	float: left;
+	width: 70px;
+}
+
+.avail_list{
+	font-size: 1.1em;
+	line-height: 1.6em;
+}
+
+#main .layout_2 #content{
+	width: 618px;
+	float: left;
+}
+
+#main .layout_2 #content .contentbox{
+	padding: 10px;
+}
+
+#main .layout_2 #content .form_el{
+	width: 285px;
+	float: left;
+	padding-bottom: 5px;
+}
+
+#main .layout_2 #content .form_el.right{
+	width: 285px;
+	float: right;
+}
+
+#main .layout_2 #content .form_el label{
+	float: left;
+	width: 80px;
+	line-height: 1.6em;
+}
+
+#main .layout_2 #content .form_el .inputbox{
+	float: left;
+	width: 199px;
+}
+
+#main .layout_2 #content .form_btns .button{
+	margin-bottom: 5px;
+}
+
+#main .layout_2 #content .halfleft{
+	width: 304px;
+	float: left;
+	margin-right: 10px;
+}
+
+#main .layout_2 #content .halfright{
+	width: 304px;
+	float: left;
+}
+
+#main .layout_2 #content .full{
+	width: 100%;
+	float: left;
+}
+#main .layout_2 .topfilterbox{
+	float: left;
+	padding-bottom: 10px;
+	padding-top: 5px;
+}
+
+* html #main .layout_2 .topfilterbox{
+	padding-bottom: 0px;
+}
+
+#main .layout_2 .topfilterbox .form_el{
+	padding-right: 20px;
+	float: left;
+	padding-bottom: 5px;
+}
+
+#main .layout_2 .topfilterbox .form_el label{
+	float: left;
+	line-height: 1.6em;
+	font-size: 1.1em;
+	padding-right: 5px;
+}
+
+#main .layout_2 .topfilterbox .form_el .inputbox{
+	float: left;
+	width: 80px;
+	margin-right: 2px;
+	padding-top: 3px;
+}
+
+#main .layout_2 .topfilterbox .form_el .button{
+	margin-bottom: 5px;
+}
+
+#main .layout_2 .topfilterbox .form_el select{
+	padding: 1px;
+}
+
+/****************************************
+ Uploader
+****************************************/
+
+.upload_item{
+	height: 50px;
+}
+
+.upload_options{
+	padding-left: 391px;
+	margin-top: -10px;
+}
+
+.add_another{
+	padding-left: 268px;
+}
+
+/****************************************
+ Schedule Table
+****************************************/
+
+#schedule_table{
+
+}
+
+.schedule_table_nav{
+	float: left;
+	width: 619px;
+	height: 30px;
+	padding-left: 91px;
+}
+
+.schedule_table_nav li{
+	float: left;
+	margin-right: 5px;
+}
+
+.schedule_table_nav a{
+	float: left;
+	display: block;
+	padding: 3px 10px;
+	border: 1px solid #0079c9;
+	font-size: 1.2em;
+	min-width: 90px;
+	text-align: center;
+	background: #4090FB url(../images/blue_btn_bg.png) bottom left repeat-x;
+	color: #fff;
+	text-decoration: none;	
+}
+
+* html .schedule_table_nav a{
+	width: 90px;
+}
+
+.schedule_table_nav a.unselect{
+    background: #D0D0D0 url(../images/grey_btn_bg.png) bottom left repeat-x!important;
+    color: #666!important;        
+    cursor: default!important;
+    border: 1px solid #8d8d8e;
+}
+
+#schedule_table_inner{
+	overflow: hidden;
+	float: left;
+}
+
+#schedule_table_inner div.table_item{
+	overflow: hidden;
+	float: left;
+	width: 623px;	
+}
+
+table.schedule{
+	font-size: 1.1em;
+	border-collapse: collapse;
+	float: left;
+}
+
+table.time{
+	font-size: 1.1em;
+	border-collapse: collapse;
+	float: left;
+}
+
+table.schedule th.days, table.time th.empty{
+	border: 1px solid #fff;
+	border-collapse: collapse;
+}
+
+table.schedule th.days a{
+	padding: 3px 0px 3px 0px;
+	background:  #4090FB url(../images/blue_btn_bg.png) bottom left repeat-x;
+	border: 1px solid #0086cb;
+	color: #fff;
+	width: 86px;
+	text-align: center;
+	display: inline-block;
+	text-decoration: none;
+}
+
+table.time th.empty span{
+	padding: 3px 0px 3px 0px;
+	background: #fff;
+	border: 1px solid #fff;
+	color: #222;
+	width: 86px;
+	text-align: center;
+	display: inline-block;
+}
+
+table.schedule th.hide, table.time th.time{
+	width: 88px;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #fff;
+	border-collapse: collapse;
+	height: 28px;
+}
+
+table.schedule th.hide a, table.time th.time a{
+	height: 10px;
+	padding: 8px 0px;
+	background:  #3f99d8 url(../images/blue_btn_bg.png) bottom left repeat-x;
+	border: 1px solid #0086cb;
+	color: #fff;
+	width: 86px;
+	text-align: center;
+	display: inline-block;
+	text-decoration: none;
+	line-height:1em;
+}
+
+* html table.schedule th.hide a, * html table.time th.time a{
+
+        padding: 7px 0px 8px 0px;
+
+}
+
+table.schedule td{
+	width: 88px;
+	height: 28px;
+	overflow: hidden;
+	text-align: center;
+	vertical-align: middle;
+	border: 1px solid #fff;
+	border-collapse: collapse;
+}
+
+table.schedule td a{
+	height: 10px;
+	padding: 8px 0px;
+	width: 86px;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+	text-decoration: none;
+	background: #E9F7DE;
+	border: 1px solid #CFE5C1;
+	color: #437A1C;
+}
+
+table.schedule td a:hover,table.schedule td a:focus{
+    background: #D7EFC2;
+}
+
+table.schedule td a.selected, table.schedule td a.selected:hover, table.schedule td a.selected:focus{
+    background: #55B05A;
+    color: #fff;
+}
+
+* html table.schedule th.hide span, * html table.time th.time span, * html table.schedule td a{
+	padding: 6px 0px;
+}
+
+table.schedule td a:focus{
+	outline: none;
+}
+
+/*table.schedule td span.unavailable{
+	height: 10px;
+	padding: 8px 0px;
+	width: 86px;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+	text-decoration: none;
+	background: #ededed;
+	border: 1px solid #dadada;
+	color: #555;
+}
+
+* html table.schedule td span.unavailable{
+	height: 10px;
+	padding: 6px 0px;
+	width: 86px;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+	text-decoration: none;
+	background: #ededed;
+	border: 1px solid #dadada;
+	color: #555;
+}
+*/
+table.schedule td span.unavailable{
+	height: 10px;
+	padding: 8px 0px;
+	width: 86px;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+	text-decoration: none;
+	background: #FFC0C1;
+	border: 1px solid #EFB3B5;
+	color: #555;
+}
+
+* html table.schedule td span.unavailable{
+	height: 10px;
+	padding: 8px 0px;
+	width: 86px;
+	text-align: center;
+	vertical-align: middle;
+	display: inline-block;
+	text-decoration: none;
+	background: #FFC0C1;
+	border: 1px solid #EFB3B5;
+	color: #555;
+}
+
+
+/****************************************
+ Cases Table
+****************************************/
+
+table.cases{
+	width: 950px;
+	border: 1px solid #387dad;
+}
+
+table.cases th.title{
+	padding: 3px 5px 3px 5px;
+	background: #4090FB url(../images/blue_btn_bg.png) bottom left repeat-x;
+	color: #fff;
+	text-align: left;
+	font-size: 1.1em;
+	cursor: pointer;
+	border-left: 1px solid #0087c9;
+}
+
+table.cases th.header span{
+	background: url(../images/sort_arrow_main.png) center right no-repeat;
+	display: inline-block;
+	width: 99%;
+}
+
+table.cases td{
+	font-size: 1.1em;
+	border-left: 1px solid #b9cfd6;
+	padding: 6px 5px;
+	height: 18px!important;
+	vertical-align: middle;
+}
+
+table.cases td a{
+	color: #000;
+	}
+
+table.cases td:first-child{
+	border-left: 0;
+}
+
+table.cases tr.even{
+	background: #d0e6ed;
+}
+
+table.cases tr.odd{
+	background: #e8f3f6;
+}
+
+table.cases tr.green td{
+	background: url(../images/lightgreen_btn_bg.png) 0px 1px repeat-x;
+}
+
+table.cases th.headerSortDown, table.cases th.headerSortUp{
+	background: #0066b8 url(../images/medblue_btn_bg.png) left bottom repeat-x!important;
+}
+
+table.cases th.headerSortDown span{
+	background: url(../images/sort_arrow_down.png) center right no-repeat;
+	display: inline-block;
+	width: 99%;
+}
+
+table.cases th.headerSortUp span{
+	background: url(../images/sort_arrow_up.png) center right no-repeat;
+	display: inline-block;
+	width: 99%;
+}
+
+table.cases tr td em{
+	display: inline-block;
+	padding-top: 3px;
+	padding-left: 5px;
+	float: left;
+}
+
+table.cases input{
+	border: 0;
+}
+
+table.cases .edit{
+	background: #7FC2F6 url(../images/medblue_btn_bg.png) left bottom repeat-x;
+	border: 1px solid #fff;
+	color: #fff;
+	cursor: pointer;
+	width: 60px;
+	float: right;
+	height: 18px;
+	font-size: 1em;
+}
+
+table.cases .book{
+	background: #7FC2F6 url(../images/h2_bg.png) left bottom repeat-x;
+	border: 1px solid #fff;
+	color: #fff;
+	cursor: pointer;
+	width: 150px;
+	height: 22px;
+	font-size: .9em;
+	text-transform: uppercase
+}
+
+table.cases .edit:hover, table.cases .book:hover, table.cases .edit_hover, table.cases .book_hover{
+	background: #235aab left bottom repeat-x;
+}
+
+table.cases .view{
+	background: #c6e4fc url(../images/h2_bg.png) left bottom repeat-x;
+	border: 1px solid #fff;
+	color: #fff;
+	cursor: pointer;
+	width: 150px;
+	height: 22px;
+	font-size: .9em;
+	text-transform: uppercase;
+}
+
+table.cases .view:hover, table.cases .view_hover{
+	background: #235aab left bottom repeat-x!important;
+}
+
+.wbg{
+	background: #fff!important;
+}
+
+.np{
+	padding: 0!important;
+}
+
+
+/****************************************
+ Login
+****************************************/
+
+.login_page{
+	background: url(../images/login_bg_repeat.jpg);
+	width: 100%;
+	position: relative;
+}
+
+.login_page_box{
+	background: url(../images/login_bg.jpg);
+	height: 400px;
+	width: 950px;
+	position: relative;
+}
+
+.login_page_box fieldset{
+	top: 125px;
+	left: 462px;
+	position: relative;
+	width: 182px;
+}
+
+.login_page_box p{
+	font-size: 1.2em;
+	color: #fff;
+}
+
+.login_page_box .inputbox{
+	width: 175px;
+	font-size: 1.2em;
+	border: 1px solid #fff;
+}
+
+.login_page_box .form_el{
+	padding-bottom: 10px;
+}
+
+
+/****************************************
+ Footer
+****************************************/
+
+#footer{
+	width: 930px;
+	padding: 10px 20px 20px 20px;
+}
+
+#footer ul{
+	float: left;
+	width: 100%;
+	padding-bottom: 15px;
+}
+
+#footer li{
+	float: left;
+	font-size: 1.1em;
+	color: #fff;
+}
+
+#footer li a{
+	display: block;
+	float: left;
+	margin-right: 10px;
+	padding-right: 10px;
+	color: #fff;
+	text-decoration: none;
+	background: url(../images/footer_arrow.png) center right no-repeat;
+}
+
+#footer li a:hover, #footer li a:focus{
+	text-decoration: underline;
+}
+
+.group_logo{
+	float: left;
+	margin-right: 25px;
+}
+
+#company_details{
+	float: left;
+	font-size: 1.1em;
+	color: #d3ecff;
+	line-height: 1.5em;
+}
+
+#company_details address{
+	font-style:normal;
+}
+
+/****************************************
+ Date Picker
+****************************************/
+
+table.jCalendar {
+	border: 0;
+	background: #fff;
+    border-collapse: separate;
+    border-spacing: 2px;
+}
+table.jCalendar th {
+	background: #346bc0;
+	color: #fff;
+	font-weight: bold;
+	padding: 3px 5px;
+	text-align: center;
+}
+
+table.jCalendar td {
+	background: #ccc;
+	color: #333;
+	padding: 3px 5px;
+	text-align: center;
+}
+table.jCalendar td.other-month {
+	background: #ddd;
+	color: #aaa;
+}
+table.jCalendar td.today {
+	background: #666;
+	color: #fff;
+}
+table.jCalendar td.selected {
+	background: #437A1C;
+	color: #fff;
+}
+table.jCalendar td.selected.dp-hover {
+	background: #437A1C;
+	color: #fff;
+}
+table.jCalendar td.dp-hover,
+table.jCalendar tr.activeWeekHover td {
+	background: #fff;
+	color: #000;
+}
+table.jCalendar tr.selectedWeek td {
+	background: #437A1C;
+	color: #fff;
+}
+table.jCalendar td.disabled, table.jCalendar td.disabled.dp-hover {
+	background: #bbb;
+	color: #888;
+}
+table.jCalendar td.unselectable,
+table.jCalendar td.unselectable:hover,
+table.jCalendar td.unselectable.dp-hover {
+	background: #bbb;
+	color: #888;
+}
+
+/* For the popup */
+
+div.dp-popup {
+	position: relative;
+	background: #346bc0;
+	font-size: 10px;
+	padding: 2px;
+	width: auto;
+	line-height: 1.2em;
+}
+div#dp-popup {
+	position: absolute;
+	z-index: 199;
+}
+div.dp-popup h2 {
+	font-size: 11px;
+	font-weight: bold;
+	text-align: center;
+	margin: 2px 0;
+	padding: 0 0 3px 0;
+	color: #fff;
+}
+a#dp-close {
+	font-size: 11px;
+	padding: 4px 0;
+	text-align: center;
+	display: block;
+}
+a#dp-close:hover {
+	text-decoration: underline;
+}
+div.dp-popup a {
+	color: #fff;
+	font-weight: bold;
+	text-decoration: none;
+	padding: 3px 2px 0;
+}
+div.dp-popup div.dp-nav-prev {
+	position: absolute;
+	top: 1px;
+	left: 4px;
+	width: 100px;
+}
+div.dp-popup div.dp-nav-prev a {
+	float: left;
+}
+/* Opera needs the rules to be this specific otherwise it doesn't change the cursor back to pointer after you have disabled and re-enabled a link */
+div.dp-popup div.dp-nav-prev a, div.dp-popup div.dp-nav-next a {
+	cursor: pointer;
+}
+div.dp-popup div.dp-nav-prev a.disabled, div.dp-popup div.dp-nav-next a.disabled {
+	cursor: default;
+}
+div.dp-popup div.dp-nav-next {
+	position: absolute;
+	top: 1px;
+	right: 4px;
+	width: 100px;
+}
+div.dp-popup div.dp-nav-next a {
+	float: right;
+}
+div.dp-popup a.disabled {
+	cursor: default;
+	color: #74B3F6;
+}
+div.dp-popup td {
+	cursor: pointer;
+}
+div.dp-popup td.disabled {
+	cursor: default;
+}
+
+a.dp-choose-date {
+	float: left;
+	width: 21px;
+	height: 21px;
+	padding: 0;
+	display: block;
+	text-indent: -2000px;
+	overflow: hidden;
+	background: #ccc url(../images/cal_icon.png) no-repeat; 
+}
+a.dp-choose-date.dp-disabled {
+	background-position: 0 -20px;
+	cursor: default;
+}
+/* makes the input field shorter once the date picker code
+ * has run (to allow space for the calendar icon
+ */
+input.dp-applied {
+	width: 140px;
+	float: left;
+}
+
+/****************************************
+ Modal Overlay
+****************************************/
+
+/* Overlay */
+#simplemodal-overlay {
+	background-color:#000; 
+}
+
+/* Container */
+#simplemodal-container {
+	width: auto!important;
+	padding: 0!important;
+}
+
+* html #simplemodal-container {
+	width: 410px!important;
+	height: auto!important;
+}
+
+#simplemodal-container a.modalCloseImg {
+	background: url(/images/modal-close.png) no-repeat; 
+	width:12px; 
+	height:13px; 
+	display:inline; 
+	z-index:3200; 
+	position:absolute; 
+	top:3px; 
+	right:5px; 
+	cursor:pointer;
+}
+
+* html #simplemodal-container a.modalCloseImg {
+    display: none;
+}
+
+* html .modal_content{
+	margin: 0 auto;
+}
+.modal_content{
+	display: none;
+}
+
+.modal_content h4{
+	padding: 3px 9px 3px 9px;
+	background: #d0d0d0 url(/images/h2_bg.png) bottom left repeat-x;
+	font-size: 1.1em;
+	color: #222;
+	border: 1px solid #bbb;
+}
+
+.modal_inner{
+	padding: 10px;
+	background-color:#fff;
+	border: 1px solid #bbb;
+}
+
+.modal_inner p{
+	font-size: 1.1em;
+	margin-bottom: 12px;
+	line-height: 1.5em;
+}
+
+.modal_inner .form_el{
+	padding-bottom: 5px;
+}
+
+.modal_inner label{
+	font-size: 1.1em;
+	float: left;
+	width: 90px;
+	line-height: 1.6em;
+}
+
+.modal_inner .form_el span{
+	width: 206px;
+	padding-bottom: 5px;
+	font-size: 1.1em;
+}
+
+.modal_inner .inputbox{
+	width: 200px;
+}
+
+#tooltip {
+	position: absolute;
+	z-index: 3000;
+	border: 1px solid #74B3F6;
+	background-color: #58A0F3;
+	padding: 5px;
+	opacity: 0.85;
+	font-size: 1.1em;
+	color: #fff;
+}
+
+#tooltip h3, #tooltip div { margin: 0; }
