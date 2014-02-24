@@ -9,19 +9,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="css/jquery.qtip.css">
         <link rel="stylesheet" type="text/css" href="css/filldocument.css">
-		<!--[if lt IE 9]>
-			<link rel="stylesheet" type="text/css" href="css/ie-fixes.css">
-		<![endif]-->		
+        <!--[if lt IE 9]>
+          <link rel="stylesheet" type="text/css" href="css/ie-fixes.css">
+        <![endif]-->
         <script src="js/libs/jquery-1.9.1.js"></script>
-        <script src="js/libs/jquery.simplemodal-1.4.4.js"></script>		
+        <!-- <script src="js/libs/jquery.simplemodal-1.4.4.js"></script> -->
         <script src="js/libs/jquery.qtip.js"></script>
         <script src="js/libs/jquery.validate.js"></script>
         <script src="js/libs/additional-methods.js"></script>
         <script src="js/libs/jquery.dates.js"></script>
         <script src="js/libs/jquery.hoverIntent.js"></script>
         <script src="js/libs/easeljs-0.7.1.min.js"></script>
-		<script src="js/index.js"></script>
-		<script src="js/filldocument.js"></script>
+        <script src="js/index.js"></script>
+        <script src="js/filldocument.js"></script>
     </head>
     <body>
     	<form id="content" method="get" action="">
@@ -60,7 +60,7 @@
     			</div>
     			<div id="bottomDivMessage1">
 					<span class="signatureNotSigning spanClickable">Click here if you do not want to sign</span>
-    			</div>				
+    			</div>
     		</div>
 			<div class="signatureWrapper" style="display:none"></div>
 			<div class="signatureDiv" style="display:none">
@@ -110,10 +110,10 @@
 					<div class="signatureNotSignInputDiv">
 						<div class="signatureNotSignDivDropDown">
 							<select class="signatureNotSignDropDown">
-							  <option></option>
-							  <option>Option 1</option>
-							  <option>Option 2</option>
-							  <option>Option 3</option>
+							  <option value="0"></option>
+							  <option value="1">Option 1</option>
+							  <option value="2">Option 2</option>
+							  <option value="3">Option 3</option>
 							</select>
 						</div>
 						<div class="signatureNotSignDivTextArea">
@@ -121,7 +121,7 @@
 						</div>
 					</div>
 					<div class="signatureNotSignButtonsDiv">
-						<span class="signatureNotSignDone sendSignButton">Done</span>
+            <input type="submit" class="signatureNotSignDone sendSignButton" value="Done"></input>
 						<span class="signatureNotSignCancel sendSignButton2 activeButton">Cancel</span>
 					</div>
 				</div>

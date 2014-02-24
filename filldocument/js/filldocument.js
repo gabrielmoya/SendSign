@@ -276,7 +276,7 @@ var FillDocument = (function() {
         // Initially shows span to let user decide if wants to write the sign or draw it
         $signatureDiv.find('.signatureSpanClickableDiv').show();
         $signatureDiv.find('.signatureSpanDiv, .signatureCanvasDiv').hide();
-        $signatureDiv.find('.signatureInput').attr("disabled", false);
+        $signatureDiv.find('.signatureInput').removeAttr("disabled");
         break;
         
       case SIGNATURE_DIV_MODES.draw:
@@ -294,7 +294,7 @@ var FillDocument = (function() {
       case SIGNATURE_DIV_MODES.write:
       
         $signatureDiv.find('.signatureSpanClickableDiv,.signatureCanvasDiv').hide();
-        $signatureDiv.find('.signatureInput').attr("disabled", false);
+        $signatureDiv.find('.signatureInput').removeAttr("disabled");
         $signatureDiv.find('.signatureSpanDiv').show();
         break;
         
@@ -331,7 +331,7 @@ var FillDocument = (function() {
 
   var toggleStateSubmitButton = function() {
 
-      if (Number(remainingSteps) == 0) {
+      if ( Number(remainingSteps) == 0 ) {
           $(".validateButton").removeAttr("disabled").addClass("activeButton");
       } else {
           $(".validateButton").attr("disabled", true).removeClass("activeButton");
@@ -725,13 +725,6 @@ var FillDocument = (function() {
                   $inputPdfField.qtip("option", "position.target", $inputPdfField);
                   $inputPdfField.qtip("option", "style.classes", QtipDefaultClasses);
 
-                  /*steps[stepIndex].completed = false;
-                  remainingSteps++;
-                  updateBottomMessage(remainingSteps);
-                  $stepField.removeClass("stepFieldCompleted");
-
-                  toggleStateSubmitButton();*/
-                  
                   validateField($fakeValidationField, $stepField);
 
               });
@@ -873,16 +866,17 @@ var FillDocument = (function() {
 
           lockScroll();
           $(".signatureWrapper,.signatureNotSignDiv").show();
+          $(".signatureNotSignDone").attr("disabled", true).removeClass("activeButton");
           $(".signatureNotSignTextArea").focus();
 
       });
       $(".signatureNotSignDropDown").change(function() {
 
           var $dropdown = $(this);
-          if ($dropdown.val() == "") {
-              $(".signatureNotSignDone").removeClass("activeButton");
+          if ( $dropdown.val() == "0" ) {
+              $(".signatureNotSignDone").attr("disabled", true).removeClass("activeButton");
           } else {
-              $(".signatureNotSignDone").addClass("activeButton");
+              $(".signatureNotSignDone").removeAttr("disabled").addClass("activeButton");
           }
 
       });
@@ -892,8 +886,8 @@ var FillDocument = (function() {
           $(".signatureWrapper,.signatureNotSignDiv").hide();
 
       });
-      $(".signatureNotSignDone").click(function() {
-      });
+      /*$(".signatureNotSignDone").click( function( event ) {
+      });*/
       $(".signatureNotSignCancel").click(function() {
           //$(".signatureNotSignTextArea").val("");
           unlockScroll();
@@ -914,7 +908,7 @@ var FillDocument = (function() {
 
       },
       submitForm: function() {
-
+        
           // Save values to JSON
           var values = [];
           $.each(pagesJSON, function() {
@@ -928,7 +922,7 @@ var FillDocument = (function() {
                   };
                   if (field.typeOfField == "sign") {
                       value.draw = fieldSign[field.id].draw;
-                      value.vml = fieldSign[field.id].vml || false;
+                      //value.vml = fieldSign[field.id].vml || false;
                       value.value = fieldSign[field.id].value;
                   } else if (field.typeOfField == "date") {
                       value.value = $pdfField.find(".datePDFField").html();
@@ -938,12 +932,12 @@ var FillDocument = (function() {
                   values.push(value);
               });
           });
-          $("#hidCompletedJSON").val(JSON.stringify(values));
+          $("#hidCompletedJSON").val( JSON.stringify(values) );
 
       }
   };
 })();
 
 $(document).ready(function() {
-	FillDocument.init();
+  FillDocument.init();
 });

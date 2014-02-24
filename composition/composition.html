@@ -1,53 +1,59 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Add signatures</title>
-        <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.10.3.custom.css">
-        <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
-        <link rel="stylesheet" type="text/css" href="css/composition.css">
-        <script src="js/libs/jquery-1.9.1.js"></script>
-        <script src="js/libs/jquery-ui-1.10.3.custom.js"></script>
-        <script src="js/libs/jquery.ui.touch-punch.js"></script>
-        <script src="js/libs/jquery.contextMenu.js"></script>
-		<script src="js/index.js"></script>
-		<script src="js/composition.js"></script>
-    </head>
-    <body>
-		<div id="compositionBody">
-			<div id="topFieldsDiv" class="fieldsContainer">
-				<div id="signDiv" class="formField resizableField signField" typeOfField="sign">
-					<div id="signLabel" class="formInnerDiv">Sign</div>
-				</div>
-				<div id="commentDiv" class="formField resizableField inputFormField commentField" typeOfField="comment">
-					<div id="commentlabel" class="formInnerDiv">Comments</div>
-				</div>
-				<div id="dateDiv" class="formField resizableField dateField" typeOfField="date">
-					<div id="dateLabel" class="formInnerDiv">Date</div>
-				</div>
-				<div id="emailDiv" class="formField resizableField inputFormField emailField" typeOfField="email">
-					<div id="emailLabel" class="formInnerDiv">Email</div>
-				</div>
-			</div>
-			<div id="content">
-				<div id="document">
-					<div class="innerDocument">
-						<div id="page1" pagenr="1" class="PDFPage">
-							<img id="documentIMG" src="images/sampleDoc.png"/>
-						</div>
-						<div id="page2" pagenr="2" class="PDFPage">
-							<img id="documentIMG" src="images/sampleDoc.png"/>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div id="sendDiv">
-				<span id="bottomMessage">When you have located and sized all the elements click</span>
-				<input type="submit" class="button submitDoc" id="sendButton" value="Finish" style="width:120px;"></input>
-			</div>
-		</div>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Add signatures</title>
+    <link rel="stylesheet" type="text/css" href="css/ui-lightness/jquery-ui-1.10.3.custom.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.contextMenu.css">
+    <link rel="stylesheet" type="text/css" href="css/jquery.qtip.css">
+    <link rel="stylesheet" type="text/css" href="css/composition.css">
+    <script src="js/libs/jquery-1.9.1.js"></script>
+    <script src="js/libs/jquery-ui-1.10.3.custom.js"></script>
+    <script src="js/libs/jquery.ui.touch-punch.js"></script>
+    <script src="js/libs/jquery.qtip.js"></script>
+    <script src="js/libs/jquery.contextMenu.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/composition.js"></script>
+  </head>
+  <body>
+    <div id="compositionBody">
+      <div id="topFieldsDiv" class="fieldsContainer">
+        <div id="signDiv" class="formField resizableField signField" typeOfField="sign">
+          <div id="signLabel" class="formInnerDiv">Sign</div>
+        </div>
+        <div id="commentDiv" class="formField resizableField inputFormField commentField" typeOfField="comment">
+          <div id="commentlabel" class="formInnerDiv">Comments</div>
+        </div>
+        <div id="dateDiv" class="formField resizableField dateField" typeOfField="date">
+          <div id="dateLabel" class="formInnerDiv">Date</div>
+        </div>
+        <div id="emailDiv" class="formField resizableField inputFormField emailField" typeOfField="email">
+          <div id="emailLabel" class="formInnerDiv">Email</div>
+        </div>
+      </div>
+      <div id="content">
+        <div id="document">
+          <div class="innerDocument">
+            <div id="page1" pagenr="1" class="PDFPage">
+              <img id="documentIMG" src="images/sampleDoc.png"/>
+            </div>
+            <div id="page2" pagenr="2" class="PDFPage">
+              <img id="documentIMG" src="images/sampleDoc.png"/>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="sendDiv">
+        <span id="bottomMessage">When you have located and sized all parts of the document for completion by the client click</span>
+        <input type="submit" class="button submitDoc compositionButtonGreen" id="sendButton" value="Finish"></input>
+      </div>
+      <div class="tooltipDiv" style="display:none">
+        <div class="tooltipTitle">Highlight the parts you need the client to complete.</div>  
+        <div class="tooltipContent">Drag and drop these boxes onto the document and drag to resize if required.</div>
+      </div>
+    </div>
     <div id="JSONDiv" style="display:none">
       <div id="ctl00_ctl00_MainContent_MainContent_hidDocJSON" style="display:none"></div>
     </div>
-    </body>
+  </body>
 </html>

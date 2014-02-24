@@ -51,7 +51,29 @@ var Composition = (function () {
       $( ".formField" ).draggable( draggableTopFieldsOptions );
 
       // Initially disables submit button
-      $( ".submitDoc" ).attr("disabled", true);
+      $( ".submitDoc" ).attr("disabled", true).removeClass( "activeButton" );
+      
+      // Set tooltip with instructions
+      $( '#signDiv' ).qtip({
+          content: {
+            text: $('.tooltipDiv')
+          },
+          hide: "unfocus",
+          style: {
+              classes: 'qtip-composition-blue qtip-rounded',
+              tip: {
+                  width: 20,
+                  height: 20,
+                  border: false
+              }
+          },
+          position: {
+              my: "top left",
+              at: "center center",
+              collision: "flip",
+              within: "#compositionBody"
+          }
+      }).qtip( 'show' );
 
       // Actions for droppable element
       $(".PDFPage").droppable({
@@ -83,7 +105,7 @@ var Composition = (function () {
 
                 // When an input field is inserted, enables button
                 if ( counter[typeOfField].input  )  {
-                  $( ".submitDoc" ).removeAttr("disabled");
+                  $( ".submitDoc" ).removeAttr("disabled").addClass( "activeButton" );
                 }
               }
             }
@@ -157,6 +179,7 @@ var Composition = (function () {
                     // Finally remove the field
                     $(this).remove();
                     
+                    // Count remaining number of input fields
                     var numOfInputFields = 0;
                     for (var typeOfField in counter) {
                       if ( counter[typeOfField].input ) {
@@ -166,7 +189,7 @@ var Composition = (function () {
                     
                     if ( numOfInputFields == 0  )  {
                       // When no remaining input field, disables button
-                      $( ".submitDoc" ).attr("disabled", true);
+                      $( ".submitDoc" ).attr("disabled", true).removeClass( "activeButton" );
                     }
                   }
                 }
