@@ -215,7 +215,7 @@ var Composition = (function () {
 function setDocumentHeight () {
   
   // Adjust document div height to fill available space
-  var calcHeight = $(window).height() - $("#topFieldsDiv").outerHeight( true ) - $("#sendDiv").outerHeight( true ) - $("#header").outerHeight( true ) - $(".welcome").outerHeight( true ) - $("#footer").outerHeight( true ) - 50;
+  var calcHeight = $(window).height() - $("#topFieldsDiv").outerHeight( true ) - $("#sendDiv").outerHeight( true ) - $("#header").outerHeight( true ) - $("#subHeader").outerHeight( true ) - $("#footer").outerHeight( true );
   $("#document").css({
     height : calcHeight
   });

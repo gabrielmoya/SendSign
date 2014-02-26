@@ -1,8 +1,191 @@
+@import url("reset.css");
+
+/* ------------ */
+/* BODY Section */
+/* ------------ */
 body {
   background-color: #FFFFFF;
-  margin: 0px;
+  overflow: hidden;
+  font-family: Tahoma, Helvetica, HelveticaNeue, Arial, sans-serif;
+  font-size: 62.5%;
+  height: 100%;
 }
+
+strong{
+  font-weight: bold;
+}
+
+a {
+  text-decoration: none;
+}
+
+/* -------------- */
+/* HEADER Section */
+/* -------------- */
+#header {
+  background-color: #3782bb;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 90px;
+}
+  #header #logo {
+    padding-left: 20px;
+    padding-top: 30px;
+  }
+#subHeader {
+  background-color: #ededef;
+  position: fixed;
+  top: 90px;
+  width: 100%;
+  height: 35px;
+}
+  #subHeader .welcome{
+    float: left;
+    padding: 10px 20px 10px 20px;
+    color: #267dc3;
+    font: normal 1.1em arial;
+    border-top: 1px solid #fff;
+  }
+
+  #subHeader #help_options {
+    float: right;
+    padding-top: 2px;
+    padding-right: 5px;
+  }  
+    #subHeader #help_options li{
+      float: left;
+      margin-left: 5px;
+    }
+    #subHeader #help_options a {
+      float: left;
+      display: block;
+      padding: 6px 8px;
+      border: none;
+      min-width: 66px;
+      text-align: center;
+      background-color: #636162;
+      color: #FFFFFF;
+      font: bold 1.2em arial;
+      -moz-border-radius: 4px;
+      -webkit-border-radius: 4px;
+      -khtml-border-radius: 4px;
+      border-radius: 4px;
+    }
+
+    #subHeader #help_options a:hover {
+      cursor: pointer!important;
+      text-decoration: underline!important;
+    }
+
+/* ------------ */
+/* MAIN Section */
+/* ------------ */
+#main {
+  position: fixed;
+  top: 125px;
+  bottom: 110px;
+  background-color : #FFFFFF;
+  width: 100%;
+  padding-top: 20px;
+}
+
+#main h1 {
+  color: #646263;
+  font: bold 3em Helvetica;
+}
+
+#main p,  #main .lblInputBox {
+  font: normal 1.5em arial;
+  color: #000000;
+  margin-top: 5px;
+}
+
+#main .inputbox{
+  font: normal 1.5em arial;
+  border: 1px solid #3b7fae;
+  padding: 2px;
+  background-color: #cee1e8;
+}
+
+.activeButton:hover  {
+  cursor: pointer!important;
+  text-decoration: underline!important;
+}
+
+.compositionButtonGreen {
+  font-size: 2em;
+  background: #005826;
+  color: white;
+  padding: 5px 50px;
+  border: none;
+  margin: none;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
+}
+.compositionButtonGreen.activeButton {
+  background: #28902D;
+}
+
+/* -------------- */
+/* FOOTER Section */
+/* -------------- */
+#footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 110px;
+  background-color: #2A2A2A;
+}
+
+  #footer #footer_nav {
+    float: left;
+    width: 100%;
+    margin-top: 20px;
+    margin-left: 20px;
+    padding-bottom: 15px;
+  }
+
+    #footer #footer_nav li{
+      float: left;
+      font-size: 1.1em;
+      color: #fff;
+    }
+
+      #footer #footer_nav li a{
+        display: block;
+        float: left;
+        margin-right: 10px;
+        padding-right: 10px;
+        color: #fff;
+        text-decoration: none;
+        background: url(../images/footer_arrow.png) center right no-repeat;
+      }
+
+  #footer .group_logo{
+    float: left;
+    margin-left: 20px;
+    margin-right: 25px;
+  }
+
+  #footer #company_details{
+    float: left;
+    font-size: 1.1em;
+    color: #d3ecff;
+    line-height: 1.5em;
+  }
+
+    #footer #company_details address{
+      font-style:normal;
+    }
+
+    
+/* -------------------------- */
+/* CASE TYPE SELECTOR Section */
+/* -------------------------- */
 .caseTypeSelectorForm {
+  position: relative;  
   background-color : #FFFFFF;
   width: 900px;
   margin:0 auto;
@@ -10,18 +193,10 @@ body {
 
   .caseTypeSelectorForm .caseTypeSelectorDiv .caseTypeSelectorContent {
   }
+  
+  .caseTypeSelectorForm .caseTypeSelectorDiv .caseTypeSelectorContent h2 {
+  }
 
-    .caseTypeSelectorForm .caseTypeSelectorDiv .caseTypeSelectorContent h2 {
-      font-size: 2.5em;
-      color: #646263;
-    }
-
-    .caseTypeSelectorForm .caseTypeSelectorDiv  .caseTypeSelectorContent p {
-      font-size: 1.5em;
-      color: #000000;
-      margin-top: 5px;
-    }
-    
     .caseTypeSelectorForm .caseTypeSelectorDiv  .caseTypeSelectorContent .caseTypeSelectorColumnsDiv {
       margin-top: 30px;
     }
@@ -96,7 +271,6 @@ body {
   border-width: 30px;
   margin-left: -30px;
 }
-
 .caseTypeSelectorButtonArrowBlue {
   position: relative;
 }
@@ -115,7 +289,263 @@ body {
   margin-left: -30px;
 }
 
+/* ------------------------------ */
+/* ENTER SECURITY DETAILS Section */
+/* ------------------------------ */
+.enterSecurityDetailsForm {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+
+.enterSecurityDetailsForm .row {
+    clear: both;
+    padding-top: 30px;
+}
+
+    .enterSecurityDetailsForm .row .col {
+      float: left;
+      margin-left: 3%;
+      width: 44%;
+    }
+    
+      .enterSecurityDetailsForm .row .col .lblInputBox  {
+        display: block;
+      }
+
+      .enterSecurityDetailsForm .row .col .inputbox{
+        width: 90%;
+        margin-top: 1%;
+      }
+
+      .enterSecurityDetailsForm .submitDiv .submitButton {
+        width: 90%;
+        margin-top: 3%;
+      }
+
+
+/* --------------------- */
+/* ENTER DETAILS Section */
+/* --------------------- */
+.enterDetailsForm {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
+}
+
+  .enterDetailsForm .row {
+    clear: both;
+    padding-top: 30px;
+  }
+
+    .enterDetailsForm .row .col {
+      float: left;
+      margin-left: 3%;
+    }
+
+      .enterDetailsForm .row .col .lblInputBox  {
+        display: block;
+      }
+
+      .enterDetailsForm .row .col .inputbox {
+        margin-top: 1%;
+      }
+
+      .enterDetailsForm .row .col .buttonImage {
+        width: 17px;
+        height: 17px;
+        float: right;
+      }
+
+      .enterDetailsForm .row .col1, 
+      .enterDetailsForm .row .col2,
+      .enterDetailsForm .row .col3 {
+        width: 30%;
+      }
+        .enterDetailsForm .row .col1 .inputbox ,
+        .enterDetailsForm .row .col2 .inputbox ,
+        .enterDetailsForm .row .col3 .inputbox {
+          width: 90%;
+        }
+    
+      .enterDetailsForm .row .col2L {
+        width: 60%;
+      }
+      
+        .enterDetailsForm .row .col2L  .inputbox {
+          width: 100%;
+        }
+    
+    .enterDetailsForm .submitDiv {
+      text-align: right;
+      margin-right: 4%;
+      margin-top: 10%;
+    }
+    
+      .enterDetailsForm .submitDiv .submitButton {
+        width: 28%;
+      }
+
+/* ---------------------- */
+/* ADD SIGNATURES Section */
+/* ---------------------- */
+#compositionBody {
+  font-family: sans-serif;
+  background: #FFFFFF;
+  margin: 0px 0px 0px 0px;
+  padding: 0px 0px 0px 0px;
+  display: block;
+  text-align: left;
+  vertical-align: top;
+}
+
+  #compositionBody .formField {
+    position: relative;
+    vertical-align: top;
+    border: thin solid black;
+    background-color: #CEE1E8;
+    color: #252525;
+    font-size: 1.2em;
+    font-weight: bold;
+    width: 120px;
+    height: 20px;
+    z-index: 1;
+  }
+  
+  #compositionBody #topFieldsDiv {
+    position: fixed;
+    top: 125px;
+    width: 100%;
+    vertical-align: middle;
+    background-color: #252525;
+    height: 20px;
+    padding: 10px;
+  }
+  
+  #compositionBody #topFieldsDiv .topFieldsWrapper {
+    width: 775px;
+    margin: 0 auto;
+  }
+  
+    #compositionBody #topFieldsDiv  .topFieldsWrapper .formField {
+      float: left;
+      margin-left: 50px;
+    }
+    
+    #compositionBody .topFieldsWrapper .formField .formInnerDiv {
+      margin-top: 2px;
+      margin-left: 10px;
+    }
+
+  #compositionBody #content {
+    clear: both;
+    float: none;
+    width: 100%;
+    position: fixed;
+    top: 165px;
+  }
+    #compositionBody #content #document {
+      position: relative;
+      width: 775px;
+      height: 700px;
+      background-color: #808080;
+      overflow-y: auto;
+      margin: 0 auto;      
+    }   
+      #compositionBody #content #document .innerDocument {
+        width: 700px;
+        margin-left: 25px;
+      }
+        #compositionBody #content #document .innerDocument .PDFPage {
+          position: relative;
+          clear: both;
+          margin-top: 30px;
+          width: 700px;
+          height: 991px;
+        }
+          #compositionBody #content #document .innerDocument .PDFPage img {
+            width: 700px;
+            height: 991px;
+            margin: 0;
+            padding: 0;
+          }       
+          #compositionBody #content #document .innerDocument .PDFPage .PDFField {
+            vertical-align: top;
+            border: thin solid black;
+            background: #F8F8F8;
+          }
+
+          #compositionBody #content #document .innerDocument .PDFPage .inputPDFField {
+            vertical-align: top;
+          }
+
+          #compositionBody #content #document .innerDocument .PDFPage .signPDFField {
+            vertical-align: top;
+            width: 16px;
+            height: 16px;
+          }
+
+  #compositionBody #sendDiv {
+    background-color: #252525;
+    border-bottom: thin solid white;
+    color: #FEFEFE;
+    padding: 10px;
+    position: fixed;
+    bottom: 110px;
+    width: 100%;
+    text-align: center;
+  }
+    #compositionBody #sendDiv  #bottomMessage {
+      margin-right: 10px;
+      font: normal 1.5em arial;
+    }
+      
+  #compositionBody textarea {
+    resize: none;
+  }
+
+  #compositionBody .ui-draggable:hover {
+    cursor: move;
+  }
+
+  #compositionBody button {
+  }
+
+.compositionButtonGreen {
+  font-size: 2em;
+  background: #005826;
+  color: white;
+  padding: 5px 50px;
+  border: none;
+  margin: none;
+  -moz-border-radius: 4px 4px 4px 4px;
+  -webkit-border-radius: 4px 4px 4px 4px;
+  border-radius: 4px 4px 4px 4px;
+}
+.compositionButtonGreen.activeButton {
+  background: #28902D;
+}
 .activeButton:hover  {
   cursor: pointer;
   text-decoration: underline;
 }
+  
+/* Composition tooltip blue style */
+.qtip {
+  max-width: 300px !important;
+  min-width: 300px !important;
+}
+.qtip-composition-blue {
+  background-color: #1086DE;
+  border-style: none;
+  color: #FFFFFF;
+}
+  .qtip-composition-blue .tooltipTitle {
+    font-size: 1.4em;
+    font-weight: bold;
+    padding: 10px;
+  }
+  .qtip-composition-blue .tooltipContent {
+    font-size: 1.2em;
+    padding: 10px;
+  }

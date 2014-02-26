@@ -87,7 +87,7 @@ html[xmlns] .clearfix {
     Font-Size:1.14em;
 }
 
-input.button {
+/*input.button {
 	padding: 2px 0px;
 	border: 1px solid #74b3f6;
 	font-size: 1.2em;
@@ -102,7 +102,7 @@ input.button {
 
 input.button.blue{
 	background: #4090FB url(../images/blue_btn_bg.png) bottom left repeat-x;
-}
+}*/
 
 input.button.green{
 	background: #56AA62 url(../images/green_btn_bg.png) bottom left repeat-x;
@@ -116,13 +116,13 @@ input.button.unselect{
     border: 1px solid #8d8d8e;
 }
 
-select, input, textarea{
+/*select, input, textarea{
 	font-family: Arial, Helvetica, Verdana, sans-serif;
 	font-size: 1.1em;	
 	background: url(../images/input-bg.jpg) left top repeat-x #cee1e8;
 	border: 1px solid #3b7fae;
 	padding: 2px;
-}
+}*/
 
 textarea 
 {
@@ -150,8 +150,8 @@ textarea
  Header
 ****************************************/
 
-#header{
-	padding: 20px 20px 30px 20px; /* changed by st */
+/*#header{
+	padding: 20px 20px 30px 20px; /* changed by st *-/
 	width: 930px;
 }
 
@@ -173,11 +173,11 @@ textarea
 	float: left;
 	display: block;
 	padding: 6px 8px;
-	border: 1px solid #0079c9; /* changed by st */
+	border: 1px solid #0079c9; /* changed by st *-/
 	font-size: 1em;
 	min-width: 66px;
 	text-align: center;
-	background: #3f99d8 url(../images/blue_btn_bg.png) bottom left repeat-x; /* changed by st */
+	/*background: #3f99d8 url(../images/blue_btn_bg.png) bottom left repeat-x; /* changed by st *-/
 	color: #fff;
 	text-decoration: none;	
 	text-transform: uppercase;
@@ -230,7 +230,7 @@ input.filename_box
 }
 
 * #help_options a{
-	 /* changed by st */
+	 /* changed by st *-/
 }
 
 .welcome{
@@ -240,12 +240,13 @@ input.filename_box
 	font-size: 1.1em;
 	border-top: 1px solid #fff;
 }
+*/
 
 /****************************************
  Main
 ****************************************/
 
-#main{
+/*#main{
 	background: #fff;
 }
 
@@ -274,7 +275,7 @@ input.filename_box
 
 .guidanceText p
 {
-/*	font-size:  1.1em!important; */
+/*	font-size:  1.1em!important; *-/
 }
 
 #sidebar label, #content label{
@@ -293,7 +294,7 @@ input.filename_box
 	font-size:12px;
 	float:left;
 	line-height:21px;
-}
+}*/
 
 /****************************************
  Layout 1
@@ -1032,7 +1033,7 @@ table.cases .view:hover, table.cases .view_hover{
  Footer
 ****************************************/
 
-#footer{
+/*#footer{
 	width: 930px;
 	padding: 10px 20px 20px 20px;
 }
@@ -1077,7 +1078,7 @@ table.cases .view:hover, table.cases .view_hover{
 
 #company_details address{
 	font-style:normal;
-}
+}*/
 
 /****************************************
  Date Picker

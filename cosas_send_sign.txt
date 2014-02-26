@@ -80,3 +80,12 @@ Wa5 1lw
     <div id="JSONDiv" style="display:none">
     </div>
 						<span class="signatureNotSignDone sendSignButton">Done</span>
+
+            Cabecera
+              Helvetica Bold - Helvetica Neue
+            Textos botones
+              Arial bold
+            Textos
+              Arial
+            
+            
